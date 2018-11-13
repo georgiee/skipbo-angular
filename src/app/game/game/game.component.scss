@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+
+.game__deck {
+  width: 20vw;
+}
+
+.game__building-group {
+  position: absolute;
+  width: 60vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player__discard-group {
+  width: 50vw;
+  position: absolute;
+  left: 10vw;
+  bottom: 20vh;
+}
+
+.player__hand {
+  position: absolute;
+  width: 50vw;
+  bottom: 5vh;
+  right: 20vw;
+}
+
+.player__stock {
+  position: absolute;
+  width: 15vw;
+  bottom: 20vh;
+  right: 15vw;
+}
+
+.game-assets {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  width: 60vw;
+}

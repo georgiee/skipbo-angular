@@ -16,6 +16,9 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "skipbo-core": ["src/app/skipbo-core/public-api"]
+    }
   }
 }

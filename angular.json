@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "skipbo",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"

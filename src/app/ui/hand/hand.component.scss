@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.handcards {
+  display: flex;
+  // transform: translate(-50%);
+  // padding-bottom: percentage(200/300);
+}
+
+.handcard {
+  // position: absolute;
+  z-index: 1;
+  flex: 1 1 auto;
+}
+
+.handcard {
+  transform-origin: bottom center;
+}
+
+// .handcard:nth-child(1) {
+//   transform: rotateZ(0deg);
+//   z-index: 5;
+//   position: absolute;
+// }
+
+// .handcard:nth-child(2) {
+//   transform: rotateZ(-25deg);
+//   z-index: 4;
+//   // animation: 1s rotate infinite;
+// }
+
+// .handcard:nth-child(3) {
+//   transform: rotateZ(25deg);
+//   z-index: 6;
+// }
+
+// .handcard:nth-child(4) {
+//   transform: rotateZ(-50deg);
+//   z-index: 3;
+// }
+
+// .handcard:nth-child(5) {
+//   transform: rotateZ(50deg);
+//   z-index: 7;
+// }
+
+
+
+@keyframes rotate {
+  0% {
+    transform: translate(0%, 0) rotateZ(0);
+  }
+  100% {
+    transform: translate(0%, 0) rotateZ(360deg);
+  }
+}

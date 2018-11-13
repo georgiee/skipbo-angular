@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 4fr 1fr 2fr;
+  align-items: center;
+  width: 60vw;
+}
+
+.hand {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

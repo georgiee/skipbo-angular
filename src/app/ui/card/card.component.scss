@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  perspective: 1000px;
+  max-width: 500px;
+}
+
+.card {
+  transform-style: preserve-3d;
+}
+
+.card__back,
+.card__front {
+  backface-visibility: hidden;
+}
+
+
+.card__back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.card__back {
+  transform: rotateY(0deg);
+}
+
+.card__front {
+  z-index: 1;
+  transform: rotateY(180deg);
+}
