@@ -8,15 +8,13 @@ describe('CardSlotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardSlotComponent ]
+      declarations: [  ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CardSlotComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+
   });
 
   xit('should create', () => {

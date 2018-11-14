@@ -7,6 +7,7 @@ import { DeckComponent } from './deck/deck.component';
 import { PileComponent } from './pile/pile.component';
 import { PileGroupComponent } from './pile-group/pile-group.component';
 import { TimesPipe } from './times.pipe';
+import { HiddenHandComponent } from './hidden-hand/hidden-hand.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TimesPipe } from './times.pipe';
     DeckComponent,
     PileComponent,
     PileGroupComponent,
-    TimesPipe
+    TimesPipe,
+    HiddenHandComponent
   ],
   exports: [
     CardComponent,
@@ -25,7 +27,8 @@ import { TimesPipe } from './times.pipe';
     PileGroupComponent,
     DeckComponent,
     CardImageComponent,
-    TimesPipe
+    TimesPipe,
+    HiddenHandComponent
   ],
   imports: [
     CommonModule

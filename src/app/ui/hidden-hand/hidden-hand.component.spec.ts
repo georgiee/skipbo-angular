@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HiddenHandComponent } from './hidden-hand.component';
+import { UIModule } from '../ui.module';
 
 describe('HiddenHandComponent', () => {
   let component: HiddenHandComponent;
@@ -8,7 +9,8 @@ describe('HiddenHandComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HiddenHandComponent ]
+      declarations: [  ],
+      imports: [UIModule]
     })
     .compileComponents();
   }));

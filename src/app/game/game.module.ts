@@ -9,7 +9,6 @@ import { StockPileComponent } from './stock-pile/stock-pile.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { HandComponent } from './hand/hand.component';
 import { OpponentPlayerComponent } from './opponent-player/opponent-player.component';
-import { HiddenHandComponent } from './hidden-hand/hidden-hand.component';
 import { OpponentsComponent } from './opponents/opponents.component';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { OpponentsComponent } from './opponents/opponents.component';
     StockPileComponent,
     HandComponent,
     OpponentPlayerComponent,
-    HiddenHandComponent,
     OpponentsComponent
   ],
   exports: [
