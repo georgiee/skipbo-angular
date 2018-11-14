@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.player {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'skipbo-hand',
@@ -12,5 +13,4 @@ export class HandComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

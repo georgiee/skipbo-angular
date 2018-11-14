@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
 
-const MAX_CARD_DISPLAY = 5;
+const MAX_CARD_DISPLAY = 12;
 
 @Component({
   selector: 'skipbo-pile',
@@ -11,12 +11,22 @@ const MAX_CARD_DISPLAY = 5;
 export class PileComponent implements OnInit {
   @Input() cards: Card[] = [];
 
+  private _displayCount = 3;
+
+  @Input()
+  set displayCount(value) {
+    this._displayCount = Math.max(value, MAX_CARD_DISPLAY);
+  }
+  get displayCount() {
+    return this._displayCount;
+  }
+
   public get empty() {
     return this.cards.length === 0;
   }
 
   get displayedCards(): Card[] {
-    return this.cards.slice(-MAX_CARD_DISPLAY);
+    return this.cards.slice(-this.displayCount);
   }
 
   constructor() {

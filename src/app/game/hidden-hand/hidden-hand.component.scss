@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-column-gap: minmax(5%, 10px);
+  transform-origin: 50%;
+  position: relative;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360);
+  }
+}
+
+.card:nth-child(1){
+  transform-origin: calc(90%) bottom;
+  transform: rotate(-7deg) translate(60%, 20%);
+}
+
+.card:nth-child(2){
+  transform-origin: calc(70%) bottom;
+  transform: rotate(-5deg) translate(30%, 10%);
+}
+
+.card:nth-child(3){
+  transform-origin: calc(50%) bottom;
+  transform: rotate(0deg);
+  // animation: 1s rotate infinite;
+}
+
+.card:nth-child(4){
+  transform-origin: calc(30%) bottom;
+  transform: rotate(10deg) translate(-30%, 10%);
+}
+
+.card:nth-child(5){
+  transform-origin: calc(10%) bottom;
+  transform: rotate(7deg) translate(-60%, 10%);
+}

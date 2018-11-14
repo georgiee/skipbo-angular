@@ -6,6 +6,11 @@ import { PlayerComponent } from './player/player.component';
 import { DiscardGroupComponent } from './discard-group/discard-group.component';
 import { BuildingGroupComponent } from './building-group/building-group.component';
 import { StockPileComponent } from './stock-pile/stock-pile.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { HandComponent } from './hand/hand.component';
+import { OpponentPlayerComponent } from './opponent-player/opponent-player.component';
+import { HiddenHandComponent } from './hidden-hand/hidden-hand.component';
+import { OpponentsComponent } from './opponents/opponents.component';
 
 @NgModule({
   declarations: [
@@ -13,14 +18,19 @@ import { StockPileComponent } from './stock-pile/stock-pile.component';
     PlayerComponent,
     DiscardGroupComponent,
     BuildingGroupComponent,
-    StockPileComponent
+    StockPileComponent,
+    HandComponent,
+    OpponentPlayerComponent,
+    HiddenHandComponent,
+    OpponentsComponent
   ],
   exports: [
     GameComponent
   ],
   imports: [
     CommonModule,
-    UIModule
+    UIModule,
+    DragDropModule
   ]
 })
 export class GameModule { }

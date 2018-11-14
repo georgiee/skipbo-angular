@@ -1,0 +1,5 @@
+<div class="handcards">
+  <div class='handcard' *ngFor="let card of cards" cdkDropList>
+    <skipbo-card #cardDragItem="cdkDrag" cdkDrag [value]="card" revealed></skipbo-card>
+  </div>
+</div>

@@ -4,9 +4,9 @@ import { CardComponent } from './card/card.component';
 import { CardImageComponent } from './card-image/card-image.component';
 import { CardSlotComponent } from './card-slot/card-slot.component';
 import { DeckComponent } from './deck/deck.component';
-import { HandComponent } from './hand/hand.component';
 import { PileComponent } from './pile/pile.component';
 import { PileGroupComponent } from './pile-group/pile-group.component';
+import { TimesPipe } from './times.pipe';
 
 @NgModule({
   declarations: [
@@ -14,17 +14,18 @@ import { PileGroupComponent } from './pile-group/pile-group.component';
     CardImageComponent,
     CardSlotComponent,
     DeckComponent,
-    HandComponent,
     PileComponent,
-    PileGroupComponent
+    PileGroupComponent,
+    TimesPipe
   ],
   exports: [
     CardComponent,
     CardSlotComponent,
     PileComponent,
     PileGroupComponent,
-    HandComponent,
-    DeckComponent
+    DeckComponent,
+    CardImageComponent,
+    TimesPipe
   ],
   imports: [
     CommonModule

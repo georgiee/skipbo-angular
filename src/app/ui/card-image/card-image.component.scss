@@ -1,3 +1,7 @@
+
+:host {
+  display: block;
+}
 //
 // css sprite mixins - created with http://www.codeandweb.com/texturepacker
 // exporter created by Rob Moorman
@@ -62,9 +66,4 @@ $offsets: (
   .card--#{$card-name} {
     background-position: spritePosition($card-name);
   }
-}
-
-:host {
-  display: block;
-  min-width: 50px;
 }

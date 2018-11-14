@@ -3,3 +3,16 @@ body {
   margin: 0;
   padding: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Lithos Pro';
+  src: url('/assets/fonts/LithosPro-Black.woff2') format('woff2'),
+      url('/assets/fonts/LithosPro-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+

@@ -1,2 +1,5 @@
-<skipbo-card-slot *ngIf="empty"></skipbo-card-slot>
-<skipbo-card *ngFor="let card of displayedCards" [value]="card" revealed></skipbo-card>
+<skipbo-card-slot>
+  <div class='cards'>
+    <skipbo-card class="card" *ngFor="let card of displayedCards" [value]="card" revealed></skipbo-card>
+  </div>
+</skipbo-card-slot>

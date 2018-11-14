@@ -1,18 +1,21 @@
 :host {
   display: block;
-  position: relative;
 }
 
 .handcards {
   display: flex;
-  // transform: translate(-50%);
-  // padding-bottom: percentage(200/300);
+  position: relative;
+  justify-content: flex-start;
+  // grid-template-columns: repeat(5, 1fr);
 }
 
 .handcard {
-  // position: absolute;
-  z-index: 1;
-  flex: 1 1 auto;
+  width: 100%;
+  &:not(:first-child) {
+    //reduce contribution to the box model so the cards
+    // will overlay
+    margin-left: -30%;
+  }
 }
 
 .handcard {

@@ -1,16 +1,27 @@
 :host {
-  display: block;
+  display: grid;
+  grid-template-columns: [hand] minmax(200px, 2fr) 50px [discard] 4fr auto 50px [stock] 1fr;
+  padding: 20px;
+  align-items: center;
+
+  border: 0 solid #000000;
+  box-shadow: 0 2px 4px 2px rgba(0,0,0,0.50);
+  background-color: rgba(#000000, 0.2);
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 4fr 1fr 2fr;
-  align-items: center;
-  width: 60vw;
-}
 
 .hand {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  max-width: 350px;
+  grid-column-start: hand;
+}
+
+.discard {
+  max-width: 600px;
+  grid-column-start: discard;
+  justify-self: center;
+}
+
+.stock {
+  max-width: 150px;
+  grid-column-start: stock;
 }

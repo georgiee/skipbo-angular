@@ -1,7 +1,5 @@
 :host {
-  display: flex;
-}
-
-skipbo-pile {
-  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
 }

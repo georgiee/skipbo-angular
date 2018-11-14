@@ -1,6 +1,8 @@
-<skipbo-deck class='game__deck'></skipbo-deck>
-<skipbo-building-group class="game__building-group"></skipbo-building-group>
+<skipbo-opponents [players]="players" class="opponents"></skipbo-opponents>
 
-<skipbo-discard-group class="player__discard-group"></skipbo-discard-group>
-<skipbo-stock-pile class='player__stock'></skipbo-stock-pile>
-<skipbo-hand class='player__hand' [cards]="[1,2,3,-1, 12]"></skipbo-hand>
+<div class='game'>
+  <skipbo-deck class='game__deck'></skipbo-deck>
+  <skipbo-building-group class="game__building-group"></skipbo-building-group>
+</div>
+
+<skipbo-player class='player'></skipbo-player>
