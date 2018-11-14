@@ -7,7 +7,7 @@ import { Card } from 'skipbo-core';
   styleUrls: ['./stock-pile.component.scss']
 })
 export class StockPileComponent implements OnInit {
-  @Input() cards: Card[] = [1,2,3,4];
+  @Input() cards: Card[] = [];
 
   constructor() { }
 

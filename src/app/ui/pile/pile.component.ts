@@ -35,4 +35,12 @@ export class PileComponent implements OnInit {
   ngOnInit() {
   }
 
+  enter(event) {
+    console.log('enter')
+  }
+
+  dropCard(event) {
+    console.log('dropCard')
+  }
+
 }

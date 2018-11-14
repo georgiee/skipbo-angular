@@ -1,2 +1,5 @@
-<skipbo-opponent-player class="player"></skipbo-opponent-player>
-<skipbo-opponent-player class="player"></skipbo-opponent-player>
+<skipbo-opponent-player
+  class="player"
+  *ngFor="let player of players"
+  [player]="player">
+</skipbo-opponent-player>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Player } from 'skipbo-core';
 
 @Component({
   selector: 'skipbo-opponent-player',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opponent-player.component.scss']
 })
 export class OpponentPlayerComponent implements OnInit {
+  @Input() player: Player;
 
   constructor() { }
 

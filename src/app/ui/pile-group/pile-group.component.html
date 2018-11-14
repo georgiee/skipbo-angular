@@ -1,1 +1,1 @@
-<skipbo-pile *ngFor="let cards of displayedPiles" [cards]="cards"></skipbo-pile>
+<skipbo-pile *ngFor="let pile of displayedPiles" [cards]="pile.cards | async"></skipbo-pile>

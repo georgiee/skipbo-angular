@@ -21,6 +21,12 @@ export class Player {
   private _turns = 0;
   private _winnerSubject: Subject<Player> = new Subject();
 
+  private _nextTurn = new Subject();
+
+  public get nextTurn(): Observable<any> {
+    return this._nextTurn.asObservable();
+  }
+
   constructor(private _name: string, private _game: Game = null) {
     this.buildDiscardPiles();
   }
@@ -29,6 +35,8 @@ export class Player {
     this._playing = true;
     this._turns++;
     this.fillHand();
+
+    this._nextTurn.next();
     // this.checkWinner();
   }
 

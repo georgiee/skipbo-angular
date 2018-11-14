@@ -28,6 +28,7 @@ export class Game {
 
   private readonly _gameOver: Subject<any> = new Subject();
 
+
   constructor(cards: Card[] = null) {
     this._deck = new Deck(cards || generateSkipBoCards());
     this.createBuildingPiles();

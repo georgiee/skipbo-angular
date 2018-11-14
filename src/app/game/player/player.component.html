@@ -1,3 +1,4 @@
-<skipbo-hand class='hand' [cards]="[1,2,3,-1, 12]"></skipbo-hand>
-<skipbo-discard-group class="discard"></skipbo-discard-group>
-<skipbo-stock-pile class='stock'></skipbo-stock-pile>
+<span class="name">{{player.name}}</span>
+<skipbo-hand class='hand' [cards]="player.hand.cards" #hand></skipbo-hand>
+<skipbo-discard-group class="discard" [group]="player.discardGroup"></skipbo-discard-group>
+<skipbo-stock-pile class='stock' [cards]="player.stock.cards"></skipbo-stock-pile>

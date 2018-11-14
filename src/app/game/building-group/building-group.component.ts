@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
+import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
 
 @Component({
   selector: 'skipbo-building-group',
@@ -6,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./building-group.component.scss']
 })
 export class BuildingGroupComponent implements OnInit {
-  public groups = [[1], [4],[3],[1,2,3,4,5,6,-1]];
+  @Input() group: PileGroup<BuildingPile>;
+
   constructor() { }
 
   ngOnInit() {

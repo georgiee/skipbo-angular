@@ -3,6 +3,7 @@ import { Game } from './game';
 import { getFullTestDeck } from './testdeck';
 import { Card } from './card';
 import { BuildingPile } from './pile/building-pile';
+import { PlatformRef } from '@angular/core';
 
 let player: Player;
 let game: Game;
@@ -62,6 +63,7 @@ describe('Player', () => {
       game = new Game(testset());
       player = createPlayer('Player 1', game);
     });
+
 
     it('has reference to game', () => {
       expect(player.game).toBe(game);
@@ -294,6 +296,18 @@ describe('Player', () => {
     beforeEach(() => {
       game = new Game();
       player = game.createPlayer('Player 1');
+    });
+
+
+    it('takeTurn streams signal', () => {
+      let currentTurn = false;
+
+      player.nextTurn.subscribe(() => {
+        currentTurn = true;
+      });
+
+      player.takeTurn();
+      expect(currentTurn).toBeTruthy();
     });
 
     it('player is not a winner when game never started', () => {

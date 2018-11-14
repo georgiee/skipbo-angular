@@ -1,16 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Card } from 'skipbo-core';
-import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'skipbo-hand',
   templateUrl: './hand.component.html',
   styleUrls: ['./hand.component.scss']
 })
-export class HandComponent implements OnInit {
+export class HandComponent {
   @Input() cards: Card[] = [];
-  constructor() { }
+  constructor() {
 
-  ngOnInit() {
   }
 }

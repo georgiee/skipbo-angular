@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
+import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
+import { DiscardPile } from 'src/app/skipbo-core/pile/discard-pile';
+import { AbstractPile } from 'src/app/skipbo-core/pile/pile-abstract';
+import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
 
 function padArray(array, size) {
   const padItems = Array.from(Array(size)).map(item => []);
@@ -11,22 +15,22 @@ function padArray(array, size) {
   styleUrls: ['./pile-group.component.scss']
 })
 export class PileGroupComponent implements OnInit {
-  private _groups: Card[][] = [];
+  private _group: PileGroup<DiscardPile|BuildingPile>;
 
   @Input() public size = 4;
 
   @Input()
-  set groups(value: Card[][]) {
+  set group(value: PileGroup<DiscardPile|BuildingPile>) {
     if (value) {
-      this._groups = value;
+      this._group = value;
     }
   }
-  get groups() {
-    return this._groups;
+  get group() {
+    return this._group;
   }
 
-  get displayedPiles() {
-    return padArray(this.groups, this.size);
+  get displayedPiles(): DiscardPile[]|BuildingPile[] {
+    return padArray(Array.from(this.group), this.size);
   }
 
   constructor() { }

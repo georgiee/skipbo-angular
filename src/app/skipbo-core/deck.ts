@@ -8,6 +8,10 @@ export class Deck {
     this._cards = [...cards];
   }
 
+  public get cards() {
+    return this._cards;
+  }
+
   shuffle() {
     this._cards = shuffle(this._cards);
   }
