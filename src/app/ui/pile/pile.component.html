@@ -1,5 +1,5 @@
 <skipbo-card-slot>
   <div class='cards'>
-    <skipbo-card class="card" *ngFor="let card of displayedCards" [value]="card" revealed></skipbo-card>
+    <skipbo-card class="card" *ngFor="let card of displayedCards" [value]="card" [revealed]="autoRevealCard"></skipbo-card>
   </div>
 </skipbo-card-slot>

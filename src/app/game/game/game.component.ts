@@ -3,6 +3,7 @@ import { Player } from 'skipbo-core';
 import { GameService } from '../game.service';
 import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
 import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
+import { Deck } from 'src/app/skipbo-core/deck';
 
 @Component({
   selector: 'skipbo-game',
@@ -13,7 +14,7 @@ export class GameComponent implements OnInit {
   public buildingGroup: PileGroup<BuildingPile>;
   public opponentPlayers: Player[] = [];
   public player: Player;
-  public deckCards = [];
+  public deck: Deck;
 
   constructor(
     private _gameService: GameService
@@ -24,7 +25,9 @@ export class GameComponent implements OnInit {
     this.opponentPlayers = [playerB];
     this.buildingGroup = this._gameService.game.buildingGroup;
 
+    this.deck = this._gameService.game.deck;
     this._gameService.game.start();
+
     // this.opponentPlayers = this._gameService.game.players;
   }
 

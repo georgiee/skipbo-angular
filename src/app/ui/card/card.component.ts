@@ -75,13 +75,13 @@ export class CardComponent implements OnInit {
     this.revealed = false;
   }
 
-  @HostListener('click')
-  handleClick() {
-    if (this.interactive) {
-      return;
-    }
-    this.reveal();
-  }
+  // @HostListener('click')
+  // handleClick() {
+  //   if (this.interactive) {
+  //     return;
+  //   }
+  //   this.reveal();
+  // }
 
   constructor() { }
 

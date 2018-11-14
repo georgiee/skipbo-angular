@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
+import { allSettled } from 'q';
 
 const MAX_CARD_DISPLAY = 12;
 
@@ -10,6 +11,7 @@ const MAX_CARD_DISPLAY = 12;
 })
 export class PileComponent implements OnInit {
   @Input() cards: Card[] = [];
+  @Input() autoRevealCard = false;
 
   private _displayCount = 3;
 

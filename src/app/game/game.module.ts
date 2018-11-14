@@ -10,6 +10,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { HandComponent } from './hand/hand.component';
 import { OpponentPlayerComponent } from './opponent-player/opponent-player.component';
 import { OpponentsComponent } from './opponents/opponents.component';
+import { DebugPanelComponent } from './debug-panel/debug-panel.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { OpponentsComponent } from './opponents/opponents.component';
     StockPileComponent,
     HandComponent,
     OpponentPlayerComponent,
-    OpponentsComponent
+    OpponentsComponent,
+    DebugPanelComponent
   ],
   exports: [
     GameComponent

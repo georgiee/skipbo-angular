@@ -1,10 +1,11 @@
 <skipbo-opponents [players]="opponentPlayers" class="opponents"></skipbo-opponents>
 
 <div class='game'>
-  <skipbo-deck [cards]="deckCards" class='game__deck'></skipbo-deck>
+  <skipbo-deck [cards]="deck.cards" class='game__deck'></skipbo-deck>
   <skipbo-building-group
     class="game__building-group" [group]="buildingGroup" *ngIf="buildingGroup">
   </skipbo-building-group>
 </div>
 
 <skipbo-player *ngIf="player" [player]="player" class='player'></skipbo-player>
+<skipbo-debug-panel></skipbo-debug-panel>
