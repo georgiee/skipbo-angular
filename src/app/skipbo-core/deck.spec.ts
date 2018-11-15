@@ -50,4 +50,11 @@ describe('Deck', () => {
   it('cards can be shuffled', () => {
     expect(deck.shuffle).toBeTruthy();
   });
+
+  it('canDraw returns true if count of cards is available', () => {
+    const [card] = deck.draw();
+    expect(card).toBe(Card.Two);
+
+    expect(deck.count).toBe(1);
+  });
 });

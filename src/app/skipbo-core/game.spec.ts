@@ -3,6 +3,7 @@ import { Game, MAX_PLAYERS } from './game';
 import { PileGroup } from './pile/pile-group';
 import { Player } from './player';
 import { Card } from './card';
+import { createFullPile } from './pile/spec-utils';
 
 let game: Game;
 
@@ -201,6 +202,18 @@ describe('Game', () => {
       game.nextPlayer();
 
       expect(game.turnId).toBe(3);
+    });
+
+    it('can clear piles', () => {
+      const firstBuildingPile = game.buildingGroup.getPiles()[0];
+      firstBuildingPile.placeCards(...createFullPile());
+
+      expect(firstBuildingPile.isFull()).toBeTruthy();
+
+      game.clearBuildingPiles();
+
+      expect(firstBuildingPile.size).toBe(0);
+      expect(game.completedCards.length).toBe(12);
     });
   });
 });

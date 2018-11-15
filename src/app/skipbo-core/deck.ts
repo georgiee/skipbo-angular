@@ -3,9 +3,11 @@ import { shuffle, assert } from './utils';
 
 export class Deck {
   private _cards: Card[];
+  private _canShuffle = true;
 
-  constructor(cards: Card[] = []) {
+  constructor(cards: Card[] = [], canShuffle = true) {
     this._cards = [...cards];
+    this._canShuffle = canShuffle;
   }
 
   public get cards() {
@@ -13,6 +15,9 @@ export class Deck {
   }
 
   shuffle() {
+    if (!this._canShuffle) {
+      return;
+    }
     this._cards = shuffle(this._cards);
   }
 
@@ -28,13 +33,17 @@ export class Deck {
     return this.count === 0;
   }
 
-  canDraw(count: number) {
+  hasCardsCountLeft(count: number) {
     return count <= this.count;
+  }
+
+  canDraw(card: Card) {
+    return card === this.top;
   }
 
   draw(count: number = 1): Card[] {
     assert(count > 0, `[Stock] Can't draw less than one card`);
-    assert(this.canDraw(count), `[Stock] Deck not big enough (${this.count}), can\'t draw (${count}) card`);
+    assert(this.hasCardsCountLeft(count), `[Stock] Deck not big enough (${this.count}), can\'t draw (${count}) card`);
 
     const cards = [];
     while (cards.length < count) {

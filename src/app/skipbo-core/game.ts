@@ -15,6 +15,10 @@ export const STOCK_CARD_COUNT_LARGE_GAME = 20;
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 6;
 
+const defaultOptions = {
+  stockCardCount: null,
+  shuffle: true
+};
 export class Game {
   public buildingGroup: PileGroup<BuildingPile>;
   private _completedCards: Card[] = [];
@@ -25,12 +29,16 @@ export class Game {
 
   private _currentPlayer: DoublyLinkedListNode<Player>;
   private _turnCounter = 0;
+  private _gameOver = false;
 
-  private readonly _gameOver: Subject<any> = new Subject();
+  private readonly _gameOverSubject: Subject<any> = new Subject();
+  private _customStockCardCount = null;
 
+  constructor(cards: Card[] = null, options: any = {}) {
+    options = {...defaultOptions, ...options};
+    this._customStockCardCount = options.stockCardCount;
+    this._deck = new Deck(cards || generateSkipBoCards(), options.shuffle);
 
-  constructor(cards: Card[] = null) {
-    this._deck = new Deck(cards || generateSkipBoCards());
     this.createBuildingPiles();
   }
 
@@ -38,8 +46,22 @@ export class Game {
     return [...this._completedCards];
   }
 
+  get gameOver() {
+    return this._gameOver;
+  }
+
   get started() {
     return this._started;
+  }
+
+  // remove all full building piles
+  clearBuildingPiles() {
+    const cards = this.buildingGroup.cleanup();
+
+    if (cards.length > 0) {
+      logger.info('Cleaned up piles');
+    }
+    this.addCompletedCards(...cards);
   }
 
   addCompletedCards(...cards: Card[]) {
@@ -82,11 +104,12 @@ export class Game {
   }
 
   susbcribeForWinner() {
-    this._gameOver.subscribe(() => {
+    this._gameOverSubject.subscribe(() => {
       console.log('game over, winner found');
+      this._gameOver = true
     });
 
-    this.winnerChanges.pipe(first()).subscribe(this._gameOver);
+    this.winnerChanges.pipe(first()).subscribe(this._gameOverSubject);
 
     // of(this.players)
     // .pipe(
@@ -110,6 +133,7 @@ export class Game {
 
     assert(this.players.length >= MIN_PLAYERS, `You need at least ${MIN_PLAYERS} players to play`);
     assert(this._started === false, 'The game is already running');
+    assert(this._gameOver === false, 'The game is already completed');
 
     this.susbcribeForWinner();
     this._started = true;
@@ -121,6 +145,10 @@ export class Game {
   }
 
   getStockCardCount() {
+    if (this._customStockCardCount) {
+      return this._customStockCardCount;
+    }
+
     if (this._players.size() < 5) {
       return STOCK_CARD_COUNT_SMALL_GAME;
     }

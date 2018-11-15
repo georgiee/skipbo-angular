@@ -184,4 +184,11 @@ describe('Pile Abstract', () => {
     pile.clear();
     expect(pile.size).toEqual(0);
   });
+
+  it('clear returns cards', () => {
+    pile.placeCards(Card.One, Card.Two, Card.Four, Card.Twelve);
+    const cards = pile.clear();
+    expect(pile.size).toEqual(0);
+    expect(cards.length).toBe(4);
+  });
 });

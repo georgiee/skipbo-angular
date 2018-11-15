@@ -80,7 +80,6 @@ describe('Player', () => {
 
     it('fills up only difference', () => {
       player.fillHand();
-
       player.hand.draw(Card.SkipBo);
       player.hand.draw(Card.One);
 

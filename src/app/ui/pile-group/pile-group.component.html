@@ -1,1 +1,5 @@
-<skipbo-pile *ngFor="let pile of displayedPiles" [cards]="pile.cards | async"></skipbo-pile>
+<skipbo-pile
+  *ngFor="let pile of displayedPiles"
+  [autoRevealCard]="true"
+  [cards]="pile.cards | async">
+</skipbo-pile>

@@ -43,12 +43,18 @@ describe('Building Pile', () => {
     expect(pile.isFull()).toBeTruthy();
   });
 
+  it('can place is false when full', () => {
+    console.log(pile.getCardValues())
+    pile.placeCards(...createFullPile());
+    expect(pile.canPlace(-1)).toBeFalsy();
+  });
+
   it('throws an error if you try to place a card on a full pile', () => {
     pile.placeCards(...createFullPile());
 
     expect(() => {
       pile.placeCards(Card.SkipBo);
-    }).toThrowError(`You can't place card on a full pile`);
+    }).toThrowError(`Can't place card -1`);
   });
 
   it('Can only be cleared when full', () => {

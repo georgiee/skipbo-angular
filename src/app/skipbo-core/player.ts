@@ -41,6 +41,7 @@ export class Player {
   }
 
   placeHandCard(card: Card = null, buildingPile: BuildingPile = null) {
+    assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
     // This methods can auto select card and destination building pile
@@ -62,11 +63,15 @@ export class Player {
         // naive approach: just play the first possible candidate of your hand
         card = candidates[0];
       }
+
       this.game.buildingGroup.autoPlace(this.drawHandCard(card, { refill: true }));
     }
+
+    this.game.clearBuildingPiles();
   }
 
   placeStockCard(buildingPile: BuildingPile = null) {
+    assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
     const card = this.stock.top;
@@ -84,6 +89,7 @@ export class Player {
       this.game.buildingGroup.autoPlace(stockCard);
     }
 
+    this.game.clearBuildingPiles();
     this.checkWinner();
   }
 
@@ -104,6 +110,7 @@ export class Player {
   }
 
   placeDiscardCard(card: Card = null, pile: BuildingPile = null) {
+    assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
     const cards = this.discardGroup.getTopCards();
@@ -124,9 +131,11 @@ export class Player {
 
     const [drawnCard] = this.discardGroup.drawCard(card);
     this.game.buildingGroup.autoPlace(drawnCard);
+    this.game.clearBuildingPiles();
   }
 
   discardHandCard(card: Card = null, pile: DiscardPile = null) {
+    assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
     assert(this.hand.count > 0, ` You have no hand cards to discard`);
 
@@ -168,6 +177,8 @@ export class Player {
   }
 
   fillHand() {
+    assert(this.game.gameOver === false, `Game is over already`);
+
     const delta = HAND_CARD_COUNT - this.hand.count;
     logger.info(`Drawing ${delta} cards`);
 
@@ -176,12 +187,13 @@ export class Player {
       return;
     }
 
-    if (!this._game.deck.canDraw(delta)) {
+    if (!this._game.deck.hasCardsCountLeft(delta)) {
       // shuffle completed decks back in
       this._game.mergeCompletedCards();
     }
 
-    this.hand.add(...this._game.deck.draw(delta));
+    const cards = this._game.deck.draw(delta);
+    this.hand.add(...cards);
   }
 
   protected drawHandCard(card, options: { refill: boolean } = { refill: false }) {

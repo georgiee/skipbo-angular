@@ -66,8 +66,8 @@ export abstract class AbstractPile {
     assert(this.canClear(), `This pile can't be cleared now`);
     const currentCards = this.getCardValues();
 
-    while (currentCards.length) {
-      this.remove(currentCards.pop());
+    for (const card of currentCards) {
+      this.remove(card);
     }
 
     return currentCards;

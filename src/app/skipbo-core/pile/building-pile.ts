@@ -25,7 +25,10 @@ export class BuildingPile extends AbstractPile {
   }
 
   canPlace(candidate: Card): boolean {
-    assert(this.isFull() === false, `You can't place card on a full pile`);
+    if (this.isFull()) {
+      return false;
+    }
+
     const topCard = this.top;
 
     if (candidate === Card.SkipBo || candidate === Card.Empty) {
