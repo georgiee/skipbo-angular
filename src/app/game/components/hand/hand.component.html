@@ -1,0 +1,9 @@
+<div class="handcards">
+  <div class='handcard' *ngFor="let card of displayedCards">
+    <skipbo-card
+      class="card"
+      [value]="card"
+      revealed>
+    </skipbo-card>
+  </div>
+</div>

@@ -30,8 +30,9 @@ export class Game {
   private _currentPlayer: DoublyLinkedListNode<Player>;
   private _turnCounter = 0;
   private _gameOver = false;
+  private _winner: Player;
 
-  private readonly _gameOverSubject: Subject<any> = new Subject();
+  readonly _gameOverSubject: Subject<any> = new Subject();
   private _customStockCardCount = null;
 
   constructor(cards: Card[] = null, options: any = {}) {
@@ -46,8 +47,16 @@ export class Game {
     return [...this._completedCards];
   }
 
+  get winner(): Player {
+    return this._winner;
+  }
+
   get gameOver() {
     return this._gameOver;
+  }
+
+  get gameOverObservable() {
+    return this._gameOverSubject.asObservable();
   }
 
   get started() {
@@ -105,27 +114,11 @@ export class Game {
 
   susbcribeForWinner() {
     this._gameOverSubject.subscribe(() => {
-      console.log('game over, winner found');
-      this._gameOver = true
+      this._gameOver = true;
+      this._winner = this.players.find(player => player.isWinner());
     });
 
     this.winnerChanges.pipe(first()).subscribe(this._gameOverSubject);
-
-    // of(this.players)
-    // .pipe(
-    //   mergeMap(player => player), // transform tghe array into a stream of its items
-    //   mergeMap(player => {
-    //     // ensure that only real winners (true) are coming in
-    //     return player.winner
-    //       .pipe(filter(result => result === true));
-    //   }, player => player), // look for the winner  stream
-    //   first()
-    // )
-    // .subscribe((player: Player) => {
-    //   console.log('player won', player);
-    //   this.winner = player;
-    //   // this.gameOver();
-    // });
   }
 
   start() {

@@ -1,8 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GameComponent } from './game/game/game.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { InstructionsComponent } from './pages/instructions/instructions.component';
 
 const routes: Routes = [
+  {
+    path: '', redirectTo: 'welcome', pathMatch: 'full'
+  },
+  {
+    path: 'welcome', component: WelcomeComponent
+  },
+  {
+    path: 'instructions', component: InstructionsComponent
+  },
+  {
+    path: 'game', loadChildren: './game/game.module#GameModule'
+  }
 ];
 
 @NgModule({

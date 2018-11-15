@@ -1,34 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './card/card.component';
-import { CardImageComponent } from './card-image/card-image.component';
-import { CardSlotComponent } from './card-slot/card-slot.component';
-import { DeckComponent } from './deck/deck.component';
-import { PileComponent } from './pile/pile.component';
-import { PileGroupComponent } from './pile-group/pile-group.component';
 import { TimesPipe } from './times.pipe';
-import { HiddenHandComponent } from './hidden-hand/hidden-hand.component';
+import { ButtonComponent } from './button/button.component';
+import { HeadlineComponent } from './headline/headline.component';
 
 @NgModule({
   declarations: [
-    CardComponent,
-    CardImageComponent,
-    CardSlotComponent,
-    DeckComponent,
-    PileComponent,
-    PileGroupComponent,
     TimesPipe,
-    HiddenHandComponent
+    ButtonComponent,
+    HeadlineComponent
   ],
   exports: [
-    CardComponent,
-    CardSlotComponent,
-    PileComponent,
-    PileGroupComponent,
-    DeckComponent,
-    CardImageComponent,
     TimesPipe,
-    HiddenHandComponent
+    ButtonComponent,
+    HeadlineComponent
   ],
   imports: [
     CommonModule

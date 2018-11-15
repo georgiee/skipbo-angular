@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-image: linear-gradient(-180deg, #FAD961 0%, #F76B1C 100%);
+  font-family: 'Lithos Pro';
+  font-size: 3rem;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    background-image: linear-gradient(-90deg, #FAD961 0%, #F76B1C 100%);
+  }
+}
