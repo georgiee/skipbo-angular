@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { InstructionsComponent } from './pages/instructions/instructions.component';
+import { ScratchpadComponent } from './pages/scratchpad/scratchpad.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'game', loadChildren: './game/game.module#GameModule'
+  },
+  {
+    path: 'scratchpad', component: ScratchpadComponent
   }
 ];
 

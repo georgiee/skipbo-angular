@@ -2,9 +2,10 @@
   display: block;
   perspective: 1000px;
 }
-
-.card {
+// required, otherwise it looked like the state was lost when animation was triggered by parent
+.card__inner {
   transform-style: preserve-3d;
+  position: relative;
 }
 
 .card__back,
@@ -21,10 +22,11 @@
   bottom: 0;
 }
 .card__back {
+  z-index: 1;
   transform: rotateY(0deg);
 }
 
 .card__front {
-  z-index: 1;
+  z-index: 2;
   transform: rotateY(180deg);
 }

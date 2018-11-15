@@ -1,0 +1,10 @@
+<div class="cards">
+  <skipbo-card
+
+    [revealed]="card%2===0"
+    *ngFor="let card of cards"
+    [value]="card"
+    class="card">
+  </skipbo-card>
+</div>
+<button (click)="trigger()">trigger</button>

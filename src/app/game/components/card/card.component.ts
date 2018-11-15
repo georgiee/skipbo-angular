@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, HostBinding, HostListener, ChangeDetectionStrategy } from '@angular/core';
-import { trigger, state, style, query, transition, animate } from '@angular/animations';
+import { trigger, state, style, query, transition, animate, stagger, group } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Card } from 'skipbo-core';
+import { flipTrigger } from './animations';
 
 @Component({
   selector: 'skipbo-card',
@@ -9,37 +10,7 @@ import { Card } from 'skipbo-core';
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('flip', [
-      state('back',
-        style({ transform: 'rotateY(180deg)' })
-      ),
-      state('front',
-        style({
-          transform: 'rotateY(0deg)'
-        })
-      ),
-
-      // introduce distinct values for each transition to ensure always clockwise animations
-      transition('back => front', [
-        style({
-          transform: 'rotateY(180deg)'
-        }),
-        animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
-        style({
-          transform: 'rotateY(360deg)'
-        }))
-      ]),
-
-      transition('front => back', [
-        style({
-          transform: 'rotateY(0deg)'
-        }),
-        animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
-        style({
-          transform: 'rotateY(180deg)'
-        }))
-      ]),
-    ])
+    flipTrigger
   ]
 })
 export class CardComponent implements OnInit {

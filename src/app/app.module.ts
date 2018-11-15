@@ -6,18 +6,21 @@ import { AppComponent } from './app.component';
 import { UIModule } from './ui/ui.module';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { InstructionsComponent } from './pages/instructions/instructions.component';
+import { ScratchpadComponent } from './pages/scratchpad/scratchpad.component';
+import { ComponentsModule } from './game/components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    InstructionsComponent
+    InstructionsComponent,
+    ScratchpadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UIModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule, ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
