@@ -22,6 +22,12 @@ export class GameComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {
     this._gameService.enableLogging();
+    this._gameService.game.reset();
+
+  }
+
+  ngOnInit() {
+    console.log('init game comoone')
 
     const gameOver = this._gameService.game.gameOverObservable;
     gameOver
@@ -33,8 +39,6 @@ export class GameComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
-  }
   ngOnDestroy() {
     this._destroyed.next();
     this._destroyed.complete();

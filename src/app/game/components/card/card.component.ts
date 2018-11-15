@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, query, transition, animate } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Card } from 'skipbo-core';
@@ -7,6 +7,7 @@ import { Card } from 'skipbo-core';
   selector: 'skipbo-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('flip', [
       state('back',
@@ -46,6 +47,8 @@ export class CardComponent implements OnInit {
   private _interactive: boolean = false;
 
   private _value = null;
+  @Input() index: number = 0;
+
   @Input()
   set value(card: Card) {
     this._value = card;
@@ -61,7 +64,6 @@ export class CardComponent implements OnInit {
   get interactive(): boolean {
     return this._interactive;
   }
-
   @Input()
   set revealed(value: boolean) {
     this._revealed = coerceBooleanProperty(value);
@@ -74,6 +76,10 @@ export class CardComponent implements OnInit {
     return this._revealed ? 'back' : 'front';
   }
 
+  get backFace() {
+    return Card.Back;
+  }
+
   reveal() {
     this.revealed = true;
   }
@@ -81,14 +87,6 @@ export class CardComponent implements OnInit {
   hide() {
     this.revealed = false;
   }
-
-  // @HostListener('click')
-  // handleClick() {
-  //   if (this.interactive) {
-  //     return;
-  //   }
-  //   this.reveal();
-  // }
 
   constructor() { }
 

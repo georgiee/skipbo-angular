@@ -1,4 +1,15 @@
 <span class="name">{{player.name}}</span>
-<skipbo-hand class='hand' [cards]="player.hand.cards" #hand></skipbo-hand>
-<skipbo-discard-group class="discard" [group]="player.discardGroup"></skipbo-discard-group>
-<skipbo-stock-pile class='stock' [cards]="player.stock.cards"></skipbo-stock-pile>
+<skipbo-hand
+  (click)="tryHandCard()"
+  class='hand' [cards]="player.hand.cards" #hand>
+</skipbo-hand>
+
+<skipbo-discard-group
+  (click)="tryDiscardPile()"
+  class="discard" [group]="player.discardGroup">
+</skipbo-discard-group>
+
+<skipbo-stock-pile
+  (click)="tryStockCard()"
+  class='stock' [cards]="player.stock.cards">
+</skipbo-stock-pile>

@@ -26,6 +26,11 @@ export class CardImageComponent {
     if (this._face === Card.SkipBo) {
       return 'skipbo';
     }
+
+    if (this._face === Card.Back) {
+      return 'back';
+    }
+
     return this._face;
   }
 

@@ -1,13 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { allSettled } from 'q';
+import { transition, style, animate, trigger, animateChild } from '@angular/animations';
+import { query } from '@angular/core/src/render3';
 
 const MAX_CARD_DISPLAY = 12;
 
 @Component({
   selector: 'skipbo-pile',
   templateUrl: './pile.component.html',
-  styleUrls: ['./pile.component.scss']
+  styleUrls: ['./pile.component.scss'],
+  animations: [
+
+  ]
 })
 export class PileComponent implements OnInit {
   @Input() cards: Card[] = [];
@@ -27,22 +32,21 @@ export class PileComponent implements OnInit {
     return this.cards.length === 0;
   }
 
-  get displayedCards(): Card[] {
-    return this.cards.slice(-this.displayCount);
+  get displayedCards(): {value: Card, index: number}[] {
+    const cards = this.cards.slice(-this.displayCount);
+    const totalCount = this.cards.length;
+
+    const cardsWithIndex = cards.map((card, index) => {
+      return { value: card, index: (totalCount - index) };
+    });
+
+    return cardsWithIndex;
   }
 
   constructor() {
   }
 
   ngOnInit() {
-  }
-
-  enter(event) {
-    console.log('enter')
-  }
-
-  dropCard(event) {
-    console.log('dropCard')
   }
 
 }

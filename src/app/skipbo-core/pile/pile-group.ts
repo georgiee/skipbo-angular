@@ -14,6 +14,11 @@ export class PileGroup<T extends AbstractPile> {
   constructor(placeStrategy: PLACE_STRATEGY = PLACE_STRATEGY.EVENLY) {
     this._placeStrategy = placeStrategy;
   }
+  reset() {
+    this._piles.forEach(pile => {
+      pile.reset();
+    });
+  }
 
   getPiles(): T[] {
     return this._piles;

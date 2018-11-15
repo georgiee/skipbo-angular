@@ -43,6 +43,19 @@ export class Game {
     this.createBuildingPiles();
   }
 
+  reset() {
+    this._players.reset();
+    this._winner = null;
+    this._started = false;
+    this._gameOver = false;
+    this._turnCounter = 0;
+    this._currentPlayer = null;
+    this._completedCards = [];
+
+    this.deck.reset();
+    this.buildingGroup.reset();
+  }
+
   get completedCards(): Card[] {
     return [...this._completedCards];
   }

@@ -26,6 +26,11 @@ export abstract class AbstractPile {
     this._cardList = new DoublyLinkedList([]);
   }
 
+  reset() {
+    this._cardList.reset();
+    this._cardsSubject.next(this.getCardValues());
+  }
+
   public get cards() {
     return this._cardObservable;
   }

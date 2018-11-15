@@ -4,6 +4,7 @@ const NORMAL_CARD_COUNT = 12;
 const SKIPBO_CARD_COUNT = 18;
 
 export enum Card {
+  Back = -2,
   SkipBo = -1,
   Empty,
   One,
@@ -27,7 +28,8 @@ export function generateSkipBoCards() {
   const deck: Card[] = [];
 
   for (const cardValue of values) {
-    if (cardValue === 0) {
+    // do not generate those cards
+    if (cardValue === Card.Empty || cardValue === Card.Back) {
       continue;
     }
 

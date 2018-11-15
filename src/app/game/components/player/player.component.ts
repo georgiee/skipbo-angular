@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/cor
 import { Player } from 'skipbo-core';
 import { HandComponent } from '../hand/hand.component';
 import { DiscardGroupComponent } from '../discard-group/discard-group.component';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'skipbo-player',
@@ -13,7 +14,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   @ViewChild('hand') hand: HandComponent;
   @ViewChild('discard') discard: DiscardGroupComponent;
 
-  constructor() { }
+  constructor(private _gameService: GameService) {
+
+  }
 
   ngOnInit() {
   }
@@ -22,4 +25,17 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     // this.hand.v
   }
 
+
+  tryStockCard() {
+    this._gameService.game.currentPlayer.placeStockCard();
+  }
+
+
+  tryHandCard() {
+    this._gameService.game.currentPlayer.placeHandCard();
+  }
+
+  tryDiscardPile() {
+    this._gameService.game.currentPlayer.placeDiscardCard();
+  }
 }

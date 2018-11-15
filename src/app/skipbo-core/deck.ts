@@ -4,14 +4,20 @@ import { shuffle, assert } from './utils';
 export class Deck {
   private _cards: Card[];
   private _canShuffle = true;
+  private _starterSet: Card[];
 
   constructor(cards: Card[] = [], canShuffle = true) {
     this._cards = [...cards];
+    this._starterSet = [...cards];
     this._canShuffle = canShuffle;
   }
 
   public get cards() {
     return this._cards;
+  }
+
+  reset() {
+    this._cards = [...this._starterSet];
   }
 
   shuffle() {
