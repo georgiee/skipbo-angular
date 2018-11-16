@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy": "gh-pages -d dist",
-    "build": "ng build --prod",
+    "deploy": "gh-pages -d dist/skipbo",
+    "build": "ng build --prod --base-href /skipbo-angular/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
