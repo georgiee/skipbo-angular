@@ -2,6 +2,6 @@
 
 <div class="cards">
   <skipbo-stock-pile class="stock" [cards]="player.stock.cards" ></skipbo-stock-pile>
-  <skipbo-discard-group class="discard" [group]="player.discardGroup"></skipbo-discard-group>
+  <skipbo-pile-group [allowDrop]="false" class="discard" [group]="player.discardGroup"></skipbo-pile-group>
 </div>
 <skipbo-hidden-hand class="hand" [count]="player.hand.count"></skipbo-hidden-hand>

@@ -7,7 +7,7 @@ import { PileGroup } from './pile/pile-group';
 import { Player } from './player';
 import { assert } from './utils';
 import { Observable, of, Subject, merge } from 'rxjs';
-import { map, mergeMap, switchMap, filter, first } from 'rxjs/operators';
+import { map, mergeMap, switchMap, filter, first, takeUntil } from 'rxjs/operators';
 
 export const STOCK_CARD_COUNT_SMALL_GAME = 30;
 export const STOCK_CARD_COUNT_LARGE_GAME = 20;
@@ -31,7 +31,7 @@ export class Game {
   private _turnCounter = 0;
   private _gameOver = false;
   private _winner: Player;
-
+  private _destroyed: Subject<any>;
   readonly _gameOverSubject: Subject<any> = new Subject();
   private _customStockCardCount = null;
 
@@ -114,6 +114,12 @@ export class Game {
     const player = new Player(name || `Player ${this.players.length + 1}`, this);
     logger.info(`Added player '${player}'`);
     this._players.add(player);
+
+    player.turnCompleted
+      .subscribe(() => {
+      this.nextPlayer();
+    });
+
     return player;
   }
 

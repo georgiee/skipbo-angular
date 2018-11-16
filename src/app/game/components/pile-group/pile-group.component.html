@@ -1,10 +1,12 @@
 <!-- Connect all piles with each other, by using a cdkDropListGroup otherwise
 and entered item can't switch between them -->
 
-<div cdkDropListGroup class='group-holder'>
+<div class='group-holder'>
   <skipbo-pile
     *ngFor="let pile of group"
+    (cardDropped)="handleCardDropped($event, pile)"
     [autoRevealCard]="true"
-    [cards]="[1,2,3,4,5,6,-1]">
+    [allowDrop]="allowDrop"
+    [cards]="pile.cards | async">
   </skipbo-pile>
 </div>

@@ -1,1 +1,7 @@
-<skipbo-pile-group #piles [group]="group" [canDragItemsToZones]="canDragItemsToZones"></skipbo-pile-group>
+<skipbo-pile-group
+  [allowDrop]="true" #piles
+  [group]="group"
+  (cardDropped)="handleCardDroppedInPile($event)"
+  [canDragItemsToZones]="canDragItemsToZones">
+
+  </skipbo-pile-group>

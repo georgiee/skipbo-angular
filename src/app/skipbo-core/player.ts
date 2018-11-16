@@ -21,6 +21,7 @@ export class Player {
   private _turns = 0;
   private _winnerSubject: Subject<Player> = new Subject();
 
+  private _turnCompleted = new Subject();
   private _nextTurn = new Subject();
 
   public get nextTurn(): Observable<any> {
@@ -219,5 +220,10 @@ export class Player {
 
   protected completeTurn() {
     this._playing = false;
+    this._turnCompleted.next();
+  }
+
+  get turnCompleted() {
+    return this._turnCompleted.asObservable();
   }
 }

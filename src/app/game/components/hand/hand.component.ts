@@ -19,8 +19,4 @@ export class HandComponent implements CardZone {
   getDropzones() {
     return [this._dropzone];
   }
-
-  dropped() {
-    console.log('dropped');
-  }
 }

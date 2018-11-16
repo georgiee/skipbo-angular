@@ -4,6 +4,7 @@ import { DiscardPile } from 'src/app/skipbo-core/pile/discard-pile';
 import { PileGroupComponent } from '../pile-group/pile-group.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'skipbo-discard-group',
@@ -16,12 +17,19 @@ export class DiscardGroupComponent implements CardZone {
   @ViewChild('piles') piles: PileGroupComponent;
 
   @Input() canDragItemsToZones: CdkDropList<any>[];
+  @Input() allowDrop = false;
 
   getDropzones(): CdkDropList[] {
     return this.piles.getDropzones();
   }
 
+  handleCardDroppedInPile({cardDrop, pile}) {
+    if (cardDrop.source === 'hand') {
+      this._gameService.game.currentPlayer.discardHandCard(cardDrop.cardValue, pile);
+    }
+  }
 
-  constructor() { }
+
+  constructor(private _gameService: GameService) { }
 
 }

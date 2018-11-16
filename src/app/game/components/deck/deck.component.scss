@@ -1,6 +1,7 @@
 :host {
   display: block;
   position: relative;
+  pointer-events: none;
 }
 
 .card {

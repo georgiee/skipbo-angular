@@ -1,16 +1,25 @@
 <skipbo-card-slot>
-  <div class='stack' cdkDropList [cdkDropListConnectedTo]="canDragItemsToZones">
-    <skipbo-card
-      *ngFor="let card of _stackCardsCount|times"
-      class="stack__card">
-    </skipbo-card>
+  <div
+  cdkDropList
+  [cdkDropListData]="sourceName"
+  [cdkDropListEnterPredicate]="enterPredicate"
+  (cdkDropListDropped)="itemDropped($event)"
+  [cdkDropListConnectedTo]="canDragItemsToZones" cdkDropListOrientation='horizontal' class='cdkDrop'>
+    <div class='stack'>
+      <skipbo-card
+        *ngFor="let card of _stackCardsCount|times"
+        class="stack__card">
+      </skipbo-card>
 
-    <skipbo-card
-      cdkDrag
-      class="stack__card"
-      *ngIf="!empty"
-      [value]="topCard"
-      [revealed]="autoRevealCard">
-    </skipbo-card>
+      <skipbo-card
+          cdkDrag
+          [cdkDragData]="topCard"
+          *ngIf="!empty"
+          class="stack__card"
+          [value]="topCard"
+          [revealed]="autoRevealCard">
+        </skipbo-card>
+    </div>
   </div>
+
 </skipbo-card-slot>

@@ -8,7 +8,6 @@ import { flipTrigger } from './animations';
   selector: 'skipbo-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     flipTrigger
   ]

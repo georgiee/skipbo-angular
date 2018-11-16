@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, AfterContentInit, AfterViewInit } from '@angular/core';
+import { EventEmitter, Component, OnInit, Input, ViewChildren, QueryList, AfterContentInit, AfterViewInit, Output } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
 import { DiscardPile } from 'src/app/skipbo-core/pile/discard-pile';
@@ -8,6 +8,7 @@ import { padArray } from 'src/app/utils';
 import { PileComponent } from '../pile/pile.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
+import { CardDrop } from '../../shared/card-drop';
 
 @Component({
   selector: 'skipbo-pile-group',
@@ -22,6 +23,8 @@ export class PileGroupComponent implements OnInit, AfterViewInit, CardZone {
 
   @Input() canDragItemsToZones: CdkDropList<any>[];
   @Input() public size = 4;
+  @Input() allowDrop = false;
+  @Output() cardDropped: EventEmitter<{cardDrop: CardDrop, pile: BuildingPile}> = new EventEmitter<any>();
 
   getDropzones(): CdkDropList[] {
     return this._dropzones;
@@ -47,10 +50,14 @@ export class PileGroupComponent implements OnInit, AfterViewInit, CardZone {
     // wait a tick, dropzones has already been verified
     setTimeout(() => {
       this._dropzones = this.piles.toArray().map(pile => pile.getDropzones()[0]);
-    })
+    });
   }
 
   ngOnInit() {
+  }
+
+  handleCardDropped(cardDrop: CardDrop, pile) {
+    this.cardDropped.next({cardDrop, pile});
   }
 
 }

@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, AfterViewChecked, Output, EventEmitter } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { allSettled } from 'q';
 import { transition, style, animate, trigger, animateChild } from '@angular/animations';
 import { query } from '@angular/core/src/render3';
-import { CdkDropList } from '@angular/cdk/drag-drop';
+import { CdkDropList, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { CardDrop } from '../../shared/card-drop';
 
 const MAX_CARD_DISPLAY = 12;
 
@@ -12,21 +14,26 @@ const MAX_CARD_DISPLAY = 12;
   selector: 'skipbo-pile',
   templateUrl: './pile.component.html',
   styleUrls: ['./pile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PileComponent implements CardZone, OnInit {
   private _displayCount = 3;
   private _cards: Card[] = [];
   _stackCardsCount = 0;
+  _allowDrop = false;
 
   @ViewChild(CdkDropList) public _dropzone: CdkDropList;
+  @Input()
+  set allowDrop(value) {
+    this._allowDrop = coerceBooleanProperty(value);
+  }
+  get allowDrop() {
+    return this._allowDrop;
+  }
+  @Output() cardDropped: EventEmitter<CardDrop> = new EventEmitter<CardDrop>();
 
+  @Input() sourceName: string;
   @Input() autoRevealCard = false;
   @Input() canDragItemsToZones: CdkDropList[] = [];
-
-  listEnter(event) {
-    console.log({event})
-  }
 
   @Input()
   set cards (value: Card[]) {
@@ -48,6 +55,20 @@ export class PileComponent implements CardZone, OnInit {
     return [this._dropzone];
   }
 
+
+  itemDropped(dropEvent: CdkDragDrop<any>) {
+    const source = dropEvent.previousContainer.data;
+    const cardValue = dropEvent.item.data;
+
+    const event: CardDrop = {
+      source, cardValue
+    };
+
+    console.log('itemDropped into a pile', event, event);
+    this.cardDropped.next(event);
+  }
+
+
   get displayCount() {
     return this._displayCount;
   }
@@ -59,8 +80,14 @@ export class PileComponent implements CardZone, OnInit {
     return this._cards[this._cards.length - 1];
   }
 
+  enterPredicate() {
+    console.log('allowDrop', this._allowDrop)
+    return this.allowDrop;
+  }
 
   ngOnInit() {
   }
-
+  constructor() {
+    this.enterPredicate = this.enterPredicate.bind(this);
+  }
 }

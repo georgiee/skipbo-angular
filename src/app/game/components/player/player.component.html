@@ -3,37 +3,23 @@
   #hand
   class='hand'
   (click)="tryHandCard()"
-  [canDragItemsToZones]="discard.getDropzones()"
+  [canDragItemsToZones]="mergeZones(buildingZones, discard.getDropzones())"
   [cards]="player.hand.cards">
 </skipbo-hand>
 
 
-<skipbo-pile #pile1 [autoRevealCard]="true" [cards]="[1,2,-1]"></skipbo-pile>
-<!--
-<div class='debuglist' (cdkDropListDropped)="dropped($event)" cdkDropList #debugList="cdkDropList"  [cdkDropListConnectedTo]="pile1.getDropzones()">
-  <div cdkDrag>item 1</div>
-  <div cdkDrag>item 2</div>
-  <div cdkDrag>item 3</div>
-</div>
-
-
-<div class='debuglist2' cdkDropList #debugList2="cdkDropList"  [cdkDropListConnectedTo]="[pile1.dropzone, debugList2]">
-    <div cdkDrag>item 1</div>
-    <div cdkDrag>item 2</div>
-    <div cdkDrag>item 3</div>
-  </div> -->
-
-  <skipbo-discard-group
+<skipbo-discard-group
     #discard
+    [allowDrop]="true"
     [group]="player.discardGroup"
+    [canDragItemsToZones]="buildingZones"
     (click)="tryDiscardPile()"
     class="discard">
 </skipbo-discard-group>
 
-<!-- <skipbo-stock-pile
+<skipbo-stock-pile
   #stock
-  [sourceDropzones]="discard.piles.dropzones"
-  cdkDropList
+  [canDragItemsToZones]="buildingZones"
   (click)="tryStockCard()"
   class='stock' [cards]="player.stock.cards">
-</skipbo-stock-pile>  -->
+</skipbo-stock-pile>
