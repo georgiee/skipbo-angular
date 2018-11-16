@@ -4,6 +4,7 @@ This is SkipBo made in Angular — and it's only a rough proof of concept I want
 ---
 
 ## What's in the box?
+[Preview](https://georgiee.github.io/skipbo-angular/)
 
 1. Rules of the games are implemented with a few core classes found in [src/app/skipbo-core](src/app/skipbo-core)
 
@@ -14,10 +15,7 @@ This is SkipBo made in Angular — and it's only a rough proof of concept I want
 ![](docs/screenshot.png)
 
 There is also a [video (mp4)](docs/screencast.mp4).
-<div>
-  <video  width="320" height="240" controls
-src='https://rawcdn.githack.com/georgiee/skipbo-angular/dbed878f415904d26f57652b99171bcc0000123d/docs/screencast.mp4'>
-</div>
+
 
 ## What's missing
 
