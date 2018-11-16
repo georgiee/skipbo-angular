@@ -17,6 +17,7 @@ import { PileComponent } from './pile/pile.component';
 import { PileGroupComponent } from './pile-group/pile-group.component';
 import { HiddenHandComponent } from './hidden-hand/hidden-hand.component';
 import { UIModule } from 'src/app/ui/ui.module';
+import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 
 
 const components = [
@@ -43,7 +44,8 @@ const components = [
   ],
   imports: [
     CommonModule,
-    UIModule
+    UIModule,
+    DragDropModule
   ],
   exports: [
     ...components

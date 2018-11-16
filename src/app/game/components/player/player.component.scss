@@ -35,3 +35,22 @@
   font-family: 'Lithos Pro';
   padding: 5px;
 }
+
+.debuglist {
+  position: fixed;
+  width: 50vw;
+  height: 50vw;
+  top: 0;
+  right: 0;
+}
+
+// .cdk-drag-placeholder {
+//   width: 200px;
+//   // height: 200px;
+//   background-color: yellow;
+// }
+
+// .cdk-drag-preview {
+//   opacity: 0.5;
+//   outline:5px solid red;
+// }

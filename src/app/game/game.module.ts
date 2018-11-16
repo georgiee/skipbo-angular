@@ -9,6 +9,7 @@ import { GameoverComponent } from './pages/gameover/gameover.component';
 import { GameplayComponent } from './pages/gameplay/gameplay.component';
 import { StartComponent } from './pages/start/start.component';
 import { ComponentsModule } from './components/components.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     GameComponent,
@@ -23,7 +24,8 @@ import { ComponentsModule } from './components/components.module';
     CommonModule,
     ComponentsModule,
     UIModule,
-    GameRoutingModule
+    GameRoutingModule,
+    DragDropModule
   ]
 })
 export class GameModule { }

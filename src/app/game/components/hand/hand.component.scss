@@ -2,6 +2,12 @@
   display: block;
 }
 
+
+::ng-deep .cdk-drag-placeholder {
+  width: 100%;
+}
+
+
 .handcards {
   display: flex;
   position: relative;
@@ -14,11 +20,6 @@
 // to always maintain a set of 5 hand slots
 .handcard {
   width: 100%;
-  &:not(:first-child) {
-    //reduce contribution to the box model so the cards
-    // will overlay
-    margin-left: -30%;
-  }
 }
 
 // .handcard {

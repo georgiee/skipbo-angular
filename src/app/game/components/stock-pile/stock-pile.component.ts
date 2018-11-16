@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Card } from 'skipbo-core';
+import { CdkDropList } from '@angular/cdk/drag-drop';
+import { PileComponent } from '../pile/pile.component';
 
 @Component({
   selector: 'skipbo-stock-pile',
@@ -8,6 +10,12 @@ import { Card } from 'skipbo-core';
 })
 export class StockPileComponent implements OnInit {
   @Input() cards: Card[] = [];
+  @Input() sourceDropzones: CdkDropList[] = [];
+  @ViewChild('pile') pile: PileComponent;
+
+  getDropzone(): CdkDropList {
+    return this.pile.dropzone;
+  }
 
   constructor() { }
 
