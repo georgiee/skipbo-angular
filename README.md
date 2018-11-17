@@ -1,10 +1,10 @@
 # Skipbo in Angular
-Warning idiomatic code with no comments head. That project is only the groundwork for an Angular advanced workshop and far from being done.
+Warning idiomatic code with no comments ahead. That project is only the groundwork for an Angular advanced workshop and far from being done.
 
 This is SkipBo made in Angular — and it's only a rough proof of concept I want to archive for future references. This project is for learning purpose and not meant to hurt any copyright.
 
 [Live Example](https://georgiee.github.io/skipbo-angular/#/game/play)
-Drag and Drop. Game Rules are enforced through exceptions. Discarding switches to the next player.
+Use Drag and Drop. Game Rules are enforced through exceptions. Discarding switches to the next player.
 If it's not your turn press automata (next player) to auto play for that
 > **Tip**: Press "automata (full)" to let the game play by itself.
 
@@ -20,10 +20,7 @@ The automata will play the game for all involved players but you can also manual
 
 3. I created all assets with Sketch and got the idea about the layout from the [official game app ](https://play.google.com/store/apps/details?id=com.magmic.googleplay.skipbo.free&hl=en).
 
-![](docs/screenshot.png)
-
-There is also a [video (mp4)](docs/screencast.mp4).
-
+![](docs/preview.gif)
 
 ## What's missing
 
