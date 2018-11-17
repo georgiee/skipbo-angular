@@ -1,4 +1,6 @@
 # Skipbo in Angular
+Warning idiomatic code with no comments head. That project is only the groundwork for an Angular advanced workshop and far from being done.
+
 This is SkipBo made in Angular — and it's only a rough proof of concept I want to archive for future references. This project is for learning purpose and not meant to hurt any copyright.
 
 [Live Example](https://georgiee.github.io/skipbo-angular/#/game/play)
