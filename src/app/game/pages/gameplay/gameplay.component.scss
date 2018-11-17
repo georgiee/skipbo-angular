@@ -5,7 +5,16 @@
   position: relative;
   padding: 10px;
   display: grid;
-  grid-template-rows: [opponents] auto 20px [game] 2fr 20px [player] auto;
+
+  grid-template:
+    "debug"
+    "opponents"
+    "game"
+    "player";
+
+  grid-template-rows: auto auto 2fr auto;
+  grid-row-gap: 50px;
+
   background-image: url(/assets/playing-background.jpg);
   background-size: cover;
   justify-items: stretch;
@@ -18,19 +27,23 @@
   grid-column-gap: 50px;
 }
 
+.debug {
+  grid-area: debug;
+}
+
 .opponents {
-  grid-row-start: opponents;
+  grid-area: opponents;
 }
 
 .game {
-  grid-row-start: game;
+  grid-area: game;
   max-width: 1000px;
   width: 100%;
   justify-self: center;
 }
 
 .player {
-  grid-row-start: player;
+  grid-area: player;
   max-width: 1400px;
   width: 100%;
   justify-self: center;

@@ -12,22 +12,12 @@ import { ENTER, RIGHT_ARROW } from '@angular/cdk/keycodes';
 export class DebugPanelComponent implements OnInit {
   game: Game;
   automata: Automata;
+  opened = false;
 
   constructor(gameService: GameService) {
     this.game = gameService.game;
-    this.automata = new Automata(this.game);
+    this.automata = gameService.automata;
   }
-
-  @HostListener('document:keypress', ['$event'])
-  onKeydown(event) {
-    if (event.key === 'n') {
-      this.automata.singleStep();
-    }
-    if (event.keyCode === ENTER) {
-      this.automata.nextPlayer();
-    }
-  }
-
   ngOnInit() {
   }
 
@@ -35,4 +25,16 @@ export class DebugPanelComponent implements OnInit {
     this.game._gameOverSubject.next();
   }
 
+  autorun() {
+    this.automata.autorun();
+    this.toggle(); // auto collapse to see everything
+  }
+
+  playCurrentRound() {
+    this.automata.playTurnSync();
+  }
+
+  toggle() {
+    this.opened = !this.opened;
+  }
 }

@@ -55,12 +55,16 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.allowedSources || changes.sourceName) {
-      const allowedSource = changes.allowedSources.currentValue || [];
-      let sourceName = changes.sourceName.currentValue || null;
+    if (changes.allowedSources || changes.sourceName) {
+      let allowedSource = [];
+      let sourceName = [];
 
-      if (sourceName) {
-        sourceName = [sourceName];
+      if (changes.allowedSources && changes.allowedSources.currentValue) {
+        allowedSource = changes.allowedSources.currentValue || [];
+      }
+
+      if (changes.sourceName && changes.sourceName.currentValue) {
+        sourceName = [changes.sourceName.currentValue];
       }
 
       // ensure that we always combine the explicit allowSource with the name of the parent group if any
@@ -101,7 +105,7 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
 
   enterPredicate(cdkDrag: CdkDrag) {
     const source = cdkDrag.dropContainer.data;
-
+    console.log('this.allowDrop', this.allowDrop);
     if (this.allowDrop || this._allowedSourcesCombined.indexOf(source) !== -1) {
       return true;
     }

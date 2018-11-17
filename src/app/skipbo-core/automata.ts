@@ -1,10 +1,45 @@
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { empty, fromEvent, merge, Observable, Observer, of, timer } from 'rxjs';
+import { distinctUntilChanged, expand, filter, last, merge as mergeOperator, mergeMap, skip, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { Game } from './game';
-import { Player } from './player';
 import { logger } from './logger';
+import { Player } from './player';
 
 type IAction = () => boolean;
 
+/*
+Automata is my playground to create custom Observables.
+I was lucky to find the expand operator as it fits
+the format while(gameNotOver) {doSomething()}.
+
+The lack of experience with really advanced usa cases in RxJs
+makes the following code not the best examples
+*/
+
+
+const keyDowns = fromEvent(document, 'keydown');
+const keyUps = fromEvent(document, 'keyup');
+
+// signal clicks but only after the first click
+const clicks = fromEvent(document, 'click')
+  .pipe(
+    skip(1) // skip the first click so a UI trigger won't cancel immediately
+  );
+
+  // watch for ESC pressed
+const escKeyPressed = keyDowns.pipe(
+    mergeOperator(keyUps),
+    filter((e: KeyboardEvent) => e.keyCode === ESCAPE),
+    distinctUntilChanged((x, y) => x.type === y.type)
+);
+
+const abortSignal = merge(escKeyPressed, clicks)
+  .pipe(tap(_ => {
+    logger.info('Automata aborted');
+  }));
+
 export class Automata {
+  private _running = false;
   private _gameOver = false;
   private _turnCounter = 0;
   private _cardPlayed = false;
@@ -14,52 +49,106 @@ export class Automata {
 
   }
 
-  run() {
+  get running() {
+    return this._running;
+  }
+
+  autorun(delaySteps = 100) {
+    if (this._running) {
+      return;
+    }
+
+    this._running = true;
+
     if (!this.game.started) {
       this.game.start();
     }
 
-    const runner = () => {
-      this.nextPlayer();
+    // that will run turn by turn
+    // completes by mouse click or ESC (signals we want to abort)
+    // or if the game is over of coruse
+    of(true)
+    .pipe(
+      expand((value) => this.playTurn(delaySteps)),
+      takeUntil(abortSignal),
+      takeUntil(this.game.gameOverObservable)
+    ).subscribe(
+      () => {
+          // console.log('automata turn done')
+      },
+      () => {},
+      () => {
+        logger.info('Automata completed')
+        this._running = false;
+      });
+  }
 
-      if (this.game.gameOver) {
-        console.log(`automata completed after ${this._turnCounter} turn`);
-      } else {
-        setTimeout(() => runner(), 1);
+  playTurnSync() {
+    this.playTurn().subscribe(() => {
+      const player = this.game.currentPlayer;
+      // this.game.nextPlayer();
+    });
+  }
+
+  private _createStepObservable() {
+    return Observable.create((observer: Observer<boolean>) => {
+      try {
+        const cardThrown = this.singleStep();
+        observer.next(cardThrown);
+
+        if (cardThrown === false) {
+          observer.complete();
+        }
+      } catch (error) {
+        observer.error(error);
       }
-    };
-
-    runner();
+    });
   }
 
-  nextPlayer() {
-    if (!this.player.playing) {
-      this.game.nextPlayer();
-    }
+  playTurn(delaySteps = 250): Observable<any> {
+    // this._running = true;
 
-    this.playTurn();
-  }
+    // logger.groupCollapsed('Automata Playing Turn');
 
-  playTurn() {
-    logger.groupCollapsed('Automata Playing Turn');
     this._turnCounter++;
-
     const player = this.game.currentPlayer;
-    player.takeTurn();
 
-    while (this.singleStep()) {
-      logger.info('current step was successful');
+    if (!player.playing) {
+      player.takeTurn();
     }
 
-    if (player.isWinner()) {
-      logger.info('completed');
-    } else {
-      player.discardHandCard();
-      logger.info('no more cards to play, discarding');
+    const stepSource: Observable<boolean> = this._createStepObservable();
 
-    }
+    // run as long as cards are played in a step (cardPlayed)
+    // when completed discard hand card to give away the turn of the player
 
-    logger.groupEnd('Automata Playing Turn');
+    return of(true).pipe(
+      // will recursively merge our step source to it's called endlessley until we decide to stop the chain
+      // that's when it's false — no card plaed so we can stop the loop
+      expand(result => {
+        if (result) {
+          // card drawn — we can go on
+          // use a timer to delay the execution
+          // so people can see what happens in the UI
+
+          return timer(delaySteps)
+            .pipe(mergeMap(_ => stepSource));
+
+        } else {
+          return empty();
+        }
+      }),
+
+      // signal completion, observables complete is ignored as I clearly do something wrong with the expand
+      takeWhile(cardPlayed => cardPlayed === true),
+      last(),
+      tap(result => {
+        player.discardHandCard();
+        // this._running = false;
+        // logger.groupEnd();
+      }),
+    );
+
   }
 
   singleStep() {
@@ -86,7 +175,7 @@ export class Automata {
     try {
       this.player.placeStockCard();
     } catch (error) {
-      console.log('tryStockCard failed', error.message);
+      // console.log('tryStockCard failed', error.message);
       return false;
     }
 
@@ -97,7 +186,7 @@ export class Automata {
     try {
       this.player.placeHandCard();
     } catch (error) {
-      console.log('tryHandCard failed', error.message);
+      // console.log('tryHandCard failed', error.message);
       return false;
     }
 
@@ -108,7 +197,7 @@ export class Automata {
     try {
       this.player.placeDiscardCard();
     } catch (error) {
-      console.log('tryDiscardPile failed', error.message);
+      // console.log('tryDiscardPile failed', error.message);
       return false;
     }
 

@@ -13,8 +13,17 @@ export const HAND_CARD_COUNT = 5;
 
 const HAND_LIMIT = 5;
 
+export interface PlayerOptions {
+  cpu?: boolean;
+}
+
+const defaultOptions: PlayerOptions = {
+  cpu: false
+};
+
+
 export class Player {
-  discardGroup: PileGroup<DiscardPile> = new PileGroup();
+  discardGroup: PileGroup<DiscardPile> = new PileGroup('discardGroup');
   private _hand: Hand = new Hand(HAND_LIMIT);
   private _stock: Deck = new Deck();
   private _playing = false;
@@ -23,16 +32,23 @@ export class Player {
 
   private _turnCompleted = new Subject();
   private _nextTurn = new Subject();
-
+  private _options: PlayerOptions;
   public get nextTurn(): Observable<any> {
     return this._nextTurn.asObservable();
   }
 
-  constructor(private _name: string, private _game: Game = null) {
+  constructor(private _name: string, private _game: Game = null, options: PlayerOptions = {}) {
+    this._options = {...defaultOptions, ...options};
     this.buildDiscardPiles();
   }
 
+  get isCPU() {
+    return this._options.cpu;
+  }
+
   takeTurn() {
+    logger.info(`Player '${this.name}' takes turn`);
+    // debugger;
     this._playing = true;
     this._turns++;
     this.fillHand();
@@ -226,4 +242,8 @@ export class Player {
   get turnCompleted() {
     return this._turnCompleted.asObservable();
   }
+  get turnCompletedValue() {
+    return this._turnCompleted;
+  }
+
 }

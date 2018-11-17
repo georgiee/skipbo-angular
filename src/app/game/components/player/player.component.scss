@@ -26,6 +26,9 @@
   position: relative;
 }
 
+:host.have-turn {
+  outline: 5px solid hotpink;
+}
 
 .hand {
   // grid-column-start: hand;

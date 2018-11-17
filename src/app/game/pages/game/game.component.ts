@@ -27,8 +27,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('init game comoone')
-
     const gameOver = this._gameService.game.gameOverObservable;
     gameOver
       .pipe(

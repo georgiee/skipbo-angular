@@ -41,6 +41,12 @@ export class BuildingGroupComponent implements CardZone {
       // cardDrop.cardValue
       this._gameService.game.currentPlayer.placeStockCard(pile);
     }
+
+    console.log('cardDrop.source', cardDrop.source);
+    if (cardDrop.source === 'discardGroup') {
+      // cardDrop.cardValue
+      this._gameService.game.currentPlayer.placeDiscardCard(cardDrop.cardValue, pile);
+    }
     // this._gameService.game.currentPlayer.placeDiscardCard(card, pile);
     // this._gameService.game.currentPlayer.placeStockCard(pile);
   }

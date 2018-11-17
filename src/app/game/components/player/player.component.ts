@@ -10,10 +10,14 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
   selector: 'skipbo-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
-  // encapsulation: ViewEncapsulation.None
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[class.have-turn]': 'player.playing'
+  }
 })
 export class PlayerComponent implements OnInit, AfterViewInit {
   @Input() public player: Player;
+
   @Input() buildingZones: CdkDropList[] = [];
   @ViewChild('hand') hand: HandComponent;
   @ViewChild('stock') stock: StockPileComponent;

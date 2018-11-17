@@ -1,6 +1,39 @@
 :host {
   display: block;
-  position: fixed;
-  top: 0;
-  right: 0;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+}
+
+.actions button:not(:first-child) {
+  margin-left: 20px;
+}
+
+button {
+  background-color: white;
+  color: #000;
+  border: 0;
+}
+
+.opener {
+  text-align: center;
+}
+
+
+button {
+  font-family: 'Lithos Pro';
+  background: #F5A623;
+  border-radius: 3px;
+  border: 3px #FFD004 solid;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 12px;
+  &:hover {
+    background: #FFD004;
+  }
 }

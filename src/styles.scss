@@ -3,6 +3,10 @@ html {
   font-size: percentage(10/16);
 }
 
+a {
+  color: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -31,7 +35,7 @@ p {
 }
 
 p + p {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
 

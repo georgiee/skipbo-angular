@@ -24,9 +24,10 @@ export class GameplayComponent {
     this._gameService.enableLogging();
 
     this.player = this._gameService.game.createPlayer('You');
-    const playerB = this._gameService.game.createPlayer('Player 2');
+    const playerCPU1 = this._gameService.game.createPlayer('Player 2', { cpu: true });
+    const playerCPU2 = this._gameService.game.createPlayer('Player 3', { cpu: true });
 
-    this.opponentPlayers = [playerB];
+    this.opponentPlayers = [ playerCPU1, playerCPU2 ];
     this.buildingGroup = this._gameService.game.buildingGroup;
 
     this.deck = this._gameService.game.deck;

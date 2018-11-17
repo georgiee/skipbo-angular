@@ -4,7 +4,7 @@ import { DoublyLinkedList, DoublyLinkedListNode } from './doubly-linked-list';
 import { logger } from './logger';
 import { BuildingPile } from './pile/building-pile';
 import { PileGroup } from './pile/pile-group';
-import { Player } from './player';
+import { Player, PlayerOptions } from './player';
 import { assert } from './utils';
 import { Observable, of, Subject, merge } from 'rxjs';
 import { map, mergeMap, switchMap, filter, first, takeUntil } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class Game {
   private _turnCounter = 0;
   private _gameOver = false;
   private _winner: Player;
-  private _destroyed: Subject<any>;
+  private _nextTurn: Subject<any> = new Subject<any>();
   readonly _gameOverSubject: Subject<any> = new Subject();
   private _customStockCardCount = null;
 
@@ -42,7 +42,9 @@ export class Game {
 
     this.createBuildingPiles();
   }
-
+  public get nextTurn() {
+    return this._nextTurn.asObservable();
+  }
   reset() {
     this._players.reset();
     this._winner = null;
@@ -101,17 +103,17 @@ export class Game {
   }
 
   createBuildingPiles() {
-    this.buildingGroup = new PileGroup<BuildingPile>();
+    this.buildingGroup = new PileGroup<BuildingPile>('buildingGroup');
     this.buildingGroup.add(new BuildingPile());
     this.buildingGroup.add(new BuildingPile());
     this.buildingGroup.add(new BuildingPile());
     this.buildingGroup.add(new BuildingPile());
   }
 
-  createPlayer(name: string = null) {
+  createPlayer(name: string = null, options: PlayerOptions = {}) {
     assert(this._players.size() < MAX_PLAYERS, `Maximum of ${MAX_PLAYERS} players reached`);
 
-    const player = new Player(name || `Player ${this.players.length + 1}`, this);
+    const player = new Player(name || `Player ${this.players.length + 1}`, this, options);
     logger.info(`Added player '${player}'`);
     this._players.add(player);
 
@@ -137,7 +139,7 @@ export class Game {
       this._winner = this.players.find(player => player.isWinner());
     });
 
-    this.winnerChanges.pipe(first()).subscribe(this._gameOverSubject);
+    this.winnerChanges.pipe().subscribe(this._gameOverSubject);
   }
 
   start() {
@@ -196,6 +198,8 @@ export class Game {
 
     this._turnCounter++;
     this.currentPlayer.takeTurn();
+    this._nextTurn.next(this.currentPlayer);
+
     return this.currentPlayer;
   }
 

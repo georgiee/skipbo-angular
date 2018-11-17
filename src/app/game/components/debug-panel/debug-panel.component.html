@@ -1,12 +1,33 @@
-<button (click)="game.nextPlayer()">Next Player</button><br>
-<!-- <button (click)="game.currentPlayer.placeStockCard()">placeStockCard</button><br>
-<button (click)="game.currentPlayer.placeHandCard()">placeHandCard</button><br>
-<button (click)="game.currentPlayer.placeDiscardCard()">placeDiscardCard</button><br> -->
-<button (click)="game.currentPlayer.discardHandCard()">discard</button><br>
+<div class='opener'>
+  <button (click)="toggle()">
+    {{opened ? 'Close' : 'Info & Automata'}}
+  </button>
+</div>
 
-<button (click)="automata.playTurn()">automata (turn)</button><br>
-<!-- <button (click)="automata.singleStep()">automata (step)</button><br> -->
-<button (click)="automata.nextPlayer()">automata (next player)</button><br>
-<button (click)="automata.run()">automata (full)</button><br>
 
-<button (click)="gameover()">gameover</button><br>
+<div class="content" *ngIf='opened'>
+  <h1>Skipbo with Automata</h1>
+
+  <p>
+    Source:
+    <a href='https://github.com/georgiee/skipbo-angular'>
+      skipbo-angular (github)
+    </a>
+  </p>
+
+
+  <p>
+    Use Drag & Drop (also mobile). Game Rules are enforced.
+    If you complete your turn (by discarding a card)
+    the next player will be able to play. If it's a CPU Player Automata will play.
+  </p>
+  <p>
+    You can use Automata to complete your turn <button (click)="playCurrentRound()">Play my turn!</button>
+    or use <button (click)="autorun()">Autorun</button> to let Automata play for everyone (click/touch or ESC to abort)
+  </p>
+<!--
+  <div class='actions'>
+    <button (click)="playCurrentRound()">Play my turn!</button>
+    <button (click)="autorun()">Autorun</button>
+  </div> -->
+</div>

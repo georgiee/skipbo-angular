@@ -186,20 +186,24 @@ describe('Game', () => {
       expect(game.currentPlayer instanceof Player).toBeTruthy();
     });
 
+    it('discards completes turn', () => {
+      const cb = jasmine.createSpy('turnCompleted callback');
+      game.currentPlayer.turnCompleted.subscribe(cb);
+
+      game.currentPlayer.discardHandCard();
+
+      expect(cb).toHaveBeenCalled();
+    });
+
     it('returns next player', () => {
       expect(game.currentPlayer).toBe(player1);
       game.currentPlayer.discardHandCard();
-
-      game.nextPlayer(); // Player 2
       expect(game.currentPlayer).toBe(player2);
     });
 
     it('has a turn counter', () => {
       game.currentPlayer.discardHandCard();
-      game.nextPlayer();
-
       game.currentPlayer.discardHandCard();
-      game.nextPlayer();
 
       expect(game.turnId).toBe(3);
     });
