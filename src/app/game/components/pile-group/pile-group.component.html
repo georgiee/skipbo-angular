@@ -6,6 +6,8 @@ and entered item can't switch between them -->
     *ngFor="let pile of group"
     (cardDropped)="handleCardDropped($event, pile)"
     [autoRevealCard]="true"
+    [sourceName]="sourceName"
+    [allowedSources]="allowedSources"
     [allowDrop]="allowDrop"
     [cards]="pile.cards | async">
   </skipbo-pile>

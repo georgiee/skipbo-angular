@@ -3,14 +3,16 @@
   class="handcards"
   [cdkDropListData]="'hand'"
   cdkDropList
+  [cdkDropListEnterPredicate]="enterPredicate"
   cdkDropListOrientation="horizontal"
   [cdkDropListConnectedTo]="canDragItemsToZones">
+
   <skipbo-card
-    *ngFor="let card of cards"
+    *ngFor="let cardIndex of handSize|times"
     cdkDrag
-    [cdkDragData]="card"
+    [cdkDragData]="getCard(cardIndex - 1)"
     class="handcard"
-    [value]="card"
+    [value]="getCard(cardIndex - 1)"
     revealed>
   </skipbo-card>
 </div>

@@ -8,8 +8,6 @@ $maxCardsDisplayed: 12;
   padding-bottom: percentage(752/500);
   height: 0;
   position: relative;
-  // display: grid;
-  // grid-template-rows: repeat(#{$maxCardsDisplayed}, 2px);
 }
 
 :host ::ng-deep .cdk-drag-placeholder,

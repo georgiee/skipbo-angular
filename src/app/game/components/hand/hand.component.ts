@@ -4,7 +4,7 @@ import { padArray } from 'src/app/utils';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
 
-const NUMBER_CARDS = 5;
+const HAND_SIZE = 5;
 
 @Component({
   selector: 'skipbo-hand',
@@ -15,8 +15,21 @@ export class HandComponent implements CardZone {
   @Input() cards: Card[] = [];
   @ViewChild('dropzone') _dropzone: CdkDropList;
   @Input() canDragItemsToZones: CdkDropList[] = [];
+  handSize = HAND_SIZE;
 
   getDropzones() {
     return [this._dropzone];
   }
+
+  getCard(index) {
+    if ( index < this.cards.length) {
+      return this.cards[index];
+    }
+    return Card.Empty;
+  }
+
+  enterPredicate() {
+    return false;
+  }
+
 }

@@ -10,6 +10,7 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
 import { CardDrop } from '../../shared/card-drop';
 
+let counter = 0;
 @Component({
   selector: 'skipbo-pile-group',
   templateUrl: './pile-group.component.html',
@@ -25,6 +26,10 @@ export class PileGroupComponent implements OnInit, AfterViewInit, CardZone {
   @Input() public size = 4;
   @Input() allowDrop = false;
   @Output() cardDropped: EventEmitter<{cardDrop: CardDrop, pile: BuildingPile}> = new EventEmitter<any>();
+
+  // list of strings compared with the cdkDropList data field to calculate the enterPredicated
+  @Input() allowedSources: string[] = [];
+  @Input() sourceName: string = 'pilegroup' + (counter++);
 
   getDropzones(): CdkDropList[] {
     return this._dropzones;
