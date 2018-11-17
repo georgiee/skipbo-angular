@@ -1,8 +1,24 @@
 :host {
   display: grid;
-  grid-template-columns: [hand] minmax(200px, 2fr) 50px [discard] 4fr auto 50px [stock] 1fr;
-  padding: 20px;
+  // grid-template-columns: [hand] minmax(200px, 2fr) 50px [discard] 4fr auto 50px [stock] 1fr;
+
+
+  grid-template:
+  "hand hand stock"
+  ". . stock"
+  "discard discard stock";
+  grid-gap: 10px;
+
+  @media screen and (min-width: 500px) {
+    grid-template:
+      "hand discard stock";
+    grid-template-columns: minmax(200px, 1fr) 2fr 1fr;
+    grid-gap: 50px;
+  }
+
   align-items: center;
+
+  padding: 20px;
 
   border: 0 solid #000000;
   box-shadow: 0 2px 4px 2px rgba(0,0,0,0.50);
@@ -12,19 +28,19 @@
 
 
 .hand {
-  max-width: 350px;
-  grid-column-start: hand;
+  // grid-column-start: hand;
+  grid-area: hand;
 }
 
 .discard {
-  max-width: 600px;
-  grid-column-start: discard;
+  // grid-column-start: discard;
+  // grid-row-start: 2;
   justify-self: center;
+  grid-area: discard;
 }
 
 .stock {
-  max-width: 150px;
-  grid-column-start: stock;
+  grid-area: stock;
 }
 
 .name {
