@@ -12,7 +12,7 @@
   @media screen and (min-width: 500px) {
     grid-template:
       "hand discard stock";
-    grid-template-columns: minmax(200px, 1fr) 2fr 1fr;
+    grid-template-columns: minmax(200px, 1fr) 4fr 1fr;
     grid-gap: 50px;
   }
 

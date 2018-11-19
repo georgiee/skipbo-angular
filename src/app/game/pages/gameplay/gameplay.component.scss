@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .layout {
   display: block;
   width: 100vw;
@@ -12,8 +16,8 @@
     "game"
     "player";
 
-  grid-template-rows: auto auto 2fr auto;
-  grid-row-gap: 50px;
+  grid-template-rows: auto auto auto auto;
+  grid-row-gap: 40px;
 
   background-image: url(/assets/playing-background.jpg);
   background-size: cover;
@@ -37,14 +41,14 @@
 
 .game {
   grid-area: game;
-  max-width: 1000px;
+  max-width: 50vmax;
   width: 100%;
   justify-self: center;
 }
 
 .player {
   grid-area: player;
-  max-width: 1400px;
+  max-width: 70vmax;
   width: 100%;
   justify-self: center;
 }

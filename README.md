@@ -20,6 +20,7 @@ The automata will play the game for all involved players but you can also manual
 
 3. I created all assets with Sketch and got the idea about the layout from the [official game app ](https://play.google.com/store/apps/details?id=com.magmic.googleplay.skipbo.free&hl=en).
 
+4. Automata that will play for the Non-Human Players or for everyone if you want.
 ![](docs/preview.gif)
 
 ## What's missing
