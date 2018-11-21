@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { GameModule } from './game/game.module';
 
 @NgModule({
   declarations: [
@@ -10,8 +9,7 @@ import { GameModule } from './game/game.module';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    GameModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
