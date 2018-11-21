@@ -1,8 +1,8 @@
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { Component, Input, ViewChild } from '@angular/core';
 import { CardZone } from 'src/app/shared/card-zone';
-import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
+import { BuildingPile } from 'skipbo-core';
+import { PileGroup } from 'skipbo-core';
 import { PlayerService } from '../../services/player.service';
 import { PileGroupComponent } from '../pile-group/pile-group.component';
 

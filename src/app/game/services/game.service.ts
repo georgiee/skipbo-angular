@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Game, getFullTestDeck, getTwoPlayerTestGame, Player  } from 'skipbo-core';
 import { Observable } from 'rxjs';
-import { Automata } from 'src/app/skipbo-core/automata';
+import { Automata } from 'skipbo-core';
 import { first, filter } from 'rxjs/operators';
-import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
+import { BuildingPile } from 'skipbo-core';
+import { PileGroup } from 'skipbo-core';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +40,16 @@ export class GameService {
     this._game.reset();
   }
 
-  createPlayer(name: string, options = null): Player {
+  createPlayer(name: string = null, options = null): Player {
     return this._game.createPlayer(name, options);
+  }
+
+  removePlayer() {
+    this._game.removePlayer();
+  }
+
+  get players() {
+    return this._game.players;
   }
 
   get buildingGroup(): PileGroup<BuildingPile> {
@@ -55,7 +63,6 @@ export class GameService {
   get currentPlayer(): Player {
     return this._game.currentPlayer;
   }
-
 
   get game(): Game {
     return this._game;

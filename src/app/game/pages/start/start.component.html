@@ -1,3 +1,10 @@
-<h1 skipbo-headline>Prepare</h1>
-<p>Add at least two players and a maximum of 5 players</p>
-<a skipbo-button routerLink="/game/play">Start</a>
+<h1 skipbo-headline>Players</h1>
+<p>Add at least two players and a maximum of 5 players. There are currently {{playerCount}} player(s) </p>
+
+<div class="actions">
+  <button [disabled]="playerCount <= 1" class="button__remove" (click)="removePlayer()" skipbo-button>-</button>
+  <button [disabled]="playerCount >= 6"class="button__add"(click)="addPlayer()" skipbo-button>+</button>
+</div>
+
+
+<button [disabled]="!canPlay" skipbo-button routerLink="/game/play">Start</button>

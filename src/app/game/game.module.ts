@@ -8,7 +8,7 @@ import { GameRoutingModule } from './game.routing';
 import { GameoverComponent } from './pages/gameover/gameover.component';
 import { GameplayComponent } from './pages/gameplay/gameplay.component';
 import { StartComponent } from './pages/start/start.component';
-import { ComponentsModule } from './components/components.module';
+import { GameComponentsModule } from './components/game-components.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   ],
   imports: [
     CommonModule,
-    ComponentsModule,
+    GameComponentsModule,
     UIModule,
     GameRoutingModule,
     DragDropModule

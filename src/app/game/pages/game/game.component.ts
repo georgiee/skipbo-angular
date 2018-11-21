@@ -1,12 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Player } from 'skipbo-core';
-import { GameService } from '../../services/game.service';
-import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
-import { Deck } from 'src/app/skipbo-core/deck';
-import { takeUntil, first } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { first, takeUntil } from 'rxjs/operators';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'skipbo-playing',

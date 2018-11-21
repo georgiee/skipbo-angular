@@ -46,6 +46,10 @@ export class Player {
     return this._options.cpu;
   }
 
+  get cpu() {
+    return this._options.cpu;
+  }
+
   takeTurn() {
     logger.group(`Player '${this.name}' takes turn`);
     // debugger;

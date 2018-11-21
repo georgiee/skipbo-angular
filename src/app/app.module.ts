@@ -7,7 +7,7 @@ import { UIModule } from './ui/ui.module';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { InstructionsComponent } from './pages/instructions/instructions.component';
 import { ScratchpadComponent } from './pages/scratchpad/scratchpad.component';
-import { ComponentsModule } from './game/components/components.module';
+import { GameComponentsModule } from './game/components/game-components.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { ComponentsModule } from './game/components/components.module';
     BrowserModule,
     AppRoutingModule,
     UIModule,
-    BrowserAnimationsModule, ComponentsModule
+    BrowserAnimationsModule,
+    GameComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

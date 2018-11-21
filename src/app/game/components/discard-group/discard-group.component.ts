@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, HostBinding, ViewChild, AfterContentInit } from '@angular/core';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
-import { DiscardPile } from 'src/app/skipbo-core/pile/discard-pile';
+import { PileGroup } from 'skipbo-core';
+import { DiscardPile } from 'skipbo-core';
 import { PileGroupComponent } from '../pile-group/pile-group.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';

@@ -110,6 +110,12 @@ export class Game {
     this.buildingGroup.add(new BuildingPile(4));
   }
 
+  removePlayer() {
+    const player = this._players.pop() as Player;
+    logger.info('Removed player', player.toString());
+    return player;
+  }
+
   createPlayer(name: string = null, options: PlayerOptions = {}) {
     assert(this._players.size() < MAX_PLAYERS, `Maximum of ${MAX_PLAYERS} players reached`);
 
@@ -117,8 +123,7 @@ export class Game {
     logger.info(`Added player '${player}'`);
     this._players.add(player);
 
-    player.turnCompleted
-      .subscribe(() => {
+    player.turnCompleted.subscribe(() => {
       this.nextPlayer();
     });
 

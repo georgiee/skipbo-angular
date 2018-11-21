@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
-import { Player } from 'skipbo-core';
-import { Deck } from 'src/app/skipbo-core/deck';
-import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
-import { GameService } from '../../services/game.service';
 import { Router } from '@angular/router';
+import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
+import { GameService } from '../../services/game.service';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'skipbo-gameplay',
@@ -20,6 +18,7 @@ export class GameplayComponent {
 
   constructor(
     private _gameService: GameService,
+    private _playerService: PlayerService,
     private _router: Router
   ) {
     this._gameService.enableLogging();
@@ -31,10 +30,15 @@ export class GameplayComponent {
   }
 
   initPlayers() {
-    this.player = this._gameService.createPlayer('You');
-    const playerCPU1 = this._gameService.createPlayer('Player 2', { cpu: true });
-    const playerCPU2 = this._gameService.createPlayer('Player 3', { cpu: true });
-    this.opponentPlayers = [ playerCPU1, playerCPU2 ];
+    if (this._gameService.players.length === 0) {
+      this._playerService.addHumanPlayer();
+      this._playerService.addPlayerCPU('Player 1');
+      this._playerService.addPlayerCPU('Player 2');
+    }
+
+    this.opponentPlayers = this._playerService.getPlayers({cpu: true});
+    const humanPlayer = this._playerService.getPlayers({cpu: false});
+    this.player = humanPlayer[0];
   }
 
   start() {

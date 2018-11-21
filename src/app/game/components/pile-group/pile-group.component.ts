@@ -1,14 +1,9 @@
-import { EventEmitter, Component, OnInit, Input, ViewChildren, QueryList, AfterContentInit, AfterViewInit, Output } from '@angular/core';
-import { Card } from 'skipbo-core';
-import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
-import { DiscardPile } from 'src/app/skipbo-core/pile/discard-pile';
-import { AbstractPile } from 'src/app/skipbo-core/pile/pile-abstract';
-import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
-import { padArray } from 'src/app/utils';
-import { PileComponent } from '../pile/pile.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { BuildingPile, DiscardPile, PileGroup } from 'skipbo-core';
 import { CardZone } from 'src/app/shared/card-zone';
 import { CardDrop } from '../../shared/card-drop';
+import { PileComponent } from '../pile/pile.component';
 
 let counter = 0;
 @Component({

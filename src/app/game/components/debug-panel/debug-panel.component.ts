@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, HostListener, ElementRef } from '@angular/core';
 import { GameService } from '../../services/game.service';
-import { Game } from 'src/app/skipbo-core/game';
-import { Automata } from 'src/app/skipbo-core/automata';
+import { Game } from 'skipbo-core';
+import { Automata } from 'skipbo-core';
 
 import { ENTER, RIGHT_ARROW } from '@angular/cdk/keycodes';
 @Component({
