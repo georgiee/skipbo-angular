@@ -15,7 +15,7 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     '[class.have-turn]': 'player.playing'
   }
 })
-export class PlayerComponent implements OnInit, AfterViewInit {
+export class PlayerComponent {
   @Input() public player: Player;
 
   @Input() buildingZones: CdkDropList[] = [];
@@ -29,26 +29,5 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   mergeZones(...list) {
     return list.reduce((acc, item) => [...acc, ...item], []);
-  }
-
-  ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    // this.hand.v
-  }
-
-
-  tryStockCard() {
-    // this._gameService.game.currentPlayer.placeStockCard();
-  }
-
-
-  tryHandCard() {
-    // this._gameService.game.currentPlayer.placeHandCard();
-  }
-
-  tryDiscardPile() {
-    // this._gameService.game.currentPlayer.placeDiscardCard();
   }
 }

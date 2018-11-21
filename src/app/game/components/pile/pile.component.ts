@@ -1,11 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, AfterViewChecked, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Card } from 'skipbo-core';
-import { allSettled } from 'q';
-import { transition, style, animate, trigger, animateChild } from '@angular/animations';
-import { query } from '@angular/core/src/render3';
-import { CdkDropList, CdkDragDrop, CdkDrag } from '@angular/cdk/drag-drop';
-import { CardZone } from 'src/app/shared/card-zone';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Card } from 'skipbo-core';
+import { CardZone } from 'src/app/shared/card-zone';
 import { CardDrop } from '../../shared/card-drop';
 
 const MAX_CARD_DISPLAY = 12;
@@ -87,7 +84,7 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
       source, cardValue
     };
 
-    console.log('itemDropped into a pile', event, event);
+    // console.log('itemDropped into a pile', event, event);
     this.cardDropped.next(event);
   }
 
@@ -105,7 +102,7 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
 
   enterPredicate(cdkDrag: CdkDrag) {
     const source = cdkDrag.dropContainer.data;
-    console.log('this.allowDrop', this.allowDrop);
+
     if (this.allowDrop || this._allowedSourcesCombined.indexOf(source) !== -1) {
       return true;
     }

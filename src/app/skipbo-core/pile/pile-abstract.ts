@@ -12,6 +12,8 @@ export abstract class AbstractPile {
   private _cardList: DoublyLinkedList<Card>;
 
   private _role: PileRole;
+  private _pileNumber: number;
+
   private _cardAddedSubject: Subject<Card> = new Subject();
   private _cardRemovedSubject: Subject<Card> = new Subject();
   private _cardsSubject: Subject<Card[]> = new BehaviorSubject([]);
@@ -20,15 +22,23 @@ export abstract class AbstractPile {
   public readonly cardRemoved: Observable<Card> = this._cardRemovedSubject.asObservable();
   public readonly _cardObservable: Observable<Card[]> = this._cardsSubject.asObservable();
 
-  constructor(role: PileRole) {
+  constructor(
+    role: PileRole,
+    pileNumber: number = 0 // just for printing at the moment
+  ) {
     assert(role, 'You need to specify the role of this pile');
     this._role = role;
+    this._pileNumber = pileNumber;
     this._cardList = new DoublyLinkedList([]);
   }
 
   reset() {
     this._cardList.reset();
     this._cardsSubject.next(this.getCardValues());
+  }
+
+  get pileNumber() {
+    return this._pileNumber;
   }
 
   public get cards() {

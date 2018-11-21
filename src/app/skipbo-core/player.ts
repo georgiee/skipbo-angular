@@ -57,7 +57,9 @@ export class Player {
     // this.checkWinner();
   }
 
-  placeHandCard(card: Card = null, buildingPile: BuildingPile = null) {
+  placeHandCard(card: Card = null, pile: BuildingPile = null) {
+    logger.info(`Place Hand Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
@@ -65,12 +67,12 @@ export class Player {
     // If a specific pile is the target, and a
     assert(this.hand.count > 0, `You have no hand cards left`);
 
-    if (card && buildingPile) {
-      assert(buildingPile.canPlace(card), `The card ${card} can't be placed in the selected building pile`);
-      buildingPile.placeCards(this.drawHandCard(card, { refill: true }));
+    if (card && pile) {
+      assert(pile.canPlace(card), `The card ${card} can't be placed in the selected building pile`);
+      pile.placeCards(this.drawHandCard(card, { refill: true }));
     } else {
       // It makes no sense to specify only the target pile
-      assert(!buildingPile, `You can't specify a target pile and not give a card to place`);
+      assert(!pile, `You can't specify a target pile and not give a card to place`);
 
       const candidates = this.game.buildingGroup.getBuildingCards(this.hand.cards);
       const anAnyHandPlaced = candidates.length > 0;
@@ -87,19 +89,21 @@ export class Player {
     this.game.clearBuildingPiles();
   }
 
-  placeStockCard(buildingPile: BuildingPile = null) {
+  placeStockCard(pile: BuildingPile = null) {
+    const card = this.stock.top;
+    logger.info(`Place Stock Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
-    const card = this.stock.top;
 
     assert(card, `Card '${card}' is not valid`);
     assert(this.stock.canDraw(card), `Can't draw stock card ${card}, it's not the current card`);
 
-    if (buildingPile) {
-      assert(buildingPile.canPlace(card), `Can't place card ${card} on the chosen building pile`);
+    if (pile) {
+      assert(pile.canPlace(card), `Can't place card ${card} on the chosen building pile`);
       const [stockCard] = this.stock.draw();
-      buildingPile.placeCards(stockCard);
+      pile.placeCards(stockCard);
     } else {
       assert(this.game.buildingGroup.canPlace(card), `Can't place card ${card} on any building pile`);
       const [stockCard] = this.stock.draw();
@@ -127,6 +131,8 @@ export class Player {
   }
 
   placeDiscardCard(card: Card = null, pile: BuildingPile = null) {
+    logger.info(`Place Discard Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
 
@@ -152,6 +158,8 @@ export class Player {
   }
 
   discardHandCard(card: Card = null, pile: DiscardPile = null) {
+    logger.info(`Discard Hand Card ${card} into pile ${pile ? pile.pileNumber : '"auto"'} `);
+
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
     assert(this.hand.count > 0, ` You have no hand cards to discard`);
@@ -224,10 +232,10 @@ export class Player {
   }
 
   buildDiscardPiles() {
-    this.discardGroup.add(new DiscardPile());
-    this.discardGroup.add(new DiscardPile());
-    this.discardGroup.add(new DiscardPile());
-    this.discardGroup.add(new DiscardPile());
+    this.discardGroup.add(new DiscardPile(1));
+    this.discardGroup.add(new DiscardPile(2));
+    this.discardGroup.add(new DiscardPile(3));
+    this.discardGroup.add(new DiscardPile(4));
   }
 
   toString() {

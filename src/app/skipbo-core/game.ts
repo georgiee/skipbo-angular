@@ -104,10 +104,10 @@ export class Game {
 
   createBuildingPiles() {
     this.buildingGroup = new PileGroup<BuildingPile>('buildingGroup');
-    this.buildingGroup.add(new BuildingPile());
-    this.buildingGroup.add(new BuildingPile());
-    this.buildingGroup.add(new BuildingPile());
-    this.buildingGroup.add(new BuildingPile());
+    this.buildingGroup.add(new BuildingPile(1));
+    this.buildingGroup.add(new BuildingPile(2));
+    this.buildingGroup.add(new BuildingPile(3));
+    this.buildingGroup.add(new BuildingPile(4));
   }
 
   createPlayer(name: string = null, options: PlayerOptions = {}) {

@@ -41,7 +41,7 @@ export class GameService {
   }
 
   createPlayer(name: string, options = null): Player {
-    return this._game.createPlayer(name);
+    return this._game.createPlayer(name, options);
   }
 
   get buildingGroup(): PileGroup<BuildingPile> {

@@ -1,6 +1,11 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { empty, fromEvent, merge, Observable, Observer, of, timer } from 'rxjs';
-import { distinctUntilChanged, expand, filter, last, merge as mergeOperator, mergeMap, skip, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged, expand, filter, last,
+  merge as mergeOperator, mergeMap,
+  skip, takeUntil, takeWhile, tap
+} from 'rxjs/operators';
+
 import { Game } from './game';
 import { logger } from './logger';
 import { Player } from './player';
@@ -78,7 +83,7 @@ export class Automata {
       },
       () => {},
       () => {
-        logger.info('Automata completed')
+        logger.info('Automata completed');
         this._running = false;
       });
   }

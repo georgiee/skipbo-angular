@@ -8,8 +8,8 @@ export enum PileRole {
 }
 
 export class BuildingPile extends AbstractPile {
-  constructor() {
-    super(PileRole.BUILDING);
+  constructor(pileNumber: number) {
+    super(PileRole.BUILDING, pileNumber);
   }
 
   isFull() {
