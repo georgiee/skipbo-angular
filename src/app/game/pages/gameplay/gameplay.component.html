@@ -1,9 +1,15 @@
 <div class="layout" cdkDropListGroup>
   <skipbo-debug-panel class="debug"></skipbo-debug-panel>
-  <skipbo-opponents [players]="opponentPlayers" class="opponents"></skipbo-opponents>
+
+  <skipbo-opponents
+    [players]="opponentPlayers" class="opponents">
+  </skipbo-opponents>
+
   <div class='game'>
     <skipbo-deck
-      [cards]="deck.cards" class='game__deck'></skipbo-deck>
+      [cards]="deck.cards" class='game__deck'>
+    </skipbo-deck>
+
     <skipbo-building-group
       #buildingGroupReference
       class="game__building-group" [group]="buildingGroup">
@@ -11,8 +17,10 @@
   </div>
 
   <skipbo-player
+    *ngIf="player"
     [buildingZones]="buildingGroupReference.getDropzones()"
-    *ngIf="player" [player]="player" class='player'>
+    [player]="player"
+    class='player'>
   </skipbo-player>
 
 </div>

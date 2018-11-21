@@ -14,7 +14,7 @@ export class GameoverComponent {
   constructor(
     private _gameService: GameService
   ) {
-    this.winner = this._gameService.game.winner;
+    this.winner = this._gameService.getWinner();
     this.winner = new Player('My Player');
   }
 

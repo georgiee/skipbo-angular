@@ -197,7 +197,7 @@ export class Player {
     assert(this.game.gameOver === false, `Game is over already`);
 
     const delta = HAND_CARD_COUNT - this.hand.count;
-    logger.info(`Drawing ${delta} cards`);
+    // logger.info(`Drawing ${delta} cards`);
 
     if (delta === 0) {
       // nothing to do

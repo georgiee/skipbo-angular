@@ -5,6 +5,7 @@ import { PileGroupComponent } from '../pile-group/pile-group.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CardZone } from 'src/app/shared/card-zone';
 import { GameService } from '../../services/game.service';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'skipbo-discard-group',
@@ -12,10 +13,9 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./discard-group.component.scss']
 })
 export class DiscardGroupComponent implements CardZone {
-
-  @Input() group: PileGroup<DiscardPile>;
   @ViewChild('piles') piles: PileGroupComponent;
 
+  @Input() group: PileGroup<DiscardPile>;
   @Input() canDragItemsToZones: CdkDropList<any>[];
   @Input() allowDrop = false;
 
@@ -25,11 +25,12 @@ export class DiscardGroupComponent implements CardZone {
 
   handleCardDroppedInPile({cardDrop, pile}) {
     if (cardDrop.source === 'hand') {
-      this._gameService.game.currentPlayer.discardHandCard(cardDrop.cardValue, pile);
+      this._playerService.discardHandCard(cardDrop.cardValue, pile);
     }
   }
 
 
-  constructor(private _gameService: GameService) { }
-
+  constructor(
+    private _playerService: PlayerService
+  ) { }
 }

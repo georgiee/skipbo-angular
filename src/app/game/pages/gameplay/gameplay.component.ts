@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class GameplayComponent {
   public buildingGroup: PileGroup<BuildingPile>;
   public opponentPlayers: Player[] = [];
+
   public player: Player;
   public deck: Deck;
 
@@ -22,20 +23,21 @@ export class GameplayComponent {
     private _router: Router
   ) {
     this._gameService.enableLogging();
+    this.buildingGroup = this._gameService.buildingGroup;
+    this.deck = this._gameService.deck;
 
-    this.player = this._gameService.game.createPlayer('You');
-    const playerCPU1 = this._gameService.game.createPlayer('Player 2', { cpu: true });
-    const playerCPU2 = this._gameService.game.createPlayer('Player 3', { cpu: true });
-
-    this.opponentPlayers = [ playerCPU1, playerCPU2 ];
-    this.buildingGroup = this._gameService.game.buildingGroup;
-
-    this.deck = this._gameService.game.deck;
-
+    this.initPlayers();
     this.start();
   }
 
+  initPlayers() {
+    this.player = this._gameService.createPlayer('You');
+    const playerCPU1 = this._gameService.createPlayer('Player 2', { cpu: true });
+    const playerCPU2 = this._gameService.createPlayer('Player 3', { cpu: true });
+    this.opponentPlayers = [ playerCPU1, playerCPU2 ];
+  }
+
   start() {
-    this._gameService.game.start();
+    this._gameService.start();
   }
 }

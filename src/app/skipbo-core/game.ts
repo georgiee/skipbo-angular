@@ -217,7 +217,7 @@ export class Game {
     logger.group('Dealing stock cards to players');
 
     players.forEach(player => {
-      logger.info(`${player} received ${player.stock.count} stock cards`);
+      logger.info(`'${player}' received ${player.stock.count} stock cards`);
     });
 
     logger.groupEnd();

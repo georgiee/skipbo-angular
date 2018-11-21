@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { CdkDropList } from '@angular/cdk/drag-drop';
+import { Component, Input, ViewChild } from '@angular/core';
+import { CardZone } from 'src/app/shared/card-zone';
 import { BuildingPile } from 'src/app/skipbo-core/pile/building-pile';
 import { PileGroup } from 'src/app/skipbo-core/pile/pile-group';
+import { PlayerService } from '../../services/player.service';
 import { PileGroupComponent } from '../pile-group/pile-group.component';
-import { CdkDropList } from '@angular/cdk/drag-drop';
-import { CardZone } from 'src/app/shared/card-zone';
-import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'skipbo-building-group',
@@ -32,26 +32,22 @@ export class BuildingGroupComponent implements CardZone {
   }
 
   handleCardDroppedInPile({cardDrop, pile}) {
-    console.log({cardDrop});
+    const player = this._playerService;
+
     if (cardDrop.source === 'hand') {
-      this._gameService.game.currentPlayer.placeHandCard(cardDrop.cardValue, pile);
+      player.placeHandCard(cardDrop.cardValue, pile);
     }
 
     if (cardDrop.source === 'stock') {
-      // cardDrop.cardValue
-      this._gameService.game.currentPlayer.placeStockCard(pile);
+      player.placeStockCard(pile);
     }
 
-    console.log('cardDrop.source', cardDrop.source);
     if (cardDrop.source === 'discardGroup') {
-      // cardDrop.cardValue
-      this._gameService.game.currentPlayer.placeDiscardCard(cardDrop.cardValue, pile);
+      player.placeDiscardCard(cardDrop.cardValue, pile);
     }
-    // this._gameService.game.currentPlayer.placeDiscardCard(card, pile);
-    // this._gameService.game.currentPlayer.placeStockCard(pile);
   }
 
-
-
-  constructor(private _gameService: GameService) { }
+  constructor(
+    private _playerService: PlayerService
+  ) { }
 }
