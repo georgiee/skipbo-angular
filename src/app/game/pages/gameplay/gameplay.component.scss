@@ -1,0 +1,24 @@
+:host {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  justify-items: center;
+  align-items: center;
+  padding: 20px;
+}
+
+skipbo-card-pile {
+  width: 100%;
+}
+
+.actions {
+  button {
+    margin: auto;
+  }
+
+  button:not(:first-child) {
+    display: block;
+    margin-top: 10px;
+  }
+}

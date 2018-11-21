@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Card } from 'skipbo-core';
 
 @Component({
   selector: 'skipbo-card',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-
   constructor() { }
+  @Input() value: Card;
+  @Input() revealed: boolean = false;
+
+  get currentFace() {
+    return this.revealed ? this.value : Card.Back;
+  }
 
   ngOnInit() {
   }

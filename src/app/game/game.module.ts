@@ -5,11 +5,15 @@ import { GameplayComponent } from './pages/gameplay/gameplay.component';
 import { CardComponent } from './components/card/card.component';
 import { CardFaceComponent } from './components/card-face/card-face.component';
 import { CardPileComponent } from './components/card-pile/card-pile.component';
+import { UIModule } from '../ui/ui.module';
 
 @NgModule({
-  declarations: [GameplayComponent, CardComponent, CardFaceComponent, CardPileComponent],
+  declarations: [
+    GameplayComponent, CardComponent, CardFaceComponent, CardPileComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+     UIModule
   ],
   providers: [
     GameService

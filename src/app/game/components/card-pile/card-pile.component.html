@@ -1,3 +1,16 @@
-<p>
-  card-pile works!
-</p>
+<div class='stack'>
+    <div class='slot'>
+      <skipbo-card
+        *ngFor="let card of _stackCardsCount|times"
+        [revealed]="false"
+        class="stack__card">
+      </skipbo-card>
+
+      <skipbo-card
+        *ngIf="!empty"
+        [value]="topCard"
+        [revealed]="true"
+        class="stack__card">
+      </skipbo-card>
+    </div>
+  </div>
