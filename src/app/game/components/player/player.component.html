@@ -2,7 +2,6 @@
 <skipbo-hand
   #hand
   class='hand'
-  (click)="tryHandCard()"
   [canDragItemsToZones]="mergeZones(buildingZones, discard.getDropzones())"
   [cards]="player.hand.cards">
 </skipbo-hand>
@@ -13,13 +12,11 @@
     [allowDrop]="true"
     [group]="player.discardGroup"
     [canDragItemsToZones]="buildingZones"
-    (click)="tryDiscardPile()"
     class="discard">
 </skipbo-discard-group>
 
 <skipbo-stock-pile
   #stock
   [canDragItemsToZones]="buildingZones"
-  (click)="tryStockCard()"
   class='stock' [cards]="player.stock.cards">
 </skipbo-stock-pile>
