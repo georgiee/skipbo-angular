@@ -3,7 +3,6 @@ import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { CardZone } from 'src/app/shared/card-zone';
-import { CardDrop } from '../../shared/card-drop';
 
 const MAX_CARD_DISPLAY = 12;
 
@@ -12,21 +11,12 @@ const MAX_CARD_DISPLAY = 12;
   templateUrl: './pile.component.html',
   styleUrls: ['./pile.component.scss'],
 })
-export class PileComponent implements CardZone, OnInit, OnChanges {
+export class PileComponent implements OnInit, OnChanges {
   private _displayCount = 3;
   private _cards: Card[] = [];
   _stackCardsCount = 0;
-  _allowDrop = false;
 
   @ViewChild(CdkDropList) public _dropzone: CdkDropList;
-  @Input()
-  set allowDrop(value) {
-    this._allowDrop = coerceBooleanProperty(value);
-  }
-  get allowDrop() {
-    return this._allowDrop;
-  }
-  @Output() cardDropped: EventEmitter<CardDrop> = new EventEmitter<CardDrop>();
 
   @Input() sourceName: string;
   @Input() allowedSources: string[] = [];
@@ -71,23 +61,6 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
     }
   }
 
-  getDropzones() {
-    return [this._dropzone];
-  }
-
-
-  itemDropped(dropEvent: CdkDragDrop<any>) {
-    const source = dropEvent.previousContainer.data;
-    const cardValue = dropEvent.item.data;
-
-    const event: CardDrop = {
-      source, cardValue
-    };
-
-    // console.log('itemDropped into a pile', event, event);
-    this.cardDropped.next(event);
-  }
-
 
   get displayCount() {
     return this._displayCount;
@@ -100,19 +73,6 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
     return this._cards[this._cards.length - 1];
   }
 
-  enterPredicate(cdkDrag: CdkDrag) {
-    const source = cdkDrag.dropContainer.data;
-
-    if (this.allowDrop || this._allowedSourcesCombined.indexOf(source) !== -1) {
-      return true;
-    }
-
-    return false;
-  }
-
   ngOnInit() {
-  }
-  constructor() {
-    this.enterPredicate = this.enterPredicate.bind(this);
   }
 }

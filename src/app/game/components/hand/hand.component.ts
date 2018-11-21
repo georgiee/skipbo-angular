@@ -11,15 +11,11 @@ const HAND_SIZE = 5;
   templateUrl: './hand.component.html',
   styleUrls: ['./hand.component.scss']
 })
-export class HandComponent implements CardZone {
+export class HandComponent {
   @Input() cards: Card[] = [];
   @ViewChild('dropzone') _dropzone: CdkDropList;
   @Input() canDragItemsToZones: CdkDropList[] = [];
   handSize = HAND_SIZE;
-
-  getDropzones() {
-    return [this._dropzone];
-  }
 
   getCard(index) {
     if ( index < this.cards.length) {

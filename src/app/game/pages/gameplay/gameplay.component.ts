@@ -18,8 +18,7 @@ export class GameplayComponent {
 
   constructor(
     private _gameService: GameService,
-    private _playerService: PlayerService,
-    private _router: Router
+    private _playerService: PlayerService
   ) {
     this._gameService.enableLogging();
     this.buildingGroup = this._gameService.buildingGroup;
@@ -30,15 +29,8 @@ export class GameplayComponent {
   }
 
   initPlayers() {
-    if (this._gameService.players.length === 0) {
-      this._playerService.addHumanPlayer();
-      this._playerService.addPlayerCPU('Player 1');
-      this._playerService.addPlayerCPU('Player 2');
-    }
-
-    this.opponentPlayers = this._playerService.getPlayers({cpu: true});
-    const humanPlayer = this._playerService.getPlayers({cpu: false});
-    this.player = humanPlayer[0];
+    this._playerService.addPlayerCPU();
+    this.player = this._playerService.addHumanPlayer();
   }
 
   start() {
