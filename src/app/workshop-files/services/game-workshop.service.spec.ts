@@ -11,7 +11,7 @@ const getDescriptor = (obj, name) => {
 describe('GameService (Workshop)', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [GameModule]
+      imports: []
     });
     service = TestBed.get(GameService);
   });
