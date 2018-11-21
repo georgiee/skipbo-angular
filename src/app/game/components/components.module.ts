@@ -11,7 +11,6 @@ import { PlayerComponent } from './player/player.component';
 import { StockPileComponent } from './stock-pile/stock-pile.component';
 import { CardComponent } from './card/card.component';
 import { CardImageComponent } from './card-image/card-image.component';
-import { CardSlotComponent } from './card-slot/card-slot.component';
 import { DeckComponent } from './deck/deck.component';
 import { PileComponent } from './pile/pile.component';
 import { PileGroupComponent } from './pile-group/pile-group.component';
@@ -31,7 +30,6 @@ const components = [
   StockPileComponent,
   CardComponent,
   CardImageComponent,
-  CardSlotComponent,
   DeckComponent,
   PileComponent,
   PileGroupComponent,

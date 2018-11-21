@@ -47,7 +47,7 @@ export class Player {
   }
 
   takeTurn() {
-    logger.info(`Player '${this.name}' takes turn`);
+    logger.group(`Player '${this.name}' takes turn`);
     // debugger;
     this._playing = true;
     this._turns++;
@@ -90,7 +90,7 @@ export class Player {
   }
 
   placeStockCard(pile: BuildingPile = null) {
-    const card = this.stock.top;
+    const card = this.stock ? this.stock.top : null;
     logger.info(`Place Stock Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
 
     assert(this.game.gameOver === false, `Game is over already`);
@@ -243,6 +243,9 @@ export class Player {
   }
 
   protected completeTurn() {
+    // close the logging group that we started with the turn
+    logger.groupEnd();
+
     this._playing = false;
     this._turnCompleted.next();
   }

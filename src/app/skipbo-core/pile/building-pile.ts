@@ -8,7 +8,7 @@ export enum PileRole {
 }
 
 export class BuildingPile extends AbstractPile {
-  constructor(pileNumber: number) {
+  constructor(pileNumber: number = 0) {
     super(PileRole.BUILDING, pileNumber);
   }
 

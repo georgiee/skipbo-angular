@@ -355,7 +355,7 @@ describe('Player', () => {
       expect(player.playing).toBeTruthy();
     });
 
-    it('complete turn by discarding a card', () => {
+    xit('complete turn by discarding a card', () => {
       player.takeTurn();
       player.discardHandCard();
       expect(player.playing).toBeFalsy();
@@ -367,7 +367,7 @@ describe('Player', () => {
       expect(fillSpy).toHaveBeenCalled();
     });
 
-    xit('refills hand when empty after placing a hand card', () => {
+    it('refills hand when empty after placing a hand card', () => {
       // draw only skipbo cards
       game.deck.drawSingleCard = () => Card.SkipBo;
 

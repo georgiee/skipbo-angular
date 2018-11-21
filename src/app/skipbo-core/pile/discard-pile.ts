@@ -2,7 +2,7 @@ import { AbstractPile, PileRole } from './pile-abstract';
 import { Card } from '../card';
 
 export class DiscardPile extends AbstractPile {
-  constructor(pileNumber: number) {
+  constructor(pileNumber: number = 0) {
     super(PileRole.DISCARDING, pileNumber);
   }
 

@@ -1,13 +1,25 @@
+@import '../../../styles/index';
+
+$maxCardsDisplayed: 8;
+
 :host {
   display: block;
+  max-width: 300px;
+  width: 100%;
+  padding-top: calc(#{$maxCardsDisplayed} * 3px);
+  position: relative;
 }
 
-$maxCardsDisplayed: 12;
+.slot {
+  background-image: url(/assets/placeholder.png);
+  padding-bottom: $card-ratio-percentage;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 .stack {
-  padding-bottom: percentage(752/500);
-  height: 0;
-  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 :host ::ng-deep .cdk-drag-placeholder,
@@ -22,6 +34,7 @@ $maxCardsDisplayed: 12;
     transform: translateY(#{$index * -3}px);
   }
 }
+
 
 :host ::ng-deep .cdk-drag-placeholder {
   z-index: 1;

@@ -40,7 +40,7 @@ export class PileComponent implements CardZone, OnInit, OnChanges {
     this._cards = value || [];
     // we only want to show the top card (otherwise people could cheat by peeking below)
     // displayCount can be used to adjust how many cards we want to show at max.
-    this._stackCardsCount = Math.min(this._cards.length, this.displayCount - 1);
+    this._stackCardsCount = Math.min(this._cards.length, this.displayCount) - 1;
   }
   get cards(): Card[] {
     return this._cards;

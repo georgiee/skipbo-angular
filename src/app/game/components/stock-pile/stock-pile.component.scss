@@ -4,7 +4,7 @@
 }
 
 .cards {
-  z-index: 2;
+  z-index: 1;
   position: relative;
   // padding-top: 40px;
 }
@@ -13,27 +13,16 @@
   z-index: 1;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -100%);
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  z-index: 2;
 }
 
 .counter {
   font-family: 'Lithos Pro';
-  background: #F5A623;
-  border-radius: 50%;
-  border: 2px #FFD004 solid;
-  width: 4vmax;
-  height: 4vmax;
-  font-size: 2vmax;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  @media screen and (min-width: 1200px) {
-    transform: translate(-50%, -80%);
-    font-size: 24px;
-    border: 5px #FFD004 solid;
-    width: 50px;
-    height: 50px;
-  }
+  background: rgba(#F5A623, 0.9);
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px;
+  padding-bottom: 2px;
 }
