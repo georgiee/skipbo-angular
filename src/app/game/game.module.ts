@@ -13,6 +13,9 @@ import { CardPileComponent } from './components/card-pile/card-pile.component';
   ],
   providers: [
     GameService
+  ],
+  exports: [
+    GameplayComponent
   ]
 })
 export class GameModule { }
