@@ -3,10 +3,19 @@
   [cards]='deck'>
 </skipbo-card-pile>
 
-<div class='actions'>
-  <button (click)="buildCard()" skipbo-button>build ➡️</button>
-  <button (click)="backToDeck()" skipbo-button>⬅️ back </button>
+<div class='actions' >
+  <button
+    *ngIf="started"
+    [disabled]="deck.length === 0"
+    (click)="buildCard()"
+    skipbo-button>build ➡️</button>
+  <button
+    *ngIf="started"
+    [disabled]="building.length === 0"
+    (click)="backToDeck()"
+    skipbo-button>⬅️ back </button>
 </div>
+
 <skipbo-card-pile
   [cards]='building'
   class="build">

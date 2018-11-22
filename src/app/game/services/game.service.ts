@@ -3,8 +3,9 @@ import { Card } from 'skipbo-core';
 
 @Injectable()
 export class GameService {
-  private _deck: Card[] = [1, 12, 3, -1, 5, 10, 6, 7, 8, -1];
+  private _deck: Card[] = [];
   private _building: Card[] = [];
+  private _started = false;
 
   constructor() { }
 
@@ -20,7 +21,13 @@ export class GameService {
     return null;
   }
 
+  get started() {
+    return this._started;
+  }
+
   start() {
+    this._deck = [1, 12, 3, -1, 5, 10, 6, 7, 8, -1];
+    this._started = true;
   }
 
   reset() {
