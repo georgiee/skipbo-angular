@@ -8,19 +8,20 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./gameplay.component.scss']
 })
 export class GameplayComponent implements OnInit {
-  get deck() {
-    return this.gameService.deck;
-  }
-
-  get building() {
-    return this.gameService.building;
-  }
 
   constructor(
     private gameService: GameService
   ) { }
 
   ngOnInit() {
+  }
+
+  get deck() {
+    return this.gameService.deck;
+  }
+
+  get building() {
+    return this.gameService.building;
   }
 
   backToDeck() {
