@@ -11,9 +11,15 @@ export class GameplayComponent implements OnInit {
 
   constructor(
     private gameService: GameService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    // start the game here
+  }
+
+  get started() {
+    return this.gameService.started;
   }
 
   get deck() {
