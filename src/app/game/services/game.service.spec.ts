@@ -8,43 +8,47 @@ const getDescriptor = (obj, name) => {
 };
 
 describe('GameService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [ GameModule ]
-  }));
-
-  it('should be created', () => {
-    const service: GameService = TestBed.get(GameService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ GameModule ]
+    });
   });
 
-  it('should not mutate deck card list', () => {
-    const service: GameService = TestBed.get(GameService);
-    const deckBefore = service.deck;
-    service.buildFromDeck();
-    const deckAfter = service.deck;
-
-    expect(deckBefore).not.toBe(deckAfter);
-  });
-
-  it('should not mutate build card list', () => {
-    const service: GameService = TestBed.get(GameService);
-    service.buildFromDeck();
-
-    const buildingBefore = service.building;
-    service.backToDeck();
-    const buildingAfter = service.building;
-
-    expect(buildingBefore).not.toBe(buildingAfter);
-  });
-
-
-describe('GameService (Workshop)', () => {
+  describe('game', () => {
     let service: GameService;
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [GameModule]
-      });
+      service = TestBed.get(GameService);
+      service.start();
+    });
 
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
+
+    it('should not mutate deck card list', () => {
+      const deckBefore = service.deck;
+      service.buildFromDeck();
+      const deckAfter = service.deck;
+
+      expect(deckBefore).not.toBe(deckAfter);
+    });
+
+    it('should not mutate build card list', () => {
+      service.buildFromDeck();
+
+      const buildingBefore = service.building;
+      service.backToDeck();
+      const buildingAfter = service.building;
+
+      expect(buildingBefore).not.toBe(buildingAfter);
+    });
+
+  });
+
+  describe('GameService (Workshop)', () => {
+    let service: GameService;
+
+    beforeEach(() => {
       service = TestBed.get(GameService);
     });
 
@@ -52,7 +56,7 @@ describe('GameService (Workshop)', () => {
       expect(getDescriptor(service, 'deck')).toBeTruthy();
     });
 
-    xit('deck returns an empty array', () => {
+    it('deck returns an empty array', () => {
       expect(Array.isArray(service.deck)).toBeTruthy();
       expect(service.deck.length).toBe(0);
     });
