@@ -60,7 +60,12 @@ a {
 //   outline:5px solid red;
 // }
 
-
+h1 {
+  font-size: 40px;
+  @media screen and (min-width: 800px) {
+    font-size: 60px;
+  }
+}
 
 h1, h2 {
   text-align: center;

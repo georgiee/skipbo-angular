@@ -9,6 +9,8 @@ import { UIModule } from '../ui/ui.module';
 import { GameoverComponent } from './pages/gameover/gameover.component';
 import { StartComponent } from './pages/start/start.component';
 import { RulebookComponent } from './pages/rulebook/rulebook.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,16 @@ import { RulebookComponent } from './pages/rulebook/rulebook.component';
   ],
   imports: [
     CommonModule,
-     UIModule
+    UIModule,
+    FormsModule,
+    RouterModule
   ],
   providers: [
     GameService
   ],
   exports: [
     GameplayComponent,
-    GameoverComponent
+    StartComponent
   ]
 })
 export class GameModule { }

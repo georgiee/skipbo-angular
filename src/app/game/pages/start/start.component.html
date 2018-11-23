@@ -1,3 +1,28 @@
+<h1 skipbo-headline>New Game</h1>
+
 <p>
-  start works!
+  Here you can prepare a new game. Two players are required with a maximum of 5 players.
 </p>
+
+<div>
+  <form #playerNameForm="ngForm">
+    <label>
+      Your name:
+      <input name='playerName' type="text" required [(ngModel)]="humanPlayerName">
+    </label>
+    <span class='hint'>
+      Here you can change your name. Default is 'You'. <br>
+    </span>
+  </form>
+</div>
+
+<div class="actions">
+  <button [disabled]="playerCount <= 1" class="button__remove" (click)="removePlayer()" skipbo-button>-</button>
+  <button [disabled]="playerCount >= 6"class="button__add"(click)="addPlayer()" skipbo-button>+</button>
+</div>
+
+<div class="player-count-info">
+  <span>There are currently {{playerCount}} player(s) including you.</span>
+</div>
+
+<button [disabled]="!canPlay()" skipbo-button class='button-start' (click)="start()">Start</button>

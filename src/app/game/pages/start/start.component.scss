@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  text-align: center;
+  max-width: 800px;
+}
+
+.actions {
+  margin-bottom: 20px;
+
+  button:not(:first-child) {
+    margin-left: 10px;
+  }
+}
+
+input {
+  font-size: 16px;
+  padding: 5px;
+  border: none;
+  text-align: center;
+}
+
+form {
+  background-image: linear-gradient(-180deg, #FFD305 0%, #FFA802 100%);
+  border: 5px solid #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  color: #000;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.hint{
+  display: block;
+}
+
+input.ng-invalid {
+  outline: 3px solid red;
+}
+
+.player-count-info {
+  margin-bottom: 30px;
+}

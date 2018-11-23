@@ -6,6 +6,7 @@ import { GameModule } from './game/game.module';
 import { GameService } from './game/services/game.service';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UIModule } from './ui/ui.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { UIModule } from './ui/ui.module';
     BrowserModule,
     BrowserAnimationsModule,
     GameModule,
-    UIModule
+    UIModule,
+    RouterModule.forRoot([])
   ],
   bootstrap: [AppComponent],
   schemas: []

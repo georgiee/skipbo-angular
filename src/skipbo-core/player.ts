@@ -201,6 +201,10 @@ export class Player {
     return this._stock;
   }
 
+  set name(value: string) {
+    this._name = value;
+  }
+
   get name(): string {
     return this._name;
   }

@@ -1,32 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Card, DiscardPile, BuildingPile } from 'skipbo-core';
+import { Card, DiscardPile, BuildingPile, Game, Player } from 'skipbo-core';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
+  private _game: Game;
 
-  constructor() { }
-
-
-  addPlayerCPU() {
+  constructor(
+    private _gameService: GameService
+  ) {
+    this._game = _gameService.game;
   }
 
-  addHumanPlayer() {
+  get playerCount() {
+    return this._game.players.length;
   }
 
-  getPlayers() {
+  addPlayerCPU(name: string = null) {
+    return this._game.createPlayer(name, { cpu: true });
   }
 
-  discardHandCard() {
+  addHumanPlayer(name: string = null) {
+    return this._game.createPlayer(name, { cpu: false });
   }
 
-  placeHandCard() {
+  removePlayer() {
+    this._game.removePlayer();
   }
 
-  placeStockCard() {
+  getPlayers({cpu = false}) {
+    return this._game.players.filter(player => player.cpu === cpu);
   }
 
-  placeDiscardCard() {
+  get currentPlayer(): Player {
+    return this._game.currentPlayer;
+  }
+
+  discardHandCard(card: Card, pile: DiscardPile) {
+    this.currentPlayer.discardHandCard(card, pile);
+  }
+
+  placeHandCard(card: Card, pile: BuildingPile) {
+    this.currentPlayer.placeHandCard(card, pile);
+  }
+
+  placeStockCard(pile: BuildingPile) {
+    this.currentPlayer.placeStockCard(pile);
+  }
+
+  placeDiscardCard(card: Card, pile: BuildingPile) {
+    this.currentPlayer.placeDiscardCard(card, pile);
   }
 }

@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Card } from 'skipbo-core';
+import { Card, Game, Player } from 'skipbo-core';
 
 @Injectable()
 export class GameService {
   private _deck: Card[] = [];
   private _building: Card[] = [];
   private _started = false;
+  private _game: Game;
 
-  constructor() { }
+  constructor(
+  ) {
+    this._game = new Game();
+  }
+  get ready() {
+    return this._game.players.length >= 2;
+  }
 
   get deck(): Card[] {
     return this._deck;
@@ -17,8 +24,8 @@ export class GameService {
     return this._building;
   }
 
-  get game() {
-    return null;
+  get game(): Game {
+    return this._game;
   }
 
   get started() {
@@ -28,6 +35,7 @@ export class GameService {
   start() {
     this._deck = [1, 12, 3, -1, 5, 10, 6, 7, 8, -1];
     this._started = true;
+    this._game.start();
   }
 
   reset() {
@@ -55,4 +63,7 @@ export class GameService {
     this._building = [ ...this.building ];
   }
 
+  enableLogging() {
+    this._game.enableLogging();
+  }
 }
