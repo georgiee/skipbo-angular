@@ -20,7 +20,8 @@ export class PlayerService {
   }
 
   addPlayerCPU(name: string = null) {
-    return this._game.createPlayer(name, { cpu: true });
+    const player = this._game.createPlayer(name, { cpu: true });;
+    return player;
   }
 
   addHumanPlayer(name: string = 'You') {

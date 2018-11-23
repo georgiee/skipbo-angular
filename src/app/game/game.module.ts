@@ -37,7 +37,6 @@ import { PlayerComponent } from './components/player/player.component';
     GameRoutingModule
   ],
   providers: [
-    GameService
   ],
   exports: [
 
