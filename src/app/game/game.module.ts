@@ -22,7 +22,8 @@ import { RulebookComponent } from './pages/rulebook/rulebook.component';
     GameService
   ],
   exports: [
-    GameplayComponent
+    GameplayComponent,
+    RulebookComponent
   ]
 })
 export class GameModule { }
