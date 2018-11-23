@@ -8,7 +8,7 @@ import { RulebookComponent } from './pages/rulebook/rulebook.component';
 
 export const routes: Routes = [
   {
-    path: 'game', component: GameComponent,
+    path: '', component: GameComponent,
     children: [
       {
         path: '', redirectTo: 'start', pathMatch: 'full'

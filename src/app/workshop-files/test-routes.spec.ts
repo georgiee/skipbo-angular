@@ -26,7 +26,7 @@ import { GameoverComponent } from '../game/pages/gameover/gameover.component';
 import { GameplayComponent } from '../game/pages/gameplay/gameplay.component';
 import { FormsModule } from '@angular/forms';
 
-describe('workshop routing', () => {
+xdescribe('workshop routing', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

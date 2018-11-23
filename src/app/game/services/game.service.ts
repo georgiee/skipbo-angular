@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Card, Game } from 'skipbo-core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class GameService {
   private _deck: Card[] = [];
   private _building: Card[] = [];
