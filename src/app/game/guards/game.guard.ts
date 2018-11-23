@@ -18,7 +18,6 @@ export class GameGuard implements CanActivate, CanDeactivate<GameplayComponent> 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('canActivate');
       if (this._gameService.started === false) {
         this._router.navigateByUrl('/welcome');
         return false;
@@ -27,13 +26,8 @@ export class GameGuard implements CanActivate, CanDeactivate<GameplayComponent> 
       return true;
   }
 
-  canDeactivate(component: GameplayComponent): boolean | Observable<boolean> {
-      if (component.canLeave()) {
-        return true;
-      } else {
-        const confirmation = window.confirm('Your game is not finished — do you still want to leave?');
-        return of(confirmation);
-      }
+  canDeactivate(component: GameplayComponent): boolean {
+    return false;
   }
 
 }
