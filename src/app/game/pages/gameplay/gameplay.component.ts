@@ -46,7 +46,7 @@ export class GameplayComponent implements OnInit {
     }
   }
 
-  canLeave() {
+  canUserLeave() {
     return this._gameOver;
   }
 }

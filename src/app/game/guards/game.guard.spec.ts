@@ -70,4 +70,42 @@ describe('GameGuard', () => {
     }));
   });
 
+  describe('CanDectivate', () => {
+
+    it('should call canUserLeave in GameplayComponent', inject([GameGuard, GameService], (guard: GameGuard, gameService: GameService) => {
+      const componentSpy = jasmine.createSpyObj('GameplayComponent', {
+        'canUserLeave': true
+      });
+
+      guard.canDeactivate(componentSpy);
+
+      expect(componentSpy.canUserLeave).toHaveBeenCalled();
+    }));
+
+    it('should allow leave when canUserLeave is true',
+      inject([GameGuard], (guard: GameGuard) => {
+      const componentSpy = jasmine.createSpyObj('GameplayComponent', {
+        'canUserLeave': true
+      });
+
+      expect(guard.canDeactivate(componentSpy)).toBeTruthy();
+      expect(componentSpy.canUserLeave).toHaveBeenCalled();
+    }));
+
+    it('should show window confirm dialog when canUserLeave is false',
+      inject([GameGuard], (guard: GameGuard) => {
+      const componentSpy = jasmine.createSpyObj('GameplayComponent', {
+        'canUserLeave': false
+      });
+
+      spyOn(window, 'confirm').and.returnValue(true);
+
+      const canDeactivateResult = guard.canDeactivate(componentSpy);
+
+      expect(canDeactivateResult).toBe(true);
+      expect(window.confirm).toHaveBeenCalled();
+      expect(componentSpy.canUserLeave).toHaveBeenCalled();
+    }));
+  });
+
 });
