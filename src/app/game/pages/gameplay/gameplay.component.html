@@ -1,33 +1,22 @@
-<div class="gameplay" >
-  <div class="gameplay__opponents">
-    You have {{opponentPlayers.length}} opponent players!
-    <div *ngFor="let opponent of opponentPlayers">
+<skipbo-card-pile
+  class="deck"
+  [cards]='deck'>
+</skipbo-card-pile>
 
-    </div>
-    <ng-container *ngIf="currentPlayer.isCPU">
-      <button skipbo-button condensed="true" (click)="autoplayForOpponent()">autoplay turn for {{currentPlayer.name}}</button>
-    </ng-container>
-  </div>
-
-  <div class='gameplay__game game'>
-    <skipbo-card-pile
-      class="game__deck"
-      [cards]="deck.cards">
-    </skipbo-card-pile>
-
-    <skipbo-pile-group
-      class="game__building"
-      [group]="buildingGroup">
-    </skipbo-pile-group>
-  </div>
-
-  <skipbo-player
-    (stock)="playStock()"
-    (hand)="playHand()"
-    (playDiscard)="playDiscard()"
-    (discard)="discardHand()"
-    class="gameplay__player"
-    [player]="player">
-  </skipbo-player>
+<div class='actions' >
+  <button
+    *ngIf="started"
+    [disabled]="deck.length === 0"
+    (click)="buildCard()"
+    skipbo-button>build ➡️</button>
+  <button
+    *ngIf="started"
+    [disabled]="building.length === 0"
+    (click)="backToDeck()"
+    skipbo-button>⬅️ back </button>
 </div>
 
+<skipbo-card-pile
+  [cards]='building'
+  class="build">
+</skipbo-card-pile>
