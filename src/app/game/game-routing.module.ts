@@ -19,7 +19,8 @@ export const routes: Routes = [
       },
       {
         path: 'play', component: GameplayComponent,
-        canActivate: [ GameGuard ]
+        canActivate: [ GameGuard ],
+        canDeactivate: [ GameGuard ]
       },
       {
         path: 'gameover', component: GameoverComponent

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./gameplay.component.scss']
 })
 export class GameplayComponent implements OnInit {
+  private _gameOver = false;
 
   constructor(
     private gameService: GameService,
@@ -18,6 +19,7 @@ export class GameplayComponent implements OnInit {
 
   ngOnInit() {
     this.gameService.start();
+    this._gameOver = false;
   }
 
   get started() {
@@ -39,7 +41,12 @@ export class GameplayComponent implements OnInit {
   buildCard() {
     this.gameService.buildFromDeck();
     if (this.deck.length === 0) {
+      this._gameOver = true;
       this.router.navigateByUrl('/game/gameover');
     }
+  }
+
+  canLeave() {
+    return this._gameOver;
   }
 }
