@@ -11,6 +11,5 @@ export class AppComponent {
   constructor(
     public gameService: GameService
   ) {
-    console.log('deck: ', this.gameService.deck);
   }
 }

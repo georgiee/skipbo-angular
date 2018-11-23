@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 
 
 
-describe('CardFaceComponent', () => {
+xdescribe('CardFaceComponent', () => {
   let component: BaseTestComponent;
   let fixture: ComponentFixture<BaseTestComponent>;
 

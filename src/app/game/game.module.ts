@@ -40,7 +40,7 @@ import { PlayerComponent } from './components/player/player.component';
     GameService
   ],
   exports: [
-    GameplayComponent
+
   ]
 })
 export class GameModule { }
