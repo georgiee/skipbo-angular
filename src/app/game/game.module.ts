@@ -11,23 +11,36 @@ import { StartComponent } from './pages/start/start.component';
 import { RulebookComponent } from './pages/rulebook/rulebook.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { GameRoutingModule } from './game-routing.module';
+import { GameComponent } from './pages/game/game.component';
+import { PileGroupComponent } from './components/pile-group/pile-group.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
-    GameplayComponent, CardComponent, CardFaceComponent, CardPileComponent, GameoverComponent, StartComponent, RulebookComponent
+    GameplayComponent,
+    CardComponent,
+    CardFaceComponent,
+    CardPileComponent,
+    GameoverComponent,
+    StartComponent,
+    RulebookComponent,
+    GameComponent,
+    PileGroupComponent,
+    PlayerComponent
   ],
   imports: [
     CommonModule,
     UIModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    GameRoutingModule
   ],
   providers: [
     GameService
   ],
   exports: [
-    GameplayComponent,
-    StartComponent
+    GameplayComponent
   ]
 })
 export class GameModule { }

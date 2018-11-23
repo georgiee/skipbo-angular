@@ -44,7 +44,7 @@ export class StartComponent implements OnInit {
   start() {
     this._humanPlayer.name = this.humanPlayerName;
     this._gameService.start();
-    // this._router.navigateByUrl('/game/gameplay');
+    this._router.navigateByUrl('/game/play');
   }
 
   canPlay() {

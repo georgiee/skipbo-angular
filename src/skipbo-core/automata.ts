@@ -111,6 +111,7 @@ export class Automata {
   }
 
   playTurn(delaySteps = 250): Observable<any> {
+    console.log('playTurn')
     // this._running = true;
 
     // logger.groupCollapsed('Automata Playing Turn');
@@ -148,6 +149,7 @@ export class Automata {
       takeWhile(cardPlayed => cardPlayed === true),
       last(),
       tap(result => {
+        console.log('done')
         player.discardHandCard();
         // this._running = false;
         // logger.groupEnd();

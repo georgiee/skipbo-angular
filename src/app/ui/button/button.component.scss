@@ -18,4 +18,9 @@
   &[disabled]{
     background: #aaa;
   }
+
+  &.condensed{
+    font-size: 2rem;
+    padding: 5px 5px;
+  }
 }

@@ -13,6 +13,8 @@ export class CardPileComponent {
   private _cards: Card[] = [];
   _stackCardsCount = 0;
 
+  @Input() autoRevealCard = false;
+
   @Input()
   set cards (value: Card[]) {
     this._cards = value || [];

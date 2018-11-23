@@ -1,0 +1,26 @@
+<span class="player__name">Hello {{player.name}}!</span>
+
+<div class='hand'>
+  <skipbo-card
+    *ngFor="let cardIndex of handSize|times"
+    [value]="getHandCard(cardIndex - 1)" [revealed]="true">
+  </skipbo-card>
+</div>
+
+<skipbo-pile-group
+  class="player__discard"
+  [group]="player.discardGroup">
+</skipbo-pile-group>
+
+<skipbo-card-pile
+  autoRevealCard="true"
+  class="player__stock"
+  [cards]="player.stock.cards">
+</skipbo-card-pile>
+
+<div class="actions">
+  <button skipbo-button condensed="true" (click)="stock.emit()">play stock</button>
+  <button skipbo-button condensed="true" (click)="hand.emit()">play hand</button>
+  <button skipbo-button condensed="true" (click)="playDiscard.emit()">play discard</button>
+  <button skipbo-button condensed="true" (click)="discard.emit()">discard</button>
+</div>

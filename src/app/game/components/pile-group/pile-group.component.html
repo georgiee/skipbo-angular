@@ -1,0 +1,7 @@
+<div class='group-holder'>
+  <skipbo-card-pile
+    autoRevealCard="true"
+    *ngFor="let pile of group"
+    [cards]="pile.cards | async">
+  </skipbo-card-pile>
+</div>

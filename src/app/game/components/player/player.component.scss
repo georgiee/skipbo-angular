@@ -1,0 +1,62 @@
+:host {
+  position: relative;
+  padding-top: 20px;
+
+  grid-area: player;
+  max-width: 70vmax;
+  justify-self: center;
+
+  display: grid;
+  grid-template:
+  "hand discard stock"
+  "action action action";
+  grid-template-columns: minmax(150px, 1fr) minmax(200px, 4fr) minmax(50px, 1fr);
+  grid-gap: 50px;
+  align-items: center;
+
+  outline: 5px solid #fff;
+  padding: 20px;
+}
+
+
+:host.have-turn {
+  outline: 5px solid hotpink;
+}
+
+
+.player__hand {
+  // grid-column-start: hand;
+  grid-area: hand;
+}
+
+.player__discard {
+  // grid-column-start: discard;
+  // grid-row-start: 2;
+  justify-self: center;
+  grid-area: discard;
+}
+
+.player__stock {
+  grid-area: stock;
+}
+
+.player__name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-family: 'Lithos Pro';
+  padding: 5px;
+}
+
+.hand {
+  display: flex;
+}
+
+.actions {
+  grid-area: action;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+}

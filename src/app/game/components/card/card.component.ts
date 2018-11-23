@@ -14,15 +14,7 @@ export class CardComponent implements OnInit {
   get currentFace() {
     return this.revealed ? this.value : Card.Back;
   }
-  constructor(
-    @Host() @Optional() pile: CardPileComponent
-  ) {
-
-    if (pile) {
-      console.log('Card says: My parent pile is', pile);
-    } else {
-      console.log('Card says: I have no parent pile');
-    }
+  constructor() {
   }
 
   ngOnInit() {
