@@ -58,7 +58,7 @@ describe('workshop routing', () => {
     fixture = TestBed.createComponent(AppComponent);
   }));
 
-  describe('application routing', () => {
+  describe('application routing (app-routing.module)', () => {
     it('navigate to "" redirects you to /welcome', fakeAsync(() => {
       fixture.ngZone.run(() => router.navigate(['']));
       tick();
@@ -74,7 +74,7 @@ describe('workshop routing', () => {
   });
 
 
-  describe('game routing', () => {
+  describe('game routing (game-routing.module)', () => {
     it('navigate to "/game" redirects you to /game/start', fakeAsync(() => {
       fixture.ngZone.run(() => router.navigate(['/game']));
       tick();
