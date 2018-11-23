@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { GameModule } from './game/game.module';
-import { GameService } from './game/services/game.service';
 
 @NgModule({
   declarations: [
@@ -11,8 +9,7 @@ import { GameService } from './game/services/game.service';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    GameModule
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })
