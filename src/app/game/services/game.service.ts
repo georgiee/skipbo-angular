@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Card, Game, Player, Deck, PileGroup, BuildingPile, Automata } from 'skipbo-core';
+import { Automata, BuildingPile, Deck, Game, PileGroup } from 'skipbo-core';
 
 @Injectable({
   providedIn: 'root'

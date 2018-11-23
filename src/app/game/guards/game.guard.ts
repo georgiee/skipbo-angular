@@ -26,9 +26,13 @@ export class GameGuard implements CanActivate, CanDeactivate<GameplayComponent> 
       return true;
   }
 
-  canDeactivate(component: GameplayComponent): boolean {
-    // use window.confirm & component.canUserLeave() to properly test the deactivation
-    return false;
+  canDeactivate(component: GameplayComponent): boolean | Observable<boolean> {
+      if (component.canUserLeave()) {
+        return true;
+      } else {
+        const confirmation = window.confirm('Your game is not finished — do you still want to leave?');
+        return confirmation;
+      }
   }
 
 }
