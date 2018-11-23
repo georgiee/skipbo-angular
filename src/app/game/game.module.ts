@@ -23,7 +23,7 @@ import { RulebookComponent } from './pages/rulebook/rulebook.component';
   ],
   exports: [
     GameplayComponent,
-    RulebookComponent
+    GameoverComponent
   ]
 })
 export class GameModule { }

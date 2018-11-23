@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gameover.component.scss']
 })
 export class GameoverComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+  }
+
+  get winnerName(): string {
+    return 'Player Unknown';
   }
 
 }
