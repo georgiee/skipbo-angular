@@ -13,6 +13,7 @@ export class PlayerService {
     private _gameService: GameService
   ) {
     this._game = _gameService.game;
+    this._automata = _gameService.automata;
   }
 
   get playerCount() {
@@ -20,8 +21,7 @@ export class PlayerService {
   }
 
   addPlayerCPU(name: string = null) {
-    const player = this._game.createPlayer(name, { cpu: true });;
-    return player;
+    return this._game.createPlayer(name, { cpu: true });
   }
 
   addHumanPlayer(name: string = 'You') {
@@ -38,6 +38,22 @@ export class PlayerService {
 
   get currentPlayer(): Player {
     return this._game.currentPlayer;
+  }
+
+  discardHandCard(card: Card = null, pile: DiscardPile = null) {
+    this.currentPlayer.discardHandCard(card, pile);
+  }
+
+  placeHandCard(card: Card = null, pile: BuildingPile = null) {
+    this.currentPlayer.placeHandCard(card, pile);
+  }
+
+  placeStockCard(pile: BuildingPile = null) {
+    this.currentPlayer.placeStockCard(pile);
+  }
+
+  placeDiscardCard(card: Card = null, pile: BuildingPile = null) {
+    this.currentPlayer.placeDiscardCard(card, pile);
   }
 
   autoplayTurn() {
