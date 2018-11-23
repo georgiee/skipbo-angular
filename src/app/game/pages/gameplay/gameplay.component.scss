@@ -1,35 +1,24 @@
 :host {
-  display: block;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  justify-items: center;
+  align-items: center;
   padding: 20px;
-  width: 100vw;
 }
 
-.game {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 50px;
-}
-.gameplay {
-  display: grid;
-
-  grid-template:
-    "opponents"
-    "game"
-    "player";
-
-  grid-template-rows: auto 1fr fr;
-  grid-row: 100%;
-  grid-row-gap: 40px;
+skipbo-card-pile {
+  width: 100%;
 }
 
-.gameplay__opponents {
-  grid-area: opponents;
-}
+.actions {
+  button {
+    margin: auto;
+  }
 
-.gameplay__game {
-  grid-area: game;
-}
-
-.gameplay__player {
-  grid-area: player;
+  button:not(:first-child) {
+    display: block;
+    margin-top: 10px;
+  }
 }

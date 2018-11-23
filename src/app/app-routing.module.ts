@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { GameModule } from './game/game.module';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '', redirectTo: 'welcome', pathMatch: 'full'
   },
@@ -14,8 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    GameModule,
-    RouterModule.forRoot(routes, {useHash: true})],
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

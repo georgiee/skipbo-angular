@@ -9,20 +9,4 @@ describe('PlayerService', () => {
       GameService
     ]
   }));
-
-  it('should be created', () => {
-    const service: PlayerService = TestBed.get(PlayerService);
-    expect(service).toBeTruthy();
-  });
-
-
-  describe('PlayerService (Workshop)', () => {
-    let service: PlayerService;
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({});
-      service = TestBed.get(PlayerService);
-    });
-  });
-
 });

@@ -3,8 +3,6 @@ import { Game } from './game';
 import { getFullTestDeck } from './testdeck';
 import { Card } from './card';
 import { BuildingPile } from './pile/building-pile';
-import { PlatformRef } from '@angular/core';
-import { executeInitAndContentHooks } from '@angular/core/src/render3/instructions';
 
 let player: Player;
 let game: Game;
