@@ -105,5 +105,4 @@ xdescribe('workshop routing', () => {
       expect(fixture.nativeElement.querySelector('skipbo-gameplay')).toBeTruthy();
     }));
   });
-
 });

@@ -56,18 +56,6 @@ describe('GameGuard', () => {
       expect(guard.canActivate(null, null)).toBeTruthy();
       expect(startedSpy).toHaveBeenCalled();
     }));
-
-    it('should redirect to welcome when the route is rejected',
-      inject([GameGuard, GameService, Router],
-          (guard: GameGuard, gameService: GameService, router: Router) => {
-      const startedSpy = spyOnProperty(gameService, 'started').and.callThrough();
-      const navigateSpy = spyOn(router, 'navigateByUrl');
-
-      expect(guard.canActivate(null, null)).toBeFalsy();
-
-      expect(startedSpy).toHaveBeenCalled();
-      expect(navigateSpy).toHaveBeenCalledWith('/welcome');
-    }));
   });
 
 });
