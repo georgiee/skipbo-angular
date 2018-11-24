@@ -22,6 +22,14 @@ const defaultOptions: PlayerOptions = {
 };
 
 
+
+export enum PlayerAction {
+  PLAY_STOCK = 1,
+  PLAY_HAND,
+  PLAY_DISCARD,
+  DISCARD
+}
+
 export class Player {
   discardGroup: PileGroup<DiscardPile> = new PileGroup('discardGroup');
   private _hand: Hand = new Hand(HAND_LIMIT);
@@ -51,7 +59,7 @@ export class Player {
   }
 
   takeTurn() {
-    logger.group(`Player '${this.name}' takes turn (${this.stock.count}, ${this.hand.count})`);
+    logger.info(`Player '${this.name}' takes turn (${this.stock.count}, ${this.hand.count})`);
     // debugger;
     this._playing = true;
     this._turns++;
@@ -60,8 +68,52 @@ export class Player {
     // this.checkWinner();
   }
 
+
+  get winnerChange() {
+    return this._winnerSubject.asObservable();
+  }
+
+  checkWinner() {
+    if (this.isWinner()) {
+      this._winnerSubject.next(this);
+      this._winnerSubject.complete();
+    }
+  }
+
+  isWinner(): boolean {
+    return this.stock.count === 0 && this._turns > 0;
+  }
+
+  autoPlaceAction(action: PlayerAction) {
+    let result = false;
+
+    try {
+      switch (action) {
+        case PlayerAction.PLAY_STOCK:
+          result = this.placeStockCard();
+          break;
+        case PlayerAction.PLAY_HAND:
+          result = this.placeHandCard();
+          break;
+        case PlayerAction.PLAY_DISCARD:
+          result = this.placeDiscardCard();
+          break;
+      }
+    } catch (Error) {
+      // Auto Place failed at this point
+    }
+
+    if (result) {
+      logger.info(`--> Success 💪`);
+    } else {
+      logger.info(`--> Failed 🚫`);
+    }
+
+    return result;
+  }
+
   placeHandCard(card: Card = null, pile: BuildingPile = null) {
-    logger.info(`Place Hand Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+    logger.info(`Try to place Hand Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
 
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
@@ -96,7 +148,7 @@ export class Player {
 
   placeStockCard(pile: BuildingPile = null) {
     const card = this.stock ? this.stock.top : null;
-    logger.info(`Place Stock Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+    logger.info(`Try to place Stock Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
 
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
@@ -117,28 +169,11 @@ export class Player {
 
     this.game.clearBuildingPiles();
     this.checkWinner();
-
     return true;
   }
 
-  get winnerChange() {
-    return this._winnerSubject.asObservable();
-  }
-
-  checkWinner() {
-    if (this.isWinner()) {
-      logger.info(`Player ${this} has won`);
-      this._winnerSubject.next(this);
-      this._winnerSubject.complete();
-    }
-  }
-
-  isWinner(): boolean {
-    return this.stock.count === 0 && this._turns > 0;
-  }
-
   placeDiscardCard(card: Card = null, pile: BuildingPile = null) {
-    logger.info(`Place Discard Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
+    logger.info(`Try to place Discard Card ${card} into building pile ${pile ? pile.pileNumber : '"auto"'} `);
 
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
@@ -167,7 +202,7 @@ export class Player {
   }
 
   discardHandCard(card: Card = null, pile: DiscardPile = null) {
-    logger.info(`Discard Hand Card ${card} into pile ${pile ? pile.pileNumber : '"auto"'} `);
+    logger.info(`Try to discard Hand Card ${card} into pile ${pile ? pile.pileNumber : '"auto"'} `);
 
     assert(this.game.gameOver === false, `Game is over already`);
     assert(this.playing, `Can't play if it's not your turn`);
@@ -188,7 +223,6 @@ export class Player {
     }
 
     this.completeTurn();
-
     return true;
   }
 
@@ -259,7 +293,7 @@ export class Player {
 
   protected completeTurn() {
     // close the logging group that we started with the turn
-    logger.groupEnd();
+    // logger.groupEnd();
 
     this._playing = false;
     this._turnCompleted.next();

@@ -38,3 +38,20 @@
 .gameplay__player {
   grid-area: player;
 }
+
+
+.gameover {
+  opacity: 0.5;
+}
+
+.completed-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid hotpink;
+  background-color: rgba(#ffffff, 0.9);
+  color: #000;
+  padding: 20px;
+  text-align: center;
+}

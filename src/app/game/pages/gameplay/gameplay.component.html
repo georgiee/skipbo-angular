@@ -1,4 +1,4 @@
-<div class="gameplay" >
+<div class="gameplay" [class.gameover]="gameEnded$ | async" >
   <div class="gameplay__opponents">
     You have {{opponentPlayers.length}} opponent players!
     <div
@@ -9,7 +9,7 @@
       ({{opponent.hand.count}} in hand)
     </div>
 
-    <ng-container *ngIf="currentPlayer.isCPU">
+    <ng-container *ngIf="currentPlayer && currentPlayer.isCPU">
       <button skipbo-button condensed="true" (click)="autoplayForOpponent()">autoplay turn for {{currentPlayer.name}}</button>
     </ng-container>
   </div>
@@ -36,3 +36,7 @@
   </skipbo-player>
 </div>
 
+<div class="completed-message" *ngIf="gameEnded$ | async">
+  <p>Game is done!</p>
+  <button skipbo-button routerLink="/game/gameover">Show Game Over</button>
+</div>

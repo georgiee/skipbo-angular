@@ -76,7 +76,7 @@ export class Automata {
     .pipe(
       expand((value) => this.playTurn(delaySteps)),
       takeUntil(abortSignal),
-      takeUntil(this.game.gameOverObservable)
+      takeUntil(this.game.gameOver$)
     ).subscribe(
       () => {
           // console.log('automata turn done')

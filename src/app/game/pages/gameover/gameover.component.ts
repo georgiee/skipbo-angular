@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'skipbo-gameover',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gameover.component.scss']
 })
 export class GameoverComponent implements OnInit {
-  constructor() { }
+  winner$;
+
+  constructor(
+    private _gameService: GameService
+  ) { }
 
   ngOnInit() {
+    this.winner$ = this._gameService.winner$;
+    this._gameService.reset();
   }
 
   get winnerName(): string {

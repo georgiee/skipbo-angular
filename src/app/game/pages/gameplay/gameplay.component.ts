@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'skipbo-gameplay',
   templateUrl: './gameplay.component.html',
   styleUrls: ['./gameplay.component.scss']
 })
-export class GameplayComponent {
+export class GameplayComponent implements OnDestroy {
   public buildingGroup: PileGroup<BuildingPile>;
   public opponentPlayers: Player[] = [];
 
   public player: Player;
   public deck: Deck;
+
+  gameEnded$: Observable<boolean>;
 
   constructor(
     private _gameService: GameService,
@@ -23,9 +26,14 @@ export class GameplayComponent {
     this._gameService.enableLogging();
     this.buildingGroup = this._gameService.building;
     this.deck = this._gameService.deck;
+    this.gameEnded$ = this._gameService.gameEnded$;
 
     this.initPlayers();
     this.start();
+  }
+
+  ngOnDestroy(): void {
+    // this._gameService.reset();
   }
 
   initPlayers() {

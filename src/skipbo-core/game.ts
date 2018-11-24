@@ -7,6 +7,7 @@ import { BuildingPile } from './pile/building-pile';
 import { PileGroup } from './pile/pile-group';
 import { Player, PlayerOptions } from './player';
 import { assert } from './utils';
+import { takeUntil, first } from 'rxjs/operators';
 
 export const STOCK_CARD_COUNT_SMALL_GAME = 30;
 export const STOCK_CARD_COUNT_LARGE_GAME = 20;
@@ -30,8 +31,10 @@ export class Game {
   private _turnCounter = 0;
   private _gameOver = false;
   private _winner: Player;
+  private _winnerSubject: Subject<Player> = new Subject();
   private _nextTurn: Subject<any> = new Subject<any>();
   readonly _gameOverSubject: Subject<any> = new Subject();
+  readonly _abortSubject: Subject<any> = new Subject();
   readonly _playersSubject: Subject<Player[]> = new BehaviorSubject([]);
   private _customStockCardCount = null;
 
@@ -42,12 +45,20 @@ export class Game {
 
     this.createBuildingPiles();
   }
+
   public get nextTurn() {
     return this._nextTurn.asObservable();
   }
 
   reset() {
+    console.log('reset game')
+    if (this._started) {
+      this._abortSubject.next();
+    }
+
     this._players.reset();
+    this._playersSubject.next([...this.players]);
+
     this._winner = null;
     this._started = false;
     this._gameOver = false;
@@ -55,9 +66,9 @@ export class Game {
     this._currentPlayer = null;
     this._completedCards = [];
 
-    this._gameOverSubject.next();
     this.deck.reset();
     this.buildingGroup.reset();
+    this._nextTurn.complete();
   }
 
   get players$() {
@@ -76,12 +87,12 @@ export class Game {
     return this._gameOver;
   }
 
-  get gameOverObservable() {
+  get gameOver$() {
     return this._gameOverSubject.asObservable();
   }
 
-  get gameOver$() {
-    return this._gameOverSubject.asObservable();
+  get abort$() {
+    return this._abortSubject.asObservable();
   }
 
   get started() {
@@ -146,17 +157,26 @@ export class Game {
     logger.enable();
   }
 
-  get winnerChanges() {
-    return merge(...this.players.map(player => player.winnerChange));
+  get winner$() {
+    return this._winnerSubject;
   }
 
   susbcribeForWinner() {
-    this._gameOverSubject.subscribe(() => {
+
+    this._gameOverSubject.pipe(first()).subscribe(() => {
       this._gameOver = true;
       this._winner = this.players.find(player => player.isWinner());
+      this._winnerSubject.next(this._winner);
     });
 
-    this.winnerChanges.pipe().subscribe(this._gameOverSubject);
+    merge(...this.players.map(player => player.winnerChange)).pipe(
+      takeUntil(this.gameOver$)
+    ).subscribe((player) => {
+      this._winnerSubject.next(player);
+    });
+
+    this._winnerSubject.subscribe(this._gameOverSubject);
+    // this.winner$.pipe().subscribe(this._gameOverSubject);
   }
 
   start() {
@@ -166,10 +186,10 @@ export class Game {
     assert(this._started === false, 'The game is already running');
     assert(this._gameOver === false, 'The game is already completed');
 
-    this.susbcribeForWinner();
     this._started = true;
-    this.players[0].checkWinner();
+    // this.players[0].checkWinner();
 
+    this.susbcribeForWinner();
     this.deck.shuffle();
     this.dealStockCards();
     this.nextPlayer();

@@ -48,16 +48,15 @@ export function getTwoPlayerTestGame() {
 }
 
 
-export function gerateSkipboOnlyGameTwoPlayers() {
-  const stockCardsCount = 30;
+export function gerateSkipboOnlyGameTwoPlayers(stockCount = 30) {
   const deckSize = 100;
  // Create a deck we know so we can test it properly
-  const stockPlayer1 = [...Array.from(Array(stockCardsCount)).map(() => -1)];
-  const stockPlayer2 = [...Array.from(Array(stockCardsCount)).map(() => -1)];
+  const stockPlayer1 = [...Array.from(Array(stockCount)).map(() => -1)];
+  const stockPlayer2 = [...Array.from(Array(stockCount)).map(() => -1)];
   const deck = Array.from(Array(deckSize)).map(() => -1);
 
   const stockCards = interleaveArrays(stockPlayer1.reverse(), stockPlayer2.reverse()).reverse();
-  const game = new Game([...deck, ...stockCards], {stockCardCount: stockCardsCount, shuffle: false});
+  const game = new Game([...deck, ...stockCards], {stockCardCount: stockCount, shuffle: false});
 
   return game;
 }

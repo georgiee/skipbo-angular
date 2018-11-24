@@ -1,9 +1,10 @@
-import { Game, Player } from 'skipbo-core';
-import { of, merge, pipe, Observable, fromEvent, throwError, combineLatest, Observer, interval } from 'rxjs';
-import { tap, switchMap, mergeMap, filter, map, mergeAll, delay, takeWhile, takeUntil, catchError, first, endWith, take, toArray, mapTo } from 'rxjs/operators';
+import { Game, Player, PlayerAction } from 'skipbo-core';
+import { of, merge, pipe, Observable, fromEvent, throwError, combineLatest, Observer, interval, Subject } from 'rxjs';
+import { tap, switchMap, mergeMap, filter, map, mergeAll, delay, takeWhile, takeUntil, catchError, first, endWith, take, toArray, mapTo, distinctUntilChanged, withLatestFrom, last, defaultIfEmpty, takeLast } from 'rxjs/operators';
 
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators/tag';
+import { logger } from 'src/skipbo-core/logger';
 
 createSpy().log();
 
@@ -36,15 +37,13 @@ const nextPlayerTurn2 = pipe(
 );
 
 export class SkipboAi {
+
+  watch() {
+    console.log('ai start watching');
+
+  }
   constructor(private _game: Game) {
-
-    const gameOver = fromEvent(window, 'keydown')
-    .pipe(
-      filter((event: KeyboardEvent) => event.key === 'o')
-    );
-
-    console.log('skipbo ai was born', this._game);
-
+    console.log('skipbo ai born', this._game);
 
     const userAction = (action: string) => pipe(
       map((player: Player) => {
@@ -72,39 +71,14 @@ export class SkipboAi {
       filter((event: KeyboardEvent) => event.key === 'x')
     )
 
-    enum PlayerAction {
-      PLAY_STOCK = 1,
-      PLAY_HAND,
-      PLAY_DISCARD,
-      DISCARD
-    }
-
-
     interface PlayerTryResult {
       cardPlayed: boolean;
       action: PlayerAction;
     }
 
-    const playerTriesObservable = (player: Player) => {
+    const tryBuildingObservable = (player: Player) => {
       const orderedActions = [PlayerAction.PLAY_STOCK, PlayerAction.PLAY_HAND, PlayerAction.PLAY_DISCARD];
-
-      function runAction(action: PlayerAction): boolean {
-        try {
-          switch (action) {
-            case PlayerAction.PLAY_STOCK:
-              // console.log('try play stock')
-              return player.placeStockCard();
-            case PlayerAction.PLAY_HAND:
-              // console.log('try play hand')
-              return player.placeHandCard();
-            case PlayerAction.PLAY_DISCARD:
-              // console.log('try play discard')
-              return player.placeHandCard();
-          }
-        } catch (Error) {
-          return false;
-        }
-      }
+      logger.group('🔽 Player Turn Step ');
 
       return Observable.create((observer: Observer<PlayerTryResult>) => {
           try {
@@ -113,15 +87,17 @@ export class SkipboAi {
 
             while (orderedActions.length && !cardPlayed) {
               action = orderedActions.shift();
-              cardPlayed = runAction(action);
+              cardPlayed = player.autoPlaceAction(action);
             }
+
+            logger.groupEnd();
 
             if (cardPlayed) {
               observer.next({cardPlayed, action});
             } else {
-              console.log('No card was played, stop turn!');
               observer.next({cardPlayed: false, action: null});
             }
+
 
             observer.complete();
           } catch (error) {
@@ -130,32 +106,58 @@ export class SkipboAi {
       });
     };
 
-    const playTurn  = combineLatest(interval(500), this._game.nextTurn, (keyEvent, player) => player )
-      .pipe(
+
+    const keyPressed = (key: string) => fromEvent(window, 'keydown')
+      .pipe(filter((event: KeyboardEvent) => event.key === key));
+
+
+    const nextPlayer: Subject<Player> = new Subject();
+
+    const turnAndComplete = ({speed = 500}) => pipe(
+        map(player => player as Player),
         switchMap(player => {
-          return playerTriesObservable(player)
-            .pipe(
-              tag('turn result')
-            );
-        }),
-        takeWhile( (result: PlayerTryResult) => result.cardPlayed),
-        tag('➡️ player turn completed')
+          console.log('new player arrived');
+
+          return interval(500).pipe(
+            switchMap(_ =>
+              // we want to switch over to this stream
+              // which will try all possible build actions for a player
+              tryBuildingObservable(player)
+            ),
+            // stop the interval and therefor complete the stream
+            // if cardPlayed is true, the player just placed a card
+            // and therefore might be able to play another card
+            // so: don't complete and wait instead for interval trigger another stream coming from `tryBuildingObservable`
+            takeWhile( (result: PlayerTryResult) => result.cardPlayed),
+            takeUntil(merge(this._game.abort$, this._game.gameOver$)),
+            // block stream, only output when completed
+            // without the stream would getarrive in the outer observable
+            // which assumes the player turn to be completed by this point
+            toArray()
+          ).pipe(mapTo(player)); // mapTo in favor of using a projection function which is deprecated
+        }, ),
+        takeUntil(merge(this._game.abort$, this._game.gameOver$)),
+        tap(player => player.discardHandCard())
       );
 
-      this._game.nextTurn
-      .pipe(
-        tag('Current Player Turn'),
-        switchMap(player => {
-          return interval(50).pipe(
-            switchMap(_ => playerTriesObservable(player)),
-            takeWhile( (result: PlayerTryResult) => result.cardPlayed),
-            toArray()
-          ).pipe(mapTo(player));
-        }, ),
-        tag('Player Turn DONE!'),
-        tap(player => player.discardHandCard())
-      )
-      .subscribe();
+    this._game.nextTurn
+    .pipe(
+      tag('sutff'),
+      turnAndComplete({speed: 50}),
+    ).subscribe(
+      () => console.log('turn completed'),
+      () => console.log('error'),
+      () => console.log('game completed')
+    );
+
+    keyPressed('r')
+      .pipe(first()).subscribe(_ => {
+        console.log('reset');
+        this._game.reset();
+    });
+    // this._game.nextTurn.subscribe(nextPlayer)
+
+    // this._game.nextTurn.subscribe();
     // playTurn.subscribe();
 
     // userAction()
