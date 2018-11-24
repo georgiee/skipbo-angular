@@ -1,6 +1,6 @@
 import { Game, Player } from 'skipbo-core';
 import { of, merge, pipe, Observable, fromEvent, throwError, combineLatest, Observer, interval } from 'rxjs';
-import { tap, switchMap, mergeMap, filter, map, mergeAll, delay, takeWhile, takeUntil, catchError, first, endWith } from 'rxjs/operators';
+import { tap, switchMap, mergeMap, filter, map, mergeAll, delay, takeWhile, takeUntil, catchError, first, endWith, take, toArray, mapTo } from 'rxjs/operators';
 
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators/tag';
@@ -119,7 +119,7 @@ export class SkipboAi {
             if (cardPlayed) {
               observer.next({cardPlayed, action});
             } else {
-              console.log('cardPlayed not played, cancel turn!')
+              console.log('No card was played, stop turn!');
               observer.next({cardPlayed: false, action: null});
             }
 
@@ -142,7 +142,21 @@ export class SkipboAi {
         tag('➡️ player turn completed')
       );
 
-    playTurn.subscribe()
+      this._game.nextTurn
+      .pipe(
+        tag('Current Player Turn'),
+        switchMap(player => {
+          return interval(50).pipe(
+            switchMap(_ => playerTriesObservable(player)),
+            takeWhile( (result: PlayerTryResult) => result.cardPlayed),
+            toArray()
+          ).pipe(mapTo(player));
+        }, ),
+        tag('Player Turn DONE!'),
+        tap(player => player.discardHandCard())
+      )
+      .subscribe();
+    // playTurn.subscribe();
 
     // userAction()
     // userAction('placeStockCard')

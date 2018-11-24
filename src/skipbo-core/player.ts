@@ -51,7 +51,7 @@ export class Player {
   }
 
   takeTurn() {
-    logger.group(`Player '${this.name}' takes turn`);
+    logger.group(`Player '${this.name}' takes turn (${this.stock.count}, ${this.hand.count})`);
     // debugger;
     this._playing = true;
     this._turns++;
