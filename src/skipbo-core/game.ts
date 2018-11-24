@@ -32,9 +32,10 @@ export class Game {
   private _gameOver = false;
   private _winner: Player;
   private _winnerSubject: Subject<Player> = new Subject();
-  private _nextTurn: Subject<any> = new Subject<any>();
+  private _nextTurn: BehaviorSubject<any> = new BehaviorSubject(null);
   readonly _gameOverSubject: Subject<any> = new Subject();
   readonly _abortSubject: Subject<any> = new Subject();
+  readonly _newGame: Subject<any> = new Subject();
   readonly _playersSubject: Subject<Player[]> = new BehaviorSubject([]);
   private _customStockCardCount = null;
 
@@ -49,9 +50,11 @@ export class Game {
   public get nextTurn() {
     return this._nextTurn.asObservable();
   }
+  public get newGame$() {
+    return this._newGame.asObservable();
+  }
 
   reset() {
-    console.log('reset game')
     if (this._started) {
       this._abortSubject.next();
     }
@@ -68,7 +71,7 @@ export class Game {
 
     this.deck.reset();
     this.buildingGroup.reset();
-    this._nextTurn.complete();
+    // this._nextTurn.complete();
   }
 
   get players$() {
@@ -193,6 +196,8 @@ export class Game {
     this.deck.shuffle();
     this.dealStockCards();
     this.nextPlayer();
+
+    this._newGame.next();
   }
 
   getStockCardCount() {

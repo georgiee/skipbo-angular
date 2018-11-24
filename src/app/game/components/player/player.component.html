@@ -1,4 +1,4 @@
-<span class="player__name">Hello {{player.name}}! {{player.stock.count}}</span>
+<span class="player__name">Hello {{player.name}}! ({{player.stock.count}} Stock Cards left)</span>
 
 <div class='hand'>
   <skipbo-card
@@ -19,8 +19,9 @@
 </skipbo-card-pile>
 
 <div class="actions">
-  <button skipbo-button condensed="true" (click)="stock.emit()">play stock</button>
   <button skipbo-button condensed="true" (click)="hand.emit()">play hand</button>
   <button skipbo-button condensed="true" (click)="playDiscard.emit()">play discard</button>
+  <button skipbo-button condensed="true" (click)="stock.emit()">play stock</button>
   <button skipbo-button condensed="true" (click)="discard.emit()">discard</button>
+  <button skipbo-button condensed="true" (click)="autoTurn.emit()">auto</button>
 </div>

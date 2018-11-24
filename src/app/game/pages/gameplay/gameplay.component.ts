@@ -33,7 +33,11 @@ export class GameplayComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this._gameService.reset();
+    this._gameService.reset();
+  }
+
+  playTurn() {
+    this._gameService.ai.playTurn();
   }
 
   initPlayers() {

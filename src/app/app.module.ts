@@ -21,7 +21,7 @@ import { gerateSkipboOnlyGameTwoPlayers } from 'skipbo-core';
   ],
   bootstrap: [AppComponent],
   providers: [
-    {provide: GAME_DECK_TOKEN, useValue: gerateSkipboOnlyGameTwoPlayers(5)}
+    // {provide: GAME_DECK_TOKEN, useValue: gerateSkipboOnlyGameTwoPlayers(5)}
   ],
   schemas: []
 })

@@ -5,13 +5,13 @@
       *ngFor="let opponent of opponentPlayers"
       [class.has-turn]="currentPlayer === opponent"
       class='opponent'>
-      {{opponent.name}} with {{opponent.stock.count}} cards left,
+      {{opponent.name}} with {{opponent.stock.count}} stock cards left,
       ({{opponent.hand.count}} in hand)
     </div>
 
-    <ng-container *ngIf="currentPlayer && currentPlayer.isCPU">
+    <!-- <ng-container *ngIf="currentPlayer && currentPlayer.isCPU">
       <button skipbo-button condensed="true" (click)="autoplayForOpponent()">autoplay turn for {{currentPlayer.name}}</button>
-    </ng-container>
+    </ng-container> -->
   </div>
 
   <div class='gameplay__game game'>
@@ -31,6 +31,7 @@
     (hand)="playHand()"
     (playDiscard)="playDiscard()"
     (discard)="discardHand()"
+    (autoTurn)="playTurn()"
     class="gameplay__player"
     [player]="player">
   </skipbo-player>

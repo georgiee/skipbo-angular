@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, Inject, Optional } from '@angular/core';
 import { Automata, BuildingPile, Deck, Game, PileGroup, Player } from 'skipbo-core';
-import { SkipboAi } from '../core/skipbo-ai';
+import { SkipboAi } from '../ai/skipbo-ai';
 import { merge, BehaviorSubject, Observable } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 
@@ -11,7 +11,6 @@ export const GAME_DECK_TOKEN = new InjectionToken('GAME_DECK_TOKEN');
 })
 export class GameService {
   private _game: Game;
-  private _automata: Automata;
   private _ai: SkipboAi;
   private _gameEnded: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _currentWinner = new BehaviorSubject<Player>(null);
@@ -19,10 +18,11 @@ export class GameService {
   constructor(
     @Optional() @Inject(GAME_DECK_TOKEN) gameDeckDebug: Game
   ) {
-    this._game = gameDeckDebug || new Game();
-    this._automata = new Automata(this.game);
+    this._game = gameDeckDebug || new Game(null, {stockCardCount: 5});
     this._ai = new SkipboAi(this.game);
+    this._ai.watch();
   }
+
   get ready() {
     return this._game.players.length >= 2;
   }
@@ -43,8 +43,8 @@ export class GameService {
     return this._game;
   }
 
-  get automata(): Automata {
-    return this._automata;
+  get ai(): SkipboAi {
+    return this._ai;
   }
 
   get started() {
@@ -54,7 +54,6 @@ export class GameService {
   start() {
     console.log('start a new game');
     this._game.start();
-    this._ai.watch();
 
     this._game.winner$.subscribe((player) => {
       this._currentWinner.next(player);

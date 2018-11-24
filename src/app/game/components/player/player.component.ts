@@ -21,6 +21,7 @@ export class PlayerComponent implements OnInit {
   @Output() playDiscard: EventEmitter<any> = new EventEmitter();
   @Output() stock: EventEmitter<any> = new EventEmitter();
   @Output() hand: EventEmitter<any> = new EventEmitter();
+  @Output() autoTurn: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
   }
