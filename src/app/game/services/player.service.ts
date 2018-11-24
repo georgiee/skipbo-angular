@@ -7,13 +7,11 @@ import { GameService } from './game.service';
 })
 export class PlayerService {
   private _game: Game;
-  private _automata: Automata;
 
   constructor(
     private _gameService: GameService
   ) {
     this._game = _gameService.game;
-    this._automata = _gameService.automata;
   }
 
   get playerCount() {
@@ -54,9 +52,5 @@ export class PlayerService {
 
   placeDiscardCard(card: Card = null, pile: BuildingPile = null) {
     this.currentPlayer.placeDiscardCard(card, pile);
-  }
-
-  autoplayTurn() {
-    this._automata.playTurnSync();
   }
 }

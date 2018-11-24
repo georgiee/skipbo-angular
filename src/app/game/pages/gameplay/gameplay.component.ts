@@ -58,10 +58,6 @@ export class GameplayComponent implements OnDestroy {
     }
   }
 
-  autoplayForOpponent() {
-    this._playerService.autoplayTurn();
-  }
-
   get currentPlayer() {
     return this._playerService.currentPlayer;
   }

@@ -60,12 +60,10 @@ export class Player {
 
   takeTurn() {
     logger.info(`Player '${this.name}' takes turn (${this.stock.count}, ${this.hand.count})`);
-    // debugger;
     this._playing = true;
     this._turns++;
     this.fillHand();
     this._nextTurn.next(this);
-    // this.checkWinner();
   }
 
 

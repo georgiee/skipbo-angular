@@ -107,7 +107,7 @@ export class SkipboAi {
         return this._game.nextTurn
           .pipe(
             tag('combiend'),
-            turnAndComplete(this._game, {speed: 100, playHumans: true})
+            turnAndComplete(this._game, {speed: 100, playHumans: false})
           );
       })
     ).subscribe();
