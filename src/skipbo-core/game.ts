@@ -1,3 +1,4 @@
+import { BehaviorSubject, merge, Subject } from 'rxjs';
 import { Card, generateSkipBoCards } from './card';
 import { Deck } from './deck';
 import { DoublyLinkedList, DoublyLinkedListNode } from './doubly-linked-list';
@@ -6,8 +7,6 @@ import { BuildingPile } from './pile/building-pile';
 import { PileGroup } from './pile/pile-group';
 import { Player, PlayerOptions } from './player';
 import { assert } from './utils';
-import { Observable, of, Subject, merge, BehaviorSubject } from 'rxjs';
-import { map, mergeMap, switchMap, filter, first, takeUntil } from 'rxjs/operators';
 
 export const STOCK_CARD_COUNT_SMALL_GAME = 30;
 export const STOCK_CARD_COUNT_LARGE_GAME = 20;
@@ -46,6 +45,7 @@ export class Game {
   public get nextTurn() {
     return this._nextTurn.asObservable();
   }
+
   reset() {
     this._players.reset();
     this._winner = null;
@@ -55,6 +55,7 @@ export class Game {
     this._currentPlayer = null;
     this._completedCards = [];
 
+    this._gameOverSubject.next();
     this.deck.reset();
     this.buildingGroup.reset();
   }
@@ -76,6 +77,10 @@ export class Game {
   }
 
   get gameOverObservable() {
+    return this._gameOverSubject.asObservable();
+  }
+
+  get gameOver$() {
     return this._gameOverSubject.asObservable();
   }
 

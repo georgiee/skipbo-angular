@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Inject, Optional } from '@angular/core';
 import { Automata, BuildingPile, Deck, Game, PileGroup } from 'skipbo-core';
 import { SkipboAi } from '../core/skipbo-ai';
+
+export const GAME_DECK_TOKEN = new InjectionToken('GAME_DECK_TOKEN');
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,9 @@ export class GameService {
   private _ai: SkipboAi;
 
   constructor(
+    @Optional() @Inject(GAME_DECK_TOKEN) gameDeckDebug: Game
   ) {
-    this._game = new Game();
+    this._game = gameDeckDebug || new Game();
     this._automata = new Automata(this.game);
     this._ai = new SkipboAi(this.game);
   }

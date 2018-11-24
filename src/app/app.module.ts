@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UIModule } from './ui/ui.module';
 import { AppRoutingModule } from './app-routing.module';
+import { GAME_DECK_TOKEN } from './game/services/game.service';
+import { gerateSkipboOnlyGameTwoPlayers } from 'skipbo-core';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,9 @@ import { AppRoutingModule } from './app-routing.module';
     UIModule
   ],
   bootstrap: [AppComponent],
+  providers: [
+    // {provide: GAME_DECK_TOKEN, useValue: gerateSkipboOnlyGameTwoPlayers()}
+  ],
   schemas: []
 })
 export class AppModule { }

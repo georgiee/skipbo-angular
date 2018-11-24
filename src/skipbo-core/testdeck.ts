@@ -33,7 +33,7 @@ export function getFullTestDeck() {
 
 export function getTwoPlayerTestGame() {
   // return testdeckLegacy
-  //const cardsPlayer1 = [1, 5, 2, 3, 4, 5];
+  // const cardsPlayer1 = [1, 5, 2, 3, 4, 5];
   const cardsPlayer1 = [1,2,3,4,5,6,7,8,9,10,11,12,5,5,5];
   const cardsPlayer2 = [...cardsPlayer1];
 
@@ -43,6 +43,21 @@ export function getTwoPlayerTestGame() {
 
   const game = new Game([...remaining, ...firstDandcards, ...stockCards], {stockCardCount: cardsPlayer1.length, shuffle: false});
 
+
+  return game;
+}
+
+
+export function gerateSkipboOnlyGameTwoPlayers() {
+  const stockCardsCount = 30;
+  const deckSize = 100;
+ // Create a deck we know so we can test it properly
+  const stockPlayer1 = [...Array.from(Array(stockCardsCount)).map(() => -1)];
+  const stockPlayer2 = [...Array.from(Array(stockCardsCount)).map(() => -1)];
+  const deck = Array.from(Array(deckSize)).map(() => -1);
+
+  const stockCards = interleaveArrays(stockPlayer1.reverse(), stockPlayer2.reverse()).reverse();
+  const game = new Game([...deck, ...stockCards], {stockCardCount: stockCardsCount, shuffle: false});
 
   return game;
 }

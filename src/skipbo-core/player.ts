@@ -56,7 +56,6 @@ export class Player {
     this._playing = true;
     this._turns++;
     this.fillHand();
-    console.log('forward to next turn', this)
     this._nextTurn.next(this);
     // this.checkWinner();
   }
@@ -91,6 +90,8 @@ export class Player {
     }
 
     this.game.clearBuildingPiles();
+
+    return true;
   }
 
   placeStockCard(pile: BuildingPile = null) {
@@ -116,6 +117,8 @@ export class Player {
 
     this.game.clearBuildingPiles();
     this.checkWinner();
+
+    return true;
   }
 
   get winnerChange() {
@@ -159,6 +162,8 @@ export class Player {
     const [drawnCard] = this.discardGroup.drawCard(card);
     this.game.buildingGroup.autoPlace(drawnCard);
     this.game.clearBuildingPiles();
+
+    return true;
   }
 
   discardHandCard(card: Card = null, pile: DiscardPile = null) {
@@ -183,6 +188,8 @@ export class Player {
     }
 
     this.completeTurn();
+
+    return true;
   }
 
   get playing(): boolean {

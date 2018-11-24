@@ -11,4 +11,5 @@ export * from './card';
 export * from './game';
 export * from './testdeck';
 export * from './game';
+export * from './testdeck';
 
