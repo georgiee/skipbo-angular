@@ -13,7 +13,7 @@ export class Deck {
   }
 
   public get cards() {
-    return this._cards;
+    return [...this._cards];
   }
 
   reset() {

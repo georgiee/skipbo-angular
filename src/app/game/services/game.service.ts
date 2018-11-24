@@ -1,10 +1,16 @@
 import { Injectable, InjectionToken, Inject, Optional } from '@angular/core';
 import { Automata, BuildingPile, Deck, Game, PileGroup, Player } from 'skipbo-core';
 import { SkipboAi } from '../ai/skipbo-ai';
-import { merge, BehaviorSubject, Observable } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { merge, BehaviorSubject, Observable, Subject, fromEvent } from 'rxjs';
+import { mapTo, switchMap, filter, tap, first } from 'rxjs/operators';
 
 export const GAME_DECK_TOKEN = new InjectionToken('GAME_DECK_TOKEN');
+
+
+
+const keyPressed = (key: string) => fromEvent(window, 'keydown')
+.pipe(
+  filter((event: KeyboardEvent) => event.key === key));
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +18,7 @@ export const GAME_DECK_TOKEN = new InjectionToken('GAME_DECK_TOKEN');
 export class GameService {
   private _game: Game;
   private _ai: SkipboAi;
-  private _gameEnded: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _gameEnded: Subject<boolean> = new Subject();
   private _currentWinner = new BehaviorSubject<Player>(null);
 
   constructor(
@@ -53,7 +59,20 @@ export class GameService {
 
   start() {
     console.log('start a new game');
-    this._game.start();
+
+
+    // allow to stop the game ESC
+    this._game.newGame$.pipe(
+      switchMap(_ => {
+        // with each new game we will create a new inner observable
+        // which can trigger exactly on time
+        return keyPressed('Escape')
+          .pipe(
+            tap(__ => this._game.reset()),
+            first()
+          );
+      })
+    ).subscribe();
 
     this._game.winner$.subscribe((player) => {
       this._currentWinner.next(player);
@@ -62,6 +81,8 @@ export class GameService {
     merge(this._game.abort$, this._game.gameOver$).pipe(
       mapTo(true)
     ).subscribe(this._gameEnded);
+
+    this._game.start();
   }
 
   reset() {

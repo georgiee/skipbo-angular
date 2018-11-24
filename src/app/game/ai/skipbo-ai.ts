@@ -1,17 +1,12 @@
-import { fromEvent, interval, merge, Observable, Observer, pipe, Subject, of } from 'rxjs';
+import { fromEvent, interval, merge, Observable, Observer, of, pipe, Subject } from 'rxjs';
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators/tag';
-import { filter, first, map, mapTo, switchMap, combineLatest, takeUntil, takeWhile, tap, toArray, skipUntil, withLatestFrom, startWith } from 'rxjs/operators';
+import { filter, first, map, mapTo, switchMap, takeUntil, takeWhile, tap, toArray, withLatestFrom } from 'rxjs/operators';
 import { Game, Player, PlayerAction } from 'skipbo-core';
 import { logger } from 'src/skipbo-core/logger';
 
 
 createSpy().log();
-
-const keyPressed = (key: string) => fromEvent(window, 'keydown')
-.pipe(
-  tag('abort key'),
-  filter((event: KeyboardEvent) => event.key === key));
 
 const tryBuildingObservable = (player: Player) => {
   const orderedActions = [PlayerAction.PLAY_STOCK, PlayerAction.PLAY_HAND, PlayerAction.PLAY_DISCARD];
@@ -46,11 +41,8 @@ const tryBuildingObservable = (player: Player) => {
 
 const turnAndComplete = (game: Game, {speed = 500, playHumans = true}) => pipe(
   map(player => player as Player),
-  tag('turnAndComplete'),
   filter(player => playHumans || player.isCPU ),
   switchMap(player => {
-    console.log('new player arrived');
-
     return interval(speed).pipe(
       switchMap(_ =>
         // we want to switch over to this stream
@@ -97,8 +89,7 @@ export class SkipboAi {
         return of(player).pipe(
           turnAndComplete(this._game, {speed: 50, playHumans: true})
         );
-      }),
-      tag('manual 🦄')
+      })
     ).subscribe();
 
     // autoplay for non humans
@@ -106,20 +97,7 @@ export class SkipboAi {
       switchMap(_ => {
         return this._game.nextTurn
           .pipe(
-            tag('combiend'),
             turnAndComplete(this._game, {speed: 100, playHumans: false})
-          );
-      })
-    ).subscribe();
-
-    // allow to stop the game ESC
-    this._game.newGame$.pipe(
-      switchMap(_ => {
-        return keyPressed('Escape')
-          .pipe(
-            tag('Game Reset'),
-            tap(__ => this._game.reset()),
-            first()
           );
       })
     ).subscribe();
