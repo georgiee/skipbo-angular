@@ -56,8 +56,8 @@ export class Player {
     this._playing = true;
     this._turns++;
     this.fillHand();
-
-    this._nextTurn.next();
+    console.log('forward to next turn', this)
+    this._nextTurn.next(this);
     // this.checkWinner();
   }
 

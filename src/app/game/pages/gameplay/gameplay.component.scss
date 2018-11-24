@@ -9,6 +9,11 @@
   grid-template-columns: 1fr 4fr;
   grid-gap: 50px;
 }
+
+.opponent.has-turn {
+  outline: 3px solid hotpink;
+}
+
 .gameplay {
   display: grid;
 

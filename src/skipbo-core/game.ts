@@ -6,7 +6,7 @@ import { BuildingPile } from './pile/building-pile';
 import { PileGroup } from './pile/pile-group';
 import { Player, PlayerOptions } from './player';
 import { assert } from './utils';
-import { Observable, of, Subject, merge } from 'rxjs';
+import { Observable, of, Subject, merge, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, switchMap, filter, first, takeUntil } from 'rxjs/operators';
 
 export const STOCK_CARD_COUNT_SMALL_GAME = 30;
@@ -33,6 +33,7 @@ export class Game {
   private _winner: Player;
   private _nextTurn: Subject<any> = new Subject<any>();
   readonly _gameOverSubject: Subject<any> = new Subject();
+  readonly _playersSubject: Subject<Player[]> = new BehaviorSubject([]);
   private _customStockCardCount = null;
 
   constructor(cards: Card[] = null, options: any = {}) {
@@ -56,6 +57,10 @@ export class Game {
 
     this.deck.reset();
     this.buildingGroup.reset();
+  }
+
+  get players$() {
+    return this._playersSubject.asObservable();
   }
 
   get completedCards(): Card[] {
@@ -113,6 +118,7 @@ export class Game {
   removePlayer() {
     const player = this._players.pop() as Player;
     logger.info('Removed player', player.toString());
+    this._playersSubject.next([...this.players]);
     return player;
   }
 
@@ -127,6 +133,7 @@ export class Game {
       this.nextPlayer();
     });
 
+    this._playersSubject.next([...this.players]);
     return player;
   }
 
