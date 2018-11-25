@@ -25,6 +25,7 @@ export const naivePlacementStrategy = (player: Player) => {
         if (cardPlayed) {
           observer.next({cardPlayed, action});
         } else {
+          logger.info('🐙: No card played, time to discard ☝️');
           observer.next({cardPlayed: false, action: null});
         }
 
