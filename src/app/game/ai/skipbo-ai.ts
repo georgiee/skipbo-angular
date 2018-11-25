@@ -27,8 +27,8 @@ export class SkipboAi {
     // allow manual trigger of a human auto turn
     this._playTurn.pipe(
       withLatestFrom(this._game.nextTurn, (_, player) => player),
-      tag('🐙: Manual Turn triggered'),
-      switchMap(player => naivePlacementStrategy(player))
+      switchMap(player => naivePlacementStrategy(player)),
+      tag('🐙: Manual Turn triggered')
     ).subscribe();
 
     // autoplay for non humans
