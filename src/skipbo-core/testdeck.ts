@@ -60,3 +60,28 @@ export function gerateSkipboOnlyGameTwoPlayers(stockCount = 30) {
 
   return game;
 }
+
+
+function generateCards(value, amount) {
+  return Array.from(Array(amount)).map(() => value);
+}
+
+export function generateGameThreePlayers() {
+ // Create a deck we know so we can test it properly
+  const stockPlayerHuman = [1, 4, 4, 5, 6];
+  const stockPlayer2 = [2, 4, 7, 9, 12];
+  const stockPlayer3 = [7, 9, 12, 2, 4];
+
+  // const deck = Array.from(Array(deckSize)).map(() => -1);
+  const deck = [2, 7, 4, 12, 11, 2, 5, 8, 9, 10, 11, -1, ...generateCards(-1, 100)].reverse();
+
+  const stockCards = interleaveArrays(
+    stockPlayerHuman.reverse(),
+    stockPlayer2.reverse(),
+    stockPlayer3.reverse()
+  ).reverse();
+
+  const game = new Game([...deck, ...stockCards], {stockCardCount: 5, shuffle: false});
+
+  return game;
+}
