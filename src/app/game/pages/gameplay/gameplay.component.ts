@@ -34,7 +34,6 @@ export class GameplayComponent implements OnDestroy, OnInit {
     this.initPlayers();
     this.start();
 
-    // 1. watch for gameover and redirect to the gameover page
     merge(this._gameService.gameAbort$, this._gameService.gameOver$)
       .pipe(
         takeUntil(this._destroyed$)
@@ -44,7 +43,6 @@ export class GameplayComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    // 2. good place to signal destroy to any active subscription.
     this._gameService.stop();
     this._destroyed$.next();
   }
