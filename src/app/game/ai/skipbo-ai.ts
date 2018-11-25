@@ -1,9 +1,9 @@
-import { Subject } from 'rxjs';
+import { Subject, interval } from 'rxjs';
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators';
 import { Game, logger, Player } from 'skipbo-core';
-import { tap, switchMap, withLatestFrom, filter, mapTo, delay, mergeMap } from 'rxjs/operators';
-import { naivePlacementStrategy } from './placement-strategy';
+import { tap, switchMap, withLatestFrom, filter, mapTo, delay, mergeMap, take, toArray } from 'rxjs/operators';
+import { naivePlacementStrategyObservable, naivePlacementStrategyPipeable } from './placement-strategy';
 
 
 createSpy({
@@ -27,7 +27,7 @@ export class SkipboAi {
     // allow manual trigger of a human auto turn
     this._playTurn.pipe(
       withLatestFrom(this._game.nextTurn, (_, player) => player),
-      switchMap(player => naivePlacementStrategy(player)),
+      switchMap(player => naivePlacementStrategyObservable(player)),
       tag('🐙: Manual Turn triggered')
     ).subscribe();
 
@@ -38,9 +38,17 @@ export class SkipboAi {
           .pipe(
             filter(player => player.isCPU ),
             delay(500),
-            tag('CPU Player takes turn - implement play here 🔽'),
-            // use `naivePlacementStrategy` somehow here
-            switchMap(player => naivePlacementStrategy(player).pipe(mapTo(player))),
+            tag('CPU Player takes turn'),
+            switchMap(player => {
+              return interval(500)
+              .pipe(
+                mapTo(player),
+                take(10),
+                naivePlacementStrategyPipeable,
+                toArray(),
+                mapTo(player)
+              );
+            }),
             tap((player: Player) => player.discardHandCard())
           )
       )
