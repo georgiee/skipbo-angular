@@ -6,8 +6,6 @@ import { mapTo, switchMap, filter, tap, first } from 'rxjs/operators';
 
 export const GAME_DECK_TOKEN = new InjectionToken('GAME_DECK_TOKEN');
 
-
-
 const keyPressed = (key: string) => fromEvent(window, 'keydown')
 .pipe(
   filter((event: KeyboardEvent) => event.key === key));

@@ -13,4 +13,4 @@ export * from './testdeck';
 export * from './game';
 export * from './testdeck';
 export * from './player';
-
+export * from './logger';

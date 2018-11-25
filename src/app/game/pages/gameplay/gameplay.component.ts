@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
@@ -11,14 +11,12 @@ import { delay, takeUntil } from 'rxjs/operators';
   templateUrl: './gameplay.component.html',
   styleUrls: ['./gameplay.component.scss']
 })
-export class GameplayComponent implements OnDestroy {
+export class GameplayComponent implements OnDestroy, OnInit {
   public buildingGroup: PileGroup<BuildingPile>;
   public opponentPlayers: Player[] = [];
-
   public player: Player;
   public deck: Deck;
-  _destroyed$ = new Subject();
-  gameEnded$: Observable<boolean>;
+  private _destroyed$ = new Subject();
 
   constructor(
     private _gameService: GameService,
@@ -28,14 +26,15 @@ export class GameplayComponent implements OnDestroy {
     this._gameService.enableLogging();
     this.buildingGroup = this._gameService.building;
     this.deck = this._gameService.deck;
-    this.gameEnded$ = this._gameService.gameEnded$;
+  }
 
+  ngOnInit(): void {
     this.initPlayers();
     this.start();
 
-    this.gameEnded$.
-      pipe(
-        delay(3000),
+    // watch for gameover and redirect to the gameover page
+    this._gameService.gameEnded$
+      .pipe(
         takeUntil(this._destroyed$)
       ).subscribe(() => {
         this._router.navigateByUrl('/game/gameover');

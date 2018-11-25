@@ -1,42 +1,12 @@
-import { fromEvent, interval, merge, Observable, Observer, of, pipe, Subject } from 'rxjs';
+import { interval, merge, of, pipe, Subject } from 'rxjs';
 import { create as createSpy } from 'rxjs-spy';
-import { tag } from 'rxjs-spy/operators/tag';
-import { filter, first, map, mapTo, switchMap, takeUntil, takeWhile, tap, toArray, withLatestFrom } from 'rxjs/operators';
-import { Game, Player, PlayerAction } from 'skipbo-core';
-import { logger } from 'src/skipbo-core/logger';
+import { filter, map, mapTo, switchMap, takeUntil, takeWhile, tap, toArray, withLatestFrom } from 'rxjs/operators';
+import { Game, Player } from 'skipbo-core';
+import { naivePlacementStrategy, PlayerTryResult } from './naive-placement-strategy';
 
 
 createSpy().log();
 
-const tryBuildingObservable = (player: Player) => {
-  const orderedActions = [PlayerAction.PLAY_STOCK, PlayerAction.PLAY_HAND, PlayerAction.PLAY_DISCARD];
-  logger.group('🔽 Player Turn Step ');
-
-  return Observable.create((observer: Observer<PlayerTryResult>) => {
-      try {
-        let cardPlayed = false;
-        let action: PlayerAction;
-
-        while (orderedActions.length && !cardPlayed) {
-          action = orderedActions.shift();
-          cardPlayed = player.autoPlaceAction(action);
-        }
-
-        logger.groupEnd();
-
-        if (cardPlayed) {
-          observer.next({cardPlayed, action});
-        } else {
-          observer.next({cardPlayed: false, action: null});
-        }
-
-
-        observer.complete();
-      } catch (error) {
-        observer.error(error);
-      }
-  });
-};
 
 
 const turnAndComplete = (game: Game, {speed = 500, playHumans = true}) => pipe(
@@ -47,7 +17,7 @@ const turnAndComplete = (game: Game, {speed = 500, playHumans = true}) => pipe(
       switchMap(_ =>
         // we want to switch over to this stream
         // which will try all possible build actions for a player
-        tryBuildingObservable(player)
+        naivePlacementStrategy(player)
       ),
       // stop the interval and therefor complete the stream
       // if cardPlayed is true, the player just placed a card
@@ -64,11 +34,6 @@ const turnAndComplete = (game: Game, {speed = 500, playHumans = true}) => pipe(
   takeUntil(merge(game.abort$, game.gameOver$)),
   tap(player => player.discardHandCard())
 );
-
-interface PlayerTryResult {
-  cardPlayed: boolean;
-  action: PlayerAction;
-}
 
 export class SkipboAi {
   private _playTurn = new Subject();
