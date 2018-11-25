@@ -1,7 +1,7 @@
-import { interval, of, Subject } from 'rxjs';
+import { interval, of, Subject, merge } from 'rxjs';
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators';
-import { delay, filter, last, mapTo, switchMap, take, tap, withLatestFrom, takeWhile, defaultIfEmpty } from 'rxjs/operators';
+import { delay, filter, last, mapTo, switchMap, take, tap, withLatestFrom, takeWhile, defaultIfEmpty, takeUntil } from 'rxjs/operators';
 import { Game, logger, Player } from 'skipbo-core';
 import { naivePlacementStrategyObservable, PlayerTryResult } from './placement-strategy';
 
@@ -37,10 +37,10 @@ export class SkipboAi {
       switchMap(_ => this._game.nextTurn
           .pipe(
             filter(player => player.isCPU ),
-            delay(500),
+            delay(250),
             tag('CPU Player takes turn - implement play here 🔽'),
             switchMap(player =>
-                interval(500).pipe(
+                interval(50).pipe(
                   tag('📖 intervalcounter'),
                   switchMap(__ => naivePlacementStrategyObservable(player)),
                   takeWhile( (result: PlayerTryResult) => result.cardPlayed),
@@ -49,6 +49,7 @@ export class SkipboAi {
                   last()
                 )
             ),
+            takeUntil(merge(this._game.abort$, this._game.gameOver$)),
             tap((player: Player) => player.discardHandCard())
           )
       )
