@@ -84,6 +84,7 @@ export class Player {
 
   autoPlaceAction(action: PlayerAction) {
     let result = false;
+    let reason = 'unknown';
 
     try {
       switch (action) {
@@ -97,14 +98,15 @@ export class Player {
           result = this.placeDiscardCard();
           break;
       }
-    } catch (Error) {
+    } catch (error) {
+      reason = error.message;
       // Auto Place failed at this point
     }
 
     if (result) {
       logger.info(`--> Success 💪`);
     } else {
-      logger.info(`--> Failed 🚫`);
+      logger.info(`--> Failed 🚫`, reason);
     }
 
     return result;
