@@ -6,7 +6,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UIModule } from './ui/ui.module';
 import { AppRoutingModule } from './app-routing.module';
 import { GAME_DECK_TOKEN } from './game/services/game.service';
-import { gerateGameThreePlayers } from 'skipbo-core';
+import { generateGameThreePlayers } from 'skipbo-core';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { gerateGameThreePlayers } from 'skipbo-core';
   ],
   bootstrap: [AppComponent],
   providers: [
-    {provide: GAME_DECK_TOKEN, useValue: gerateGameThreePlayers()}
+    {provide: GAME_DECK_TOKEN, useValue: generateGameThreePlayers()}
   ],
   schemas: []
 })

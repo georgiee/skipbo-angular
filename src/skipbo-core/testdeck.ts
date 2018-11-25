@@ -66,7 +66,7 @@ function generateCards(value, amount) {
   return Array.from(Array(amount)).map(() => value);
 }
 
-export function gerateGameThreePlayers() {
+export function generateGameThreePlayers() {
  // Create a deck we know so we can test it properly
   const stockPlayerHuman = [1, 2, -1, 5, 6];
   const stockPlayer2 = [2, 4, 7, 9, 12];

@@ -47,7 +47,7 @@ const routes = [
 ];
 
 
-fdescribe('GameplayComponent', () => {
+xdescribe('GameplayComponent', () => {
   let component: BaseTestComponent;
   let fixture: ComponentFixture<BaseTestComponent>;
 
