@@ -3,36 +3,59 @@ import { Observer, Observable } from 'rxjs';
 
 export interface PlayerTryResult {
   cardPlayed: boolean;
-  action: PlayerAction;
+  action?: PlayerAction;
 }
 
-export const naivePlacementStrategy = (player: Player) => {
-  const orderedActions = [PlayerAction.PLAY_STOCK, PlayerAction.PLAY_HAND, PlayerAction.PLAY_DISCARD];
+export const naivePlacementStrategyObservable = (player: Player) => {
   logger.group('🔽 Player Turn Step ');
 
   return Observable.create((observer: Observer<PlayerTryResult>) => {
       try {
-        let cardPlayed = false;
-        let action: PlayerAction;
-
-        while (orderedActions.length && !cardPlayed) {
-          action = orderedActions.shift();
-          cardPlayed = player.autoPlaceAction(action);
-        }
-
+        const result = tryAllTurnActions(player);
         logger.groupEnd();
 
-        if (cardPlayed) {
-          observer.next({cardPlayed, action});
-        } else {
+        if (!result.cardPlayed) {
           logger.info('🐙: No card played, time to discard ☝️');
-          observer.next({cardPlayed: false, action: null});
         }
 
-
+        observer.next(result);
         observer.complete();
       } catch (error) {
         observer.error(error);
       }
   });
 };
+
+
+export const naivePlacementStrategyPipeable = <T>(source: Observable<Player>) => {
+  return Observable.create((observer: Observer<PlayerTryResult>) => {
+    source.subscribe({
+      next (player) {
+        logger.group('🔽 Player Turn Step ');
+        observer.next(tryAllTurnActions(player));
+        logger.groupEnd();
+      },
+      error(err) { observer.error(err); },
+      complete() { observer.complete(); }
+    });
+  });
+};
+
+
+function tryAllTurnActions(player): PlayerTryResult {
+  const orderedActions = [PlayerAction.PLAY_STOCK, PlayerAction.PLAY_HAND, PlayerAction.PLAY_DISCARD];
+
+  let action: PlayerAction;
+  let cardPlayed = false;
+
+  while (orderedActions.length && !cardPlayed) {
+    action = orderedActions.shift();
+    try {
+      cardPlayed = player.autoPlaceAction(action);
+    } catch (error) {
+      cardPlayed = false;
+    }
+  }
+
+  return cardPlayed ? {cardPlayed, action} : {cardPlayed};
+}
