@@ -1,14 +1,14 @@
 import { Subject } from 'rxjs';
 import { create as createSpy } from 'rxjs-spy';
 import { tag } from 'rxjs-spy/operators';
-import { Game, logger } from 'skipbo-core';
-import { tap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { naivePlacementStrategy } from './placement-strategy';
+import { switchMap, withLatestFrom, filter, delay, tap } from 'rxjs/operators';
+import { Game, logger, Player } from 'skipbo-core';
+import { naivePlacementStrategyObservable } from './placement-strategy';
 
 
 createSpy({
   defaultPlugins: false
-}).log(/finished|aborted/);
+}).log();
 
 export class SkipboAi {
   private _playTurn = new Subject();
@@ -27,12 +27,21 @@ export class SkipboAi {
     this._playTurn.pipe(
       withLatestFrom(this._game.nextTurn, (_, player) => player),
       tag('🐙: Manual Turn triggered'),
-      switchMap(player => naivePlacementStrategy(player))
+      switchMap(player => naivePlacementStrategyObservable(player))
     ).subscribe();
 
     // autoplay for non humans
     this._game.newGame$.pipe(
-      tag('🐙: New Game started 🆕')
+      tag('🐙: New Game started 🆕'),
+      switchMap(_ => this._game.nextTurn
+          .pipe(
+            filter(player => player.isCPU ),
+            delay(500),
+            tag('CPU Player takes turn - implement play here 🔽'),
+            // use `naivePlacementStrategyObservable` somehow here
+            tap((player: Player) => player.discardHandCard())
+          )
+      )
     ).subscribe();
 
     // gameover signal
