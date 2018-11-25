@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
@@ -15,10 +15,11 @@ export class GameplayComponent implements OnDestroy, OnInit {
   public player: Player;
   public deck: Deck;
 
+  _destroyed$ = new Subject();
+
   constructor(
     private _gameService: GameService,
-    private _playerService: PlayerService,
-    private _router: Router
+    private _playerService: PlayerService
   ) {
     this._gameService.enableLogging();
     this.buildingGroup = this._gameService.building;
