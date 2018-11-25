@@ -6,9 +6,9 @@ import { Game, logger, Player } from 'skipbo-core';
 import { naivePlacementStrategyObservable } from './placement-strategy';
 
 
-createSpy({
-  defaultPlugins: false
-}).log();
+// createSpy({
+//   defaultPlugins: false
+// }).log(/interval counter|current player/);
 
 
 export class SkipboAi {
@@ -43,7 +43,7 @@ export class SkipboAi {
                 interval(500).pipe(
                   tag('📖 interval counter'),
                   take(5),
-                  switchMap(__ => of(player)
+                  switchMap(__ => naivePlacementStrategyObservable(player)
                     .pipe(
                       tag('📖 current player'),
                     )
