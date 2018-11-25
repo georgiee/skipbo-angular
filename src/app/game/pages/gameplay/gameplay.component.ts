@@ -30,7 +30,7 @@ export class GameplayComponent implements OnDestroy, OnInit {
     this.initPlayers();
     this.start();
 
-    // 1. watch for gameover and redirect to the gameover page
+    // 1. watch for gameover & gameAbort to redirect to the gameover page
   }
 
   ngOnDestroy(): void {
