@@ -1,10 +1,22 @@
-export function interleaveArrays(a: any[], b: any[]) {
-  assert(a.length === b.length, 'Can only interleave arrays with same length');
+
+export function interleaveArrays(...arrays) {
+  assert(arrays.length >= 2, 'Need at least two or more arrays to interleave');
+
+  arrays.reduce((prevLength, array) => {
+    if (prevLength !== -1) {
+      assert(prevLength === array.length, 'Can only interleave arrays with same length');
+    }
+
+    return array.length;
+  }, -1);
 
   const result = [];
 
-  for (let i = 0; i < a.length; i++) {
-    result.push(a[i], b[i]);
+  for (let i = 0; i < arrays[0].length; i++) {
+    for(let j = 0;  j < arrays.length; j++) {
+      result.push(arrays[j][i]);
+
+    }
   }
 
   return result;
