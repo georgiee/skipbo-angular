@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, merge } from 'rxjs';
 import { Router } from '@angular/router';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -32,8 +32,8 @@ export class GameplayComponent implements OnDestroy, OnInit {
     this.initPlayers();
     this.start();
 
-    // watch for gameover and redirect to the gameover page
-    this._gameService.gameEnded$
+    // 1. watch for gameover and redirect to the gameover page
+    merge(this._gameService.gameAbort$, this._gameService.gameOver$)
       .pipe(
         takeUntil(this._destroyed$)
       ).subscribe(() => {
@@ -42,8 +42,9 @@ export class GameplayComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
+    // 2. good place to signal destroy to any active subscription.
     this._destroyed$.next();
-    this._gameService.reset();
+    this._gameService.stop();
   }
 
   playTurn() {

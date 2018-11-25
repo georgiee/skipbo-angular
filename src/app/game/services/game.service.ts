@@ -22,7 +22,7 @@ export class GameService {
   constructor(
     @Optional() @Inject(GAME_DECK_TOKEN) gameDeckDebug: Game
   ) {
-    this._game = gameDeckDebug || new Game(null, {stockCardCount: 5});
+    this._game = gameDeckDebug || new Game();
     this._ai = new SkipboAi(this.game);
     this._ai.watch();
   }
@@ -56,15 +56,12 @@ export class GameService {
   }
 
   start() {
-    console.log('start a new game');
-
-
     // allow to stop the game ESC
     this._game.newGame$.pipe(
       switchMap(_ => {
         // with each new game we will create a new inner observable
         // which can trigger exactly on time
-        return keyPressed('Escape')
+        return keyPressed('x')
           .pipe(
             tap(__ => this._game.reset()),
             first()
@@ -87,11 +84,23 @@ export class GameService {
     this._game.reset();
   }
 
+  stop() {
+    this._game.stop();
+  }
+
   enableLogging() {
     this._game.enableLogging();
   }
 
-  get gameEnded$() {
-    return this._gameEnded.asObservable();
+  // get gameEnded$() {
+  //   return this._gameEnded.asObservable();
+  // }
+
+  get gameAbort$() {
+    return this._game.abort$;
+  }
+
+  get gameOver$() {
+    return this._game.gameOver$;
   }
 }

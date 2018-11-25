@@ -54,6 +54,11 @@ export class Game {
     return this._newGame.asObservable();
   }
 
+  stop() {
+    this._started = false;
+    this.reset();
+  }
+
   reset() {
     if (this._started) {
       this._abortSubject.next();
@@ -71,7 +76,6 @@ export class Game {
 
     this.deck.reset();
     this.buildingGroup.reset();
-    // this._nextTurn.complete();
   }
 
   get players$() {
@@ -165,26 +169,16 @@ export class Game {
   }
 
   susbcribeForWinner() {
-
-    this._gameOverSubject.pipe(first()).subscribe(() => {
-      this._gameOver = true;
-      this._winner = this.players.find(player => player.isWinner());
-      this._winnerSubject.next(this._winner);
-    });
-
     merge(...this.players.map(player => player.winnerChange)).pipe(
       takeUntil(this.gameOver$)
     ).subscribe((player) => {
+      this._gameOver = true;
       this._winnerSubject.next(player);
+      this._gameOverSubject.next();
     });
-
-    this._winnerSubject.subscribe(this._gameOverSubject);
-    // this.winner$.pipe().subscribe(this._gameOverSubject);
   }
 
   start() {
-    logger.info('Start Game');
-
     assert(this.players.length >= MIN_PLAYERS, `You need at least ${MIN_PLAYERS} players to play`);
     assert(this._started === false, 'The game is already running');
     assert(this._gameOver === false, 'The game is already completed');

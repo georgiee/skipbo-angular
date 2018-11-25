@@ -1,4 +1,4 @@
-<div class="gameplay" [class.gameover]="gameEnded$ | async" >
+<div class="gameplay">
   <div class="gameplay__opponents">
     You have {{opponentPlayers.length}} opponent players!
     <div
@@ -35,9 +35,4 @@
     class="gameplay__player"
     [player]="player">
   </skipbo-player>
-</div>
-
-<div class="completed-message" *ngIf="gameEnded$ | async">
-  <p>Game is done!</p>
-  <button skipbo-button routerLink="/game/gameover">Show Game Over</button>
 </div>
