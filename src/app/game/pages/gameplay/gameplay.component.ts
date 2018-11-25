@@ -5,7 +5,7 @@ import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
 import { takeUntil } from 'rxjs/operators';
 import { delay } from 'q';
-import { Subject } from 'rxjs';
+import { Subject, merge } from 'rxjs';
 
 @Component({
   selector: 'skipbo-gameplay',
@@ -35,14 +35,7 @@ export class GameplayComponent implements OnDestroy, OnInit {
     this.start();
 
     // 1. watch for gameover and redirect to the gameover page
-    this._gameService.gameOver$
-      .pipe(
-        takeUntil(this._destroyed$)
-      ).subscribe(() => {
-        this._router.navigateByUrl('/game/gameover');
-      });
-
-    this._gameService.gameAbort$
+    merge(this._gameService.gameAbort$, this._gameService.gameOver$)
       .pipe(
         takeUntil(this._destroyed$)
       ).subscribe(() => {
