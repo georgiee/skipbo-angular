@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges, DoCheck, ChangeDetectionStrategy } from '@angular/core';
 import { Card } from 'skipbo-core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 const MAX_CARD_DISPLAY = 8;
 @Component({
   selector: 'skipbo-card-pile',
   templateUrl: './card-pile.component.html',
   styleUrls: ['./card-pile.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardPileComponent {
   private _cards: Card[] = [];
@@ -32,4 +31,8 @@ export class CardPileComponent {
   public get topCard(): Card {
     return this._cards[this._cards.length - 1];
   }
+
+  constructor(
+    public cdr: ChangeDetectorRef
+  ) { }
 }
