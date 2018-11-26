@@ -16,6 +16,7 @@ $padding: percentage(4px/224px);
   padding-bottom: $card-ratio-percentage;
   background-size: contain;
   background-repeat: no-repeat;
+  position: relative;
 }
 
 .stack {

@@ -12,11 +12,11 @@
   [group]="player.discardGroup">
 </skipbo-pile-group>
 
-<skipbo-card-pile
-  autoRevealCard="true"
+
+<skipbo-stock
   class="player__stock"
   [cards]="player.stock.cards">
-</skipbo-card-pile>
+</skipbo-stock>
 
 <div class="actions">
   <button skipbo-button condensed="true" (click)="hand.emit()">play hand</button>

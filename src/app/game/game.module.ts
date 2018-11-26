@@ -15,6 +15,10 @@ import { GameRoutingModule } from './game-routing.module';
 import { GameComponent } from './pages/game/game.component';
 import { PileGroupComponent } from './components/pile-group/pile-group.component';
 import { PlayerComponent } from './components/player/player.component';
+import { OpponentPlayerComponent } from './components/opponent-player/opponent-player.component';
+import { OpponentsComponent } from './components/opponents/opponents.component';
+import { HiddenHandComponent } from './components/hidden-hand/hidden-hand.component';
+import { StockComponent } from './components/stock/stock.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { PlayerComponent } from './components/player/player.component';
     RulebookComponent,
     GameComponent,
     PileGroupComponent,
-    PlayerComponent
+    PlayerComponent,
+    OpponentPlayerComponent,
+    OpponentsComponent,
+    HiddenHandComponent,
+    StockComponent
   ],
   imports: [
     CommonModule,

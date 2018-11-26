@@ -22,9 +22,7 @@
     "game"
     "player";
 
-  grid-template-rows: auto 1fr fr;
-  grid-row: 100%;
-  grid-row-gap: 40px;
+  grid-row-gap: 20px;
 }
 
 .gameplay__opponents {
@@ -33,6 +31,9 @@
 
 .gameplay__game {
   grid-area: game;
+  width: 100%;
+  max-width: 600px;
+  justify-self: center;
 }
 
 .gameplay__player {

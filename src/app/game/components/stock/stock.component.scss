@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.cards {
+  z-index: 1;
+  position: relative;
+  // padding-top: 40px;
+}
+
+.counter {
+  z-index: 1;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+.counter {
+  font-family: 'Lithos Pro';
+  background: rgba(#F5A623, 0.9);
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px;
+  padding-bottom: 2px;
+}
