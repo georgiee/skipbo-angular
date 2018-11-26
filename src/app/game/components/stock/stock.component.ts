@@ -14,7 +14,9 @@ export class StockComponent implements OnInit {
 
   @Input()
   set cards(value) {
-    updateCards(this, value);
+    // remove the optimization. update cards is only modifying the reference. that's often bad but especially with onPush.
+    // updateCards(this, value);
+    this._cards = value;
   }
 
   get  cards() {
