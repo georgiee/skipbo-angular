@@ -6,16 +6,18 @@ import { Game, logger, Player } from 'skipbo-core';
 import { naivePlacementStrategyObservable, PlayerTryResult } from './placement-strategy';
 
 
-createSpy({
+const spy = createSpy({
   defaultPlugins: false
-}).log();
-
+});
 
 export class SkipboAi {
   private _playTurn = new Subject();
 
-  constructor(private _game: Game) {
-    console.log('Skip-Bo AI 🐙 was born 🌟');
+  constructor(private _game: Game, logSpy = true) {
+    if (logSpy) {
+      spy.log();
+    }
+
   }
 
   playTurn() {
