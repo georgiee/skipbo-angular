@@ -24,6 +24,7 @@ $padding: percentage(4px/224px);
   height: 100%;
 }
 
+:host ::ng-deep .cdk-drag-placeholder,
 .stack__card {
   position: absolute;
   bottom: 0;
@@ -34,4 +35,8 @@ $padding: percentage(4px/224px);
   .stack__card:nth-child(#{$index}) {
     transform: translateY(#{$index * -3}px);
   }
+}
+
+:host ::ng-deep .cdk-drag-placeholder {
+  z-index: 1;
 }

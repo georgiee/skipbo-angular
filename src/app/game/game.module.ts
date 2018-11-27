@@ -19,6 +19,8 @@ import { OpponentPlayerComponent } from './components/opponent-player/opponent-p
 import { OpponentsComponent } from './components/opponents/opponents.component';
 import { HiddenHandComponent } from './components/hidden-hand/hidden-hand.component';
 import { StockComponent } from './components/stock/stock.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { HandComponent } from './components/hand/hand.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +37,16 @@ import { StockComponent } from './components/stock/stock.component';
     OpponentPlayerComponent,
     OpponentsComponent,
     HiddenHandComponent,
-    StockComponent
+    StockComponent,
+    HandComponent
   ],
   imports: [
     CommonModule,
     UIModule,
     FormsModule,
     RouterModule,
-    GameRoutingModule
+    GameRoutingModule,
+    DragDropModule
   ],
   providers: [
   ],

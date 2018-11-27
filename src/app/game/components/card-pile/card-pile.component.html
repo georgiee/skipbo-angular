@@ -1,4 +1,4 @@
-<div class='stack'>
+<div class='stack' cdkDropList>
     <div class='slot'>
       <skipbo-card
         *ngFor="let card of _stackCardsCount|times"
@@ -8,6 +8,8 @@
 
       <skipbo-card
         *ngIf="!empty"
+        cdkDrag
+        [cdkDragData]="topCard"
         [value]="topCard"
         [revealed]="autoRevealCard"
         class="stack__card">

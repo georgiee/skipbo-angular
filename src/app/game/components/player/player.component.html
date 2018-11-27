@@ -1,11 +1,10 @@
 <span class="player__name">Hello {{player.name}}!</span>
 
-<div class='hand'>
-  <skipbo-card
-    *ngFor="let cardIndex of handSize|times"
-    [value]="getHandCard(cardIndex - 1)" [revealed]="true">
-  </skipbo-card>
-</div>
+<skipbo-hand
+  #hand
+  class='hand'
+  [cards]="player.hand.cards">
+</skipbo-hand>
 
 <skipbo-pile-group
   class="player__discard"
