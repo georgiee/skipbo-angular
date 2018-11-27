@@ -1,14 +1,20 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges, DoCheck, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
+import { AbstractCardZone } from '../../shared/abstract-card-zone';
+
+
 
 const MAX_CARD_DISPLAY = 8;
 @Component({
   selector: 'skipbo-card-pile',
   templateUrl: './card-pile.component.html',
   styleUrls: ['./card-pile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // tslint:disable-next-line:use-input-property-decorator
+  inputs: ['allowDrop', 'canDragItemsToZones', 'sourceName', 'allowedSources'],
+  // tslint:disable-next-line:use-output-property-decorator
+  outputs: ['cardDropped']
 })
-export class CardPileComponent {
+export class CardPileComponent extends AbstractCardZone {
   private _cards: Card[] = [];
   _stackCardsCount = 0;
 
@@ -32,7 +38,7 @@ export class CardPileComponent {
     return this._cards[this._cards.length - 1];
   }
 
-  constructor(
-    public cdr: ChangeDetectorRef
-  ) { }
+  constructor() {
+    super();
+  }
 }

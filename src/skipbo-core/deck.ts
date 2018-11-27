@@ -13,7 +13,7 @@ export class Deck {
   }
 
   public get cards() {
-    return [...this._cards];
+    return this._cards;
   }
 
   reset() {
@@ -55,11 +55,15 @@ export class Deck {
     while (cards.length < count) {
       cards.push(this.drawSingleCard());
     }
+
     return cards;
   }
 
   drawSingleCard() {
-    return this._cards.pop();
+    const card = this._cards.pop();
+    this._cards = [...this._cards];
+
+    return card;
   }
 
   get count() {

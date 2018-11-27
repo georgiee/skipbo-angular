@@ -3,10 +3,15 @@
 <skipbo-hand
   #hand
   class='hand'
+  [canDragItemsToZones]="mergeZones(buildingZones, discard.getDropzones())"
   [cards]="player.hand.cards">
 </skipbo-hand>
 
 <skipbo-pile-group
+  #discard
+  [allowedSources]="['hand']"
+  [canDragItemsToZones]="buildingZones"
+  (cardDropped)="handleDiscardedCard($event)"
   class="player__discard"
   [group]="player.discardGroup">
 </skipbo-pile-group>
@@ -14,13 +19,6 @@
 
 <skipbo-stock
   class="player__stock"
+  [canDragItemsToZones]="buildingZones"
   [cards]="player.stock.cards">
 </skipbo-stock>
-
-<div class="actions">
-  <button skipbo-button condensed="true" (click)="hand.emit()">play hand</button>
-  <button skipbo-button condensed="true" (click)="playDiscard.emit()">play discard</button>
-  <button skipbo-button condensed="true" (click)="stock.emit()">play stock</button>
-  <button skipbo-button condensed="true" (click)="discard.emit()">discard</button>
-  <button skipbo-button condensed="true" (click)="autoTurn.emit()">auto</button>
-</div>

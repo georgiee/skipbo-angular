@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
+import { BuildingPile, Deck, PileGroup, Player, AbstractPile } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
 import { takeUntil } from 'rxjs/operators';
@@ -79,19 +79,19 @@ export class GameplayComponent implements OnDestroy, OnInit {
     return this._gameService.game.gameOver;
   }
 
-  playStock() {
-    this._playerService.placeStockCard();
-  }
+  handleDroppedBuildingCard(cardDrop) {
+    const player = this._playerService;
 
-  playHand() {
-    this._playerService.placeHandCard();
-  }
+    if (cardDrop.source === 'hand') {
+      player.placeHandCard(cardDrop.cardValue, cardDrop.pile);
+    }
 
-  playDiscard() {
-    this._playerService.placeDiscardCard();
-  }
+    if (cardDrop.source === 'stock') {
+      player.placeStockCard(cardDrop.pile);
+    }
 
-  discardHand() {
-    this._playerService.discardHandCard();
+    if (cardDrop.source === 'discardGroup') {
+      player.placeDiscardCard(cardDrop.cardValue, cardDrop.pile);
+    }
   }
 }

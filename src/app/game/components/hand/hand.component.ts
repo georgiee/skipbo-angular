@@ -1,23 +1,21 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
-import { CdkDropList } from '@angular/cdk/drag-drop';
+import { AbstractCardZone } from '../../shared/abstract-card-zone';
 
 const HAND_SIZE = 5;
 
 @Component({
   selector: 'skipbo-hand',
   templateUrl: './hand.component.html',
-  styleUrls: ['./hand.component.scss']
+  styleUrls: ['./hand.component.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
+  inputs: ['allowDrop', 'canDragItemsToZones', 'sourceName', 'allowedSources'],
+  // tslint:disable-next-line:use-output-property-decorator
+  outputs: ['cardDropped']
 })
-export class HandComponent {
+export class HandComponent extends AbstractCardZone {
   @Input() cards: Card[] = [];
-  @ViewChild('dropzone') _dropzone: CdkDropList;
-  @Input() canDragItemsToZones: CdkDropList[] = [];
   handSize = HAND_SIZE;
-
-  getDropzones() {
-    return [this._dropzone];
-  }
 
   getCard(index) {
     if ( index < this.cards.length) {
@@ -26,6 +24,7 @@ export class HandComponent {
     return Card.Empty;
   }
 
+  // override
   enterPredicate() {
     return false;
   }

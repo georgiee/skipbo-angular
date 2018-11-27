@@ -2,6 +2,10 @@
   <skipbo-card-pile
     autoRevealCard="true"
     *ngFor="let pile of group"
+    [sourceName]="group.name"
+    [allowedSources]="allowedSources"
+    [allowDrop]="allowDrop"
+    (cardDropped)="handleCardDropped($event, pile)"
     [cards]="pile.cards | async">
   </skipbo-card-pile>
 </div>

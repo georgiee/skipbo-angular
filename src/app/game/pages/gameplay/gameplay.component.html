@@ -7,23 +7,24 @@
 
   <div class='gameplay__game game'>
     <skipbo-card-pile
+      [allowDrop]="false"
+      [sourceName]="'deck'"
       class="game__deck"
       [cards]="deck?.cards">
     </skipbo-card-pile>
 
     <skipbo-pile-group
+      [allowDrop]="true"
+      #buildingGroupReference
+      (cardDropped)="handleDroppedBuildingCard($event)"
       class="game__building"
       [group]="buildingGroup">
     </skipbo-pile-group>
   </div>
 
   <skipbo-player
-    (stock)="playStock()"
-    (hand)="playHand()"
-    (playDiscard)="playDiscard()"
-    (discard)="discardHand()"
-    (autoTurn)="playTurn()"
     class="gameplay__player"
+    [buildingZones]="buildingGroupReference.getDropzones()"
     [player]="player">
   </skipbo-player>
 </div>
