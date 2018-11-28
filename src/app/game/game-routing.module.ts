@@ -6,6 +6,7 @@ import { GameplayComponent } from './pages/gameplay/gameplay.component';
 import { StartComponent } from './pages/start/start.component';
 import { RulebookComponent } from './pages/rulebook/rulebook.component';
 import { GameGuard } from './guards/game.guard';
+import { ScratchpadComponent } from './pages/scratchpad/scratchpad.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,9 @@ export const routes: Routes = [
       },
       {
         path: 'rules', component: RulebookComponent
+      },
+      {
+        path: 'scratchpad', component: ScratchpadComponent
       }
     ]
   }
