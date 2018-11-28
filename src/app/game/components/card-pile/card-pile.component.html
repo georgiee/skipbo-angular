@@ -12,13 +12,14 @@ cdkDropListOrientation='horizontal'>
       class="stack__card">
     </skipbo-card>
 
-    <skipbo-card
+    <skipbo-flipcard
       *ngIf="!empty"
       cdkDrag
       [cdkDragData]="topCard"
       [value]="topCard"
       [revealed]="autoRevealCard"
+      [flipAnimation]="revealFlip"
       class="stack__card">
-    </skipbo-card>
+    </skipbo-flipcard>
   </div>
 </div>

@@ -1,9 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostListener, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, HostListener, OnChanges, OnInit, SimpleChanges, Input, HostBinding } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { tag } from 'rxjs-spy/operators';
 import { CardComponent } from '../card/card.component';
-import { delay } from 'rxjs/operators';
+import { delay, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'skipbo-flipcard',
@@ -36,7 +36,7 @@ import { delay } from 'rxjs/operators';
       ),
 
 
-      transition('* => front', [
+      transition('back => front', [
         style({
           transform: 'rotateY(0deg)'
         }),
@@ -47,14 +47,13 @@ import { delay } from 'rxjs/operators';
       ]),
 
 
-
-      transition('front => back', [
+      transition('void => front', [
         style({
-          transform: 'rotateY(180deg)'
+          transform: 'rotateY(0deg)'
         }),
         animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
         style({
-          transform: 'rotateY(0deg)'
+          transform: 'rotateY(180deg)'
         }))
       ])
     ])
@@ -63,6 +62,7 @@ import { delay } from 'rxjs/operators';
 export class FlipCardComponent extends CardComponent implements OnChanges {
   flipAnimationSubject = new BehaviorSubject('back');
   flipAnimation$;
+  @Input() flipAnimation = false;
 
   constructor() {
     super();
@@ -76,6 +76,15 @@ export class FlipCardComponent extends CardComponent implements OnChanges {
     this.flipAnimation$.next('back');
   }
   ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', this.flipAnimation);
+
+    if (changes.value && !changes.value.firstChange && this.flipAnimation) {
+      this.flipAnimation$.next('back');
+      setTimeout(() => {
+        this.flipAnimation$.next(this.revealed ? 'front' : 'back');
+      }, 0);
+    }
+
     if (changes.revealed) {
       this.flipAnimation$.next(this.revealed ? 'front' : 'back');
     }
