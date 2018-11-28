@@ -20,8 +20,8 @@ enum FlipState {
         transform: 'rotateY(0deg)'
       })),
 
-      transition('back => front', [
-        animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
+      transition('back => front, void => front', [
+        animate('500ms 250ms cubic-bezier(0.23, 1, 0.32, 1)',
           style({
             transform: 'rotateY(180deg)'
           })
