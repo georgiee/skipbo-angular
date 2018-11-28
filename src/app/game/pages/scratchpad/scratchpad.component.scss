@@ -1,3 +1,9 @@
 .cards {
-  width: 300px;
+  display: flex;
+  max-width: 500px;
+  flex-flow: row wrap;
+}
+
+skipbo-flipcard {
+  width: 100px;
 }

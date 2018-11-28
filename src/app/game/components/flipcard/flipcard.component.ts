@@ -19,6 +19,7 @@ enum FlipState {
       state('back', style({
         transform: 'rotateY(0deg)'
       })),
+
       transition('back => front', [
         animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
           style({
@@ -30,18 +31,11 @@ enum FlipState {
   ]
 })
 export class FlipCardComponent extends CardComponent {
-  flipState = FlipState.BACK;
-
   constructor() {
     super();
   }
 
-  @HostListener('click')
-  toggleFlip() {
-    if (this.flipState === FlipState.BACK) {
-      this.flipState = FlipState.FRONT;
-    } else {
-      this.flipState = FlipState.BACK;
-    }
+  get flipState() {
+    return this.revealed ? FlipState.FRONT : FlipState.BACK;
   }
 }
