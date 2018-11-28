@@ -1,6 +1,6 @@
+import { state, style, trigger } from '@angular/animations';
 import { Component, HostListener } from '@angular/core';
 import { CardComponent } from '../card/card.component';
-import { trigger, state, style, transition, animation, animate } from '@angular/animations';
 
 // tslint:disable-next-line:interface-over-type-literal
 enum FlipState {
@@ -18,17 +18,7 @@ enum FlipState {
       })),
       state('back', style({
         transform: 'rotateY(0deg)'
-      })),
-
-      transition('back => front', [
-        style({
-          transform: 'rotateY(0deg)'
-        }),
-        animate('500ms cubic-bezier(0.23, 1, 0.32, 1)',
-        style({
-          transform: 'rotateY(180deg)'
-        }))
-      ])
+      }))
     ])
   ]
 })
