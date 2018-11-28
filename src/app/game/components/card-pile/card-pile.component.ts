@@ -10,7 +10,7 @@ const MAX_CARD_DISPLAY = 8;
   templateUrl: './card-pile.component.html',
   styleUrls: ['./card-pile.component.scss'],
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['allowDrop', 'canDragItemsToZones', 'sourceName', 'allowedSources'],
+  inputs: ['dragEnabled', 'allowDrop', 'canDragItemsToZones', 'sourceName', 'allowedSources'],
   // tslint:disable-next-line:use-output-property-decorator
   outputs: ['cardDropped']
 })

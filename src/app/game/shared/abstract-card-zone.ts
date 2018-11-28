@@ -9,7 +9,7 @@ export class AbstractCardZone implements OnChanges, CardZone  {
   sourceName: string;
   allowedSources: string[] = [];
   canDragItemsToZones: CdkDropList[] = [];
-
+  _dragEnabled = true;
   _allowedSourcesCombined: string[] = [];
   _allowDrop = false;
 
@@ -19,6 +19,15 @@ export class AbstractCardZone implements OnChanges, CardZone  {
   constructor() {
     this.enterPredicate = this.enterPredicate.bind(this);
   }
+
+  set dragEnabled(value) {
+    this._dragEnabled = coerceBooleanProperty(value);
+  }
+
+  get dragEnabled() {
+    return this._dragEnabled;
+  }
+
 
   set allowDrop(value) {
     this._allowDrop = coerceBooleanProperty(value);

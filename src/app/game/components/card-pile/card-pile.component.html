@@ -1,5 +1,6 @@
 <div class='stack'
 cdkDropList
+[cdkDropListDisabled]="dragEnabled === false"
 [cdkDropListData]="sourceName"
 [cdkDropListEnterPredicate]="enterPredicate"
 (cdkDropListDropped)="itemDropped($event)"
