@@ -21,6 +21,7 @@ import { HiddenHandComponent } from './components/hidden-hand/hidden-hand.compon
 import { StockComponent } from './components/stock/stock.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HandComponent } from './components/hand/hand.component';
+import { FlipCardComponent } from './components/flipcard/flipcard.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HandComponent } from './components/hand/hand.component';
     OpponentsComponent,
     HiddenHandComponent,
     StockComponent,
-    HandComponent
+    HandComponent,
+    FlipCardComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Host, Optional } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { CardPileComponent } from '../card-pile/card-pile.component';
+import { transition, style, animate, trigger } from '@angular/animations';
 
 @Component({
   selector: 'skipbo-card',

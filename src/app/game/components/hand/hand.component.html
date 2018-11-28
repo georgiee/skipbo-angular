@@ -1,4 +1,5 @@
 <div
+  [@receiveCards]="cards.length"
   #dropzone="cdkDropList"
   class="handcards"
   [cdkDropListData]="'hand'"
@@ -7,13 +8,13 @@
   cdkDropListOrientation="horizontal"
   [cdkDropListConnectedTo]="canDragItemsToZones">
 
-  <skipbo-card
-    *ngFor="let cardIndex of handSize|times"
+  <skipbo-flipcard
+    *ngFor="let cardValue of cards"
     cdkDrag
-    [cdkDragData]="getCard(cardIndex - 1)"
+    [cdkDragData]="cardValue"
     class="handcard"
     [revealed]="true"
-    [value]="getCard(cardIndex - 1)"
+    [value]="cardValue"
     revealed>
-  </skipbo-card>
+  </skipbo-flipcard>
 </div>
