@@ -1,12 +1,13 @@
 <div class="counter">
-  {{cards.length}}
-</div>
+    {{cards.length}}
+  </div>
 
-<div class="cards">
-  <skipbo-card-pile
-    [cards]="cards"
-    sourceName="stock"
-    [canDragItemsToZones]="canDragItemsToZones"
-    [autoRevealCard]="autoRevealCard">
-  </skipbo-card-pile>
-</div>
+  <div class="cards">
+    <skipbo-card-pile
+      [cards]="cards"
+      sourceName="stock"
+      [animateTopCardFlip]="true"
+      [canDragItemsToZones]="canDragItemsToZones"
+      [autoRevealCard]="autoRevealCard">
+    </skipbo-card-pile>
+  </div>

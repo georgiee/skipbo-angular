@@ -19,6 +19,7 @@ export class CardPileComponent extends AbstractCardZone {
   _stackCardsCount = 0;
 
   @Input() autoRevealCard = false;
+  @Input() animateTopCardFlip = false;
 
   @Input()
   set cards (value: Card[]) {

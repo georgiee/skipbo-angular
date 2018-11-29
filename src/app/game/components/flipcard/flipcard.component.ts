@@ -1,7 +1,7 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { state, style, trigger, transition, animate } from '@angular/animations';
+import { Component, HostListener, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { CardComponent } from '../card/card.component';
+import { BehaviorSubject } from 'rxjs';
 
 // tslint:disable-next-line:interface-over-type-literal
 enum FlipState {
@@ -34,14 +34,18 @@ enum FlipState {
 export class FlipCardComponent extends CardComponent implements OnChanges {
   flipAnimationSubject = new BehaviorSubject('back');
   flipAnimation$ = this.flipAnimationSubject.asObservable();
+  @Input() animateFlip = true;
 
   get flipState() {
     return this.revealed ? FlipState.FRONT : FlipState.BACK;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.value) {
-      this.flipAnimationSubject.next(this.flipState);
+    if (changes.value && !changes.value.firstChange && this.animateFlip) {
+      this.flipAnimationSubject.next('back');
+      setTimeout(() => {
+        this.flipAnimationSubject.next(this.flipState);
+      }, 0);
     }
 
     if (changes.revealed) {

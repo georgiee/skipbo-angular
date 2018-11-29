@@ -17,6 +17,7 @@ cdkDropListOrientation='horizontal'>
       *ngIf="!empty"
       cdkDrag
       [cdkDragData]="topCard"
+      [animateFlip]="animateTopCardFlip"
       [value]="topCard"
       [revealed]="autoRevealCard"
       class="stack__card">
