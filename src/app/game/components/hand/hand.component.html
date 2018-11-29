@@ -8,12 +8,12 @@
   [cdkDropListConnectedTo]="canDragItemsToZones">
 
   <skipbo-card
-    *ngFor="let cardIndex of handSize|times"
+    *ngFor="let card of cards"
     cdkDrag
-    [cdkDragData]="getCard(cardIndex - 1)"
+    [cdkDragData]="card"
     class="handcard"
     [revealed]="true"
-    [value]="getCard(cardIndex - 1)"
+    [value]="card"
     revealed>
   </skipbo-card>
 </div>
