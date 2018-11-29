@@ -17,13 +17,6 @@ export class HandComponent extends AbstractCardZone {
   @Input() cards: Card[] = [];
   handSize = HAND_SIZE;
 
-  getCard(index) {
-    if ( index < this.cards.length) {
-      return this.cards[index];
-    }
-    return Card.Empty;
-  }
-
   // override
   enterPredicate() {
     return false;
