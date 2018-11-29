@@ -1,5 +1,7 @@
 <div class="card" >
-  <div class="card__inner" [@flipAnimation]="flipState">
+  <div
+    class="card__inner"
+    [@flipAnimation]="flipAnimation$ | async">
     <div class="card__back">
       <skipbo-card-face face='back'></skipbo-card-face>
     </div>
