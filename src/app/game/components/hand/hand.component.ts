@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'skipbo-core';
 import { AbstractCardZone } from '../../shared/abstract-card-zone';
+import { trigger, transition, stagger, animateChild, query } from '@angular/animations';
 
 const HAND_SIZE = 5;
 
@@ -11,7 +12,16 @@ const HAND_SIZE = 5;
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['allowDrop', 'canDragItemsToZones', 'sourceName', 'allowedSources'],
   // tslint:disable-next-line:use-output-property-decorator
-  outputs: ['cardDropped']
+  outputs: ['cardDropped'],
+  animations: [
+    trigger('staggerCardAnimation', [
+      transition(':enter, :increment', [
+       query('@flipAnimation', [
+        stagger(100, animateChild())
+       ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class HandComponent extends AbstractCardZone {
   @Input() cards: Card[] = [];

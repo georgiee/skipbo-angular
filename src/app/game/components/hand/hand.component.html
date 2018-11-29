@@ -1,4 +1,5 @@
 <div
+  [@staggerCardAnimation]="cards.length"
   #dropzone="cdkDropList"
   class="handcards"
   [cdkDropListData]="'hand'"
@@ -7,7 +8,7 @@
   cdkDropListOrientation="horizontal"
   [cdkDropListConnectedTo]="canDragItemsToZones">
 
-  <skipbo-card
+  <skipbo-flipcard
     *ngFor="let card of cards"
     cdkDrag
     [cdkDragData]="card"
@@ -15,5 +16,5 @@
     [revealed]="true"
     [value]="card"
     revealed>
-  </skipbo-card>
+  </skipbo-flipcard>
 </div>
