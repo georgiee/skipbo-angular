@@ -1,16 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BuildingPile, Deck, PileGroup, Player, AbstractPile } from 'skipbo-core';
+import { merge, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BuildingPile, Deck, PileGroup, Player } from 'skipbo-core';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from '../../services/player.service';
-import { takeUntil } from 'rxjs/operators';
-import { delay } from 'q';
-import { Subject, merge } from 'rxjs';
+import { pageBuildAnimation } from './animations';
 
 @Component({
   selector: 'skipbo-gameplay',
   templateUrl: './gameplay.component.html',
-  styleUrls: ['./gameplay.component.scss']
+  styleUrls: ['./gameplay.component.scss'],
+  animations: [
+    pageBuildAnimation
+  ]
 })
 export class GameplayComponent implements OnDestroy, OnInit {
   public buildingGroup: PileGroup<BuildingPile>;
