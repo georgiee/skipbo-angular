@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
+import { trigger, stagger, transition, animateChild, query } from '@angular/animations';
 
 const deckOriginal = [1, 4, 5, 9, 12, -1, 3, 6, 9, -1, 2, 6, 7, -1, 4];
 let deck = [...deckOriginal];
@@ -6,7 +7,16 @@ let deck = [...deckOriginal];
 @Component({
   selector: 'skipbo-scratchpad',
   templateUrl: './scratchpad.component.html',
-  styleUrls: ['./scratchpad.component.scss']
+  styleUrls: ['./scratchpad.component.scss'],
+  animations: [
+    trigger('staggerCardAnimation', [
+      transition(':increment', [
+       query('@flipAnimation', [
+        stagger(100, animateChild())
+       ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class ScratchpadComponent implements OnInit {
   cards = [1];
@@ -23,7 +33,7 @@ export class ScratchpadComponent implements OnInit {
       this.cards = [];
     }
 
-    const newCard = deck.pop();
+    const newCard = deck.shift();
     this.cards.push(newCard);
   }
 

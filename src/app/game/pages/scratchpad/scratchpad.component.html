@@ -1,4 +1,4 @@
-<div class="cards">
+<div class="cards" [@staggerCardAnimation]="cards.length">
   <skipbo-flipcard
     *ngFor="let card of cards"
     [revealed]="true"

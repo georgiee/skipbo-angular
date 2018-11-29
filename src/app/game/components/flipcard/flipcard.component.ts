@@ -34,7 +34,6 @@ export class FlipCardComponent extends CardComponent {
   constructor() {
     super();
   }
-
   get flipState() {
     return this.revealed ? FlipState.FRONT : FlipState.BACK;
   }
