@@ -50,5 +50,4 @@ describe('GameService (Workshop)', () => {
     expect(typeof service.reset).toBe('function');
   });
 
-
 });
