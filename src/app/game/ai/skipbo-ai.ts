@@ -41,8 +41,8 @@ export class SkipboAi {
             tag('CPU Player takes turn - implement play here 🔽'),
             switchMap(player =>
                 interval(50).pipe(
-                  tag('📖 intervalcounter'),
                   switchMap(__ => naivePlacementStrategyObservable(player)),
+                  tag('⏰ Interval'),
                   takeWhile( (result: PlayerTryResult) => result.cardPlayed),
                   mapTo(player),
                   defaultIfEmpty(player),
