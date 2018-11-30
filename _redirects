@@ -1,0 +1,2 @@
+# client/_redirects for netlify to enable pushstate support
+/* /index.html 200
