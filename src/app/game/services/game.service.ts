@@ -38,8 +38,10 @@ export class GameService {
       return;
     }
 
-    const card = this._deck.pop();
-    this._building.push(card);
+    // const card = this._deck.pop();
+    // this._building.push(card);
+    this._building = [ ...this.building, this.deck.pop() ];
+    this._deck = [...this.deck];
   }
 
   backToDeck() {
@@ -47,8 +49,10 @@ export class GameService {
       return;
     }
 
-    const card = this._building.pop();
-    this._deck.push(card);
+    // const card = this._building.pop();
+    // this._deck.push(card);
+    this._deck = [ ...this.deck, this.building.pop() ];
+    this._building = [ ...this.building ];
   }
 
 }
