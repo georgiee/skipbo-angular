@@ -11,7 +11,7 @@ abstract class StocktestAbstract {
   @ViewChild(StockComponent) instance: StockComponent;
 }
 
-describe('StockComponent', () => {
+xdescribe('StockComponent', () => {
   let fixture: ComponentFixture<StocktestAbstract>;
   let testInstance: StocktestAbstract;
   let stockInstance: StockComponent;
