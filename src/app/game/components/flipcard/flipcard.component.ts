@@ -30,6 +30,6 @@ export class FlipCardComponent extends CardComponent {
       this.flipState = FlipState.BACK;
     }
 
-    console.log('toggleFlip:', this.toggleFlip);
+    console.log('toggleFlip:', this.flipState);
   }
 }
