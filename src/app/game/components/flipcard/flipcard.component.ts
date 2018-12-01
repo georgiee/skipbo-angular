@@ -42,14 +42,12 @@ export class FlipCardComponent extends CardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value && !changes.value.firstChange && this.animateFlip) {
-      this.flipAnimationSubject.next('back');
-      setTimeout(() => {
-        this.flipAnimationSubject.next(this.flipState);
-      }, 0);
-    }
+      // how to switch to back before going to front again
+       this.flipAnimationSubject.next(this.flipState);
+     }
 
-    if (changes.revealed) {
-      this.flipAnimationSubject.next(this.flipState);
-    }
+     if (changes.revealed) {
+       this.flipAnimationSubject.next(this.flipState);
+     }
   }
 }
