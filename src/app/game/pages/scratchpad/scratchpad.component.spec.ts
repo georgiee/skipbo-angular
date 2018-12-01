@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScratchpadComponent } from './scratchpad.component';
 
-describe('ScratchpadComponent', () => {
+xdescribe('ScratchpadComponent', () => {
   let component: ScratchpadComponent;
   let fixture: ComponentFixture<ScratchpadComponent>;
 
