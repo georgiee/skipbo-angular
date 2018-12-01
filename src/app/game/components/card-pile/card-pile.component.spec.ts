@@ -11,7 +11,7 @@ abstract class CardPileAbstract {
   @ViewChild(CardPileComponent) instance: CardPileComponent;
 }
 
-describe('CardPileComponent', () => {
+xdescribe('CardPileComponent', () => {
   let fixture: ComponentFixture<CardPileAbstract>;
   let testInstance: CardPileAbstract;
   let pileInstance: CardPileComponent;
