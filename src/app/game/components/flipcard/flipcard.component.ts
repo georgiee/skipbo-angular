@@ -1,4 +1,4 @@
-import { trigger } from '@angular/animations';
+import { state, style, trigger, transition, animate } from '@angular/animations';
 import { Component, HostListener } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 
@@ -13,7 +13,12 @@ enum FlipState {
   styleUrls: ['./flipcard.component.scss'],
   animations: [
     trigger('flipAnimation', [
-
+      state('front', style({
+        transform: 'rotateY(180deg)'
+      })),
+      state('back', style({
+        transform: 'rotateY(0deg)'
+      }))
     ])
   ]
 })
