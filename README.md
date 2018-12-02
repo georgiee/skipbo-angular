@@ -23,7 +23,3 @@ The automata will play the game for all involved players but you can also manual
 4. Automata that will play for the Non-Human Players or for everyone if you want.
 ![](docs/preview.gif)
 
-## What's missing
-
-+ Angular Animations (I struggled with triggering animations of nested elements — despite knowing about query & animateChild)
-+ Reactive Programming. That was the initial idea, create a core that implement all rules and provide a set of streams for all outputs. The problem here: This needs planning and doesn't fit to the experimental workflow I used for the project. Maybe I can creat something with the knowledge I gained in this project.
