@@ -19,7 +19,7 @@ export class GameGuard implements CanActivate, CanDeactivate<GameplayComponent> 
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       if (this._gameService.started === false) {
-        this._router.navigateByUrl('/welcome');
+        this._router.navigateByUrl('/game/start');
         return false;
       }
 

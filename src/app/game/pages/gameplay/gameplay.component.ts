@@ -54,12 +54,6 @@ export class GameplayComponent implements OnDestroy, OnInit {
   }
 
   initPlayers() {
-    if (this._playerService.playerCount === 0) {
-      this._playerService.addHumanPlayer();
-      this._playerService.addPlayerCPU('Player 1');
-      this._playerService.addPlayerCPU('Player 2');
-    }
-
     this.opponentPlayers = this._playerService.getPlayers({cpu: true});
     const humanPlayer = this._playerService.getPlayers({cpu: false});
     this.player = humanPlayer[0];
