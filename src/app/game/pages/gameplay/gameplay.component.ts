@@ -36,6 +36,7 @@ export class GameplayComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // 2. good place to signal destroy to any active subscription.
     this._gameService.stop();
+    this._destroyed$.next();
   }
 
   playTurn() {
