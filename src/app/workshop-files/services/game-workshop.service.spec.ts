@@ -2,7 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import { GameService } from 'src/app/game/services/game.service';
 import { GameModule } from 'src/app/game/game.module';
 
-let service: GameService;
+interface GameServiceStub {
+  deck: [];
+  building: [];
+  game: any;
+  start: Function;
+  reset: Function;
+  end: Function;
+}
+
+let service: GameServiceStub;
+
+
 
 const getDescriptor = (obj, name) => {
   return Object.getOwnPropertyDescriptor(obj.__proto__, name);

@@ -1,7 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { PlayerService } from 'src/app/game/services/player.service';
 
-let service: PlayerService;
+interface PlayerServiceStub {
+  discardHandCard: Function;
+  placeHandCard: Function;
+  placeStockCard: Function;
+  placeDiscardCard: Function;
+  addPlayerCPU: Function;
+  getPlayers: Function;
+  addHumanPlayer: Function;
+}
+
+let service: PlayerServiceStub;
 
 describe('PlayerService (Workshop)', () => {
   beforeEach(() => {
