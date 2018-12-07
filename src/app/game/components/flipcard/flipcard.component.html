@@ -2,6 +2,8 @@
   <div
     class="card__inner"
     [@.disabled]="!animateFlip"
+    (@flipAnimation.start)="startFlip($event)"
+    (@flipAnimation.done)="doneFlip($event)"
     [@flipAnimation]="flipAnimation$ | async">
     <div class="card__back">
       <skipbo-card-face face='back'></skipbo-card-face>

@@ -24,7 +24,7 @@ export class GameService {
   ) {
     this._game = gameDeckDebug || new Game();
     this._ai = new SkipboAi(this.game);
-    this._ai.watch();
+    // this._ai.watch();
   }
 
   get ready() {

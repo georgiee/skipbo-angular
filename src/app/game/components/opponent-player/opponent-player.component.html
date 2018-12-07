@@ -1,18 +1,1 @@
 <span class="name">{{player.name}}</span>
-
-<div class="cards">
-  <skipbo-stock
-    class="player__stock"
-    [autoRevealCard]="false"
-    [cards]="player.stock.cards">
-  </skipbo-stock>
-
-  <skipbo-pile-group
-    class="discard"
-    [group]="player.discardGroup"></skipbo-pile-group>
-</div>
-
-<skipbo-hidden-hand
-  class="hand"
-  [count]="player.hand.count">
-</skipbo-hidden-hand>

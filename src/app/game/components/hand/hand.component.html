@@ -1,5 +1,7 @@
 <div
   [@staggerCardAnimation]="cards.length"
+  (@staggerCardAnimation.start)="staggerStart($event)"
+  (@staggerCardAnimation.done)="staggerDone($event)"
   #dropzone="cdkDropList"
   class="handcards"
   [cdkDropListData]="'hand'"

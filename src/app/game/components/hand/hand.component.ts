@@ -15,10 +15,10 @@ const HAND_SIZE = 5;
   outputs: ['cardDropped'],
   animations: [
     trigger('staggerCardAnimation', [
-      transition(':enter, :increment', [
-       query('@flipAnimation', [
-        stagger(100, animateChild())
-       ], { optional: true })
+      transition('* => *', [
+      //  query('@flipAnimation', [
+      //   stagger(100, animateChild())
+      //  ], { optional: true })
       ])
     ])
   ]
@@ -32,4 +32,11 @@ export class HandComponent extends AbstractCardZone {
     return false;
   }
 
+  staggerStart(event) {
+    console.log('staggerStart', event);
+  }
+
+  staggerDone(event) {
+    // console.log('staggerDone', event);
+  }
 }

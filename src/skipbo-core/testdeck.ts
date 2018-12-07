@@ -73,7 +73,7 @@ export function generateGameThreePlayers() {
   const stockPlayer3 = [7, 9, 12, 2, 4];
 
   // const deck = Array.from(Array(deckSize)).map(() => -1);
-  const deck = [2, 7, 4, 12, 11, 2, 5, 8, 9, 10, 11, -1, ...generateCards(-1, 100)].reverse();
+  const deck = [3,  -1, 2, 7,-1, ...generateCards(-1, 10)].reverse();
 
   const stockCards = interleaveArrays(
     stockPlayerHuman.reverse(),
