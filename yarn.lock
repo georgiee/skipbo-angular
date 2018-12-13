@@ -6070,10 +6070,10 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs-spy@7.4.0:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/rxjs-spy/-/rxjs-spy-7.4.0.tgz#a7a3c47b69be58943f00f4282fbb7e1ed9195933"
-  integrity sha512-cL4LUzziZamHZ2RgUMcuawTykyB5weIBNeX28BfRNwg7lqqE87uKhVDsAoH1PtQjxvcTCYiYfUqkqEc6fqxrTw==
+rxjs-spy@7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/rxjs-spy/-/rxjs-spy-7.5.0.tgz#cd327a75dd168f3eda26bbb5b0378f33013314f6"
+  integrity sha512-2HJuvK8VxjXi1SxNgx6IeexKyg6901e+FbMlzFKh1GQZNdTTCJSGj4RwOi9FIBHeNeUkO0BYR9WtIarYtI18bg==
   dependencies:
     "@types/circular-json" "^0.4.0"
     "@types/stacktrace-js" "^0.0.32"
